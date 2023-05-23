@@ -56,7 +56,7 @@ function BurgerConstructorInner({ data }) {
     return (
         <div className={styles.constructor_inner}>
             {constructorData.map((item, index) => (
-                <ConstructorTypeList type={item.position} list={item.list} key={index} />
+                <ConstructorTypeList type={item.type} list={item.list} key={index} />
             ))}
         </div>
     )
