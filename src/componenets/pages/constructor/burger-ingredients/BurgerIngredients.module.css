@@ -1,0 +1,41 @@
+.ingredients {
+    position: relative;
+}
+
+.ingredientList {
+    position: absolute;
+    top: 100px;
+    bottom: 165px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+    overflow-y: auto;
+}
+
+.ingredient_item {
+    margin-right: 8px;
+    flex-grow: unset;
+}
+
+.order_block {
+    position: absolute;
+    bottom: 50px;
+    right: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+}
+
+.total_price {
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+}
+
+.total_price svg {
+    width: 33px;
+    height: 33px;
+}
