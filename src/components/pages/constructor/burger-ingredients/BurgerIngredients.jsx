@@ -47,15 +47,14 @@ function BurgerBun(props) {
 
     const positionText = {
         top: 'верх',
-        top: 'низ',
+        bottom: 'низ',
     }
 
     return props.name ? (
         <ConstructorElement
-            extraClass={styles.ingredient_item}
             type={props.position}
             isLocked={true}
-            text={`${'Краторная булка N-200i'} ${positionText[props.position]}`}
+            text={`${'Краторная булка N-200i'} (${positionText[props.position]})`}
             price={200}
             thumbnail={'https://code.s3.yandex.net/react/code/meat-04.png'}
         />
