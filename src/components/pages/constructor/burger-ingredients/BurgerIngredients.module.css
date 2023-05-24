@@ -2,21 +2,41 @@
     position: relative;
 }
 
-.ingredientList {
+.ingredients_block {
     position: absolute;
     top: 100px;
-    bottom: 165px;
     display: flex;
     width: 100%;
+    height: 560px;
     flex-direction: column;
     align-items: flex-end;
     gap: 16px;
-    overflow-y: auto;
 }
 
 .ingredient_item {
     margin-right: 8px;
     flex-grow: unset;
+}
+
+.ingredient_list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style-type: none;
+    margin: 0 -20px 0 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.bun_top,
+.bun_bottom {
+    flex-grow: unset;
+}
+
+.constructor_element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .order_block {

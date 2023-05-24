@@ -13,8 +13,6 @@ function Constructor() {
             type: 'bun',
             price: 1255,
             image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-            position: 'top',
-            isLocked: true,
         },
         {
             _id: '60666c42cc7b410027a1a9b9',
@@ -43,16 +41,7 @@ function Constructor() {
             type: 'main',
             price: 300,
             image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
-        },
-        {
-            _id: '60666c42cc7b410027a1a9b1',
-            name: 'Краторная булка N-200i',
-            type: 'bun',
-            price: 1255,
-            image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-            position: 'bottom',
-            isLocked: true,
-        },
+        }
     ])
 
     const [totalPrice, setTotalPrice] = useState(0)

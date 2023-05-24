@@ -54,7 +54,7 @@ function BurgerConstructorInner({ data }) {
     const constructorData = changeStructure(data)
 
     return (
-        <div className={styles.constructor_inner}>
+        <div className={`${styles.constructor_inner} custom-scroll`}>
             {constructorData.map((item, index) => (
                 <ConstructorTypeList type={item.type} list={item.list} key={index} />
             ))}
@@ -70,7 +70,7 @@ function ConstructorTypeList({ type, list }) {
     }
 
     return (
-        <div className={styles.constructor_type_list} title={type}>
+        <div className={styles.constructor_type_list} data-title={type}>
             <div className='headline text text_type_main-medium'>{headline[type]}</div>
             <ul className={`${styles.constructor_elements} pl-4 pr-4 pt-6 pb-10`}>
                 {list.map(item => (
@@ -96,7 +96,7 @@ function BurgerElement({ data }) {
     )
 }
 
-function changeStructure(arr, objProperty = 'type') {
+function changeStructure(arr) {
     const newArr = [
         {
             type: 'bun',

@@ -3,26 +3,10 @@
     height: 100vh;
     grid-template-rows: min-content 0.97fr;
     gap: 40px;
+    user-select: none;
 }
 
 body,
 main {
     overflow: hidden;
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--background-element);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--text-inactive-color);
-}
-
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--text-inactive-color) var(--background-element);
 }
