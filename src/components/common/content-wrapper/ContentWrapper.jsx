@@ -1,7 +1,7 @@
 import styles from './ContentWrapper.module.css'
 
 function ContentWrapper(props) {
-    return <div className={`${styles.content_wrapper} ${props.extraClass ? props.extraClass : ''}`}>{props.children}</div>
+    return <section className={`${styles.content_wrapper} ${props.extraClass ? props.extraClass : ''}`}>{props.children}</section>
 }
 
 export default ContentWrapper

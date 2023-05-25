@@ -5,7 +5,7 @@ import BurgerIngredients from './burger-ingredients/BurgerIngredients'
 
 import data from '../../../utils/data.json'
 
-function Constructor() {
+function Constructor({ modalHandler }) {
     const [burgerListData, setBurgerListData] = useState([
         {
             _id: '60666c42cc7b410027a1a9b1',
@@ -46,21 +46,17 @@ function Constructor() {
 
     const [totalPrice, setTotalPrice] = useState(0)
 
-    function getTotalPrice() {
+    useEffect(() => {
         setTotalPrice(
             burgerListData.reduce((prevProd, prod) => {
                 return prevProd + prod.price
             }, 0)
         )
-    }
-
-    useEffect(() => {
-        getTotalPrice()
     }, [burgerListData])
 
     return (
         <div style={styles}>
-            <BurgerConstructor data={data} />
+            <BurgerConstructor data={data} modalHandler={modalHandler} />
             <BurgerIngredients
                 burgerListData={burgerListData}
                 setBurgerListData={setBurgerListData}
