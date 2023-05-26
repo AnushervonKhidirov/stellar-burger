@@ -8,13 +8,6 @@ import data from '../../../utils/data.json'
 function Constructor({ modalHandler }) {
     const [burgerListData, setBurgerListData] = useState([
         {
-            _id: '60666c42cc7b410027a1a9b1',
-            name: 'Краторная булка N-200i',
-            type: 'bun',
-            price: 1255,
-            image: 'https://code.s3.yandex.net/react/code/bun-02.png',
-        },
-        {
             _id: '60666c42cc7b410027a1a9b9',
             name: 'Соус традиционный галактический',
             type: 'sauce',
@@ -34,6 +27,20 @@ function Constructor({ modalHandler }) {
             type: 'main',
             price: 874,
             image: 'https://code.s3.yandex.net/react/code/sp_1.png',
+        },
+        {
+            _id: '60666c42cc7b410027a1a9bb',
+            name: 'Хрустящие минеральные кольца',
+            type: 'main',
+            price: 300,
+            image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
+        },
+        {
+            _id: '60666c42cc7b410027a1a9bb',
+            name: 'Хрустящие минеральные кольца',
+            type: 'main',
+            price: 300,
+            image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
         },
         {
             _id: '60666c42cc7b410027a1a9bb',
@@ -61,6 +68,7 @@ function Constructor({ modalHandler }) {
                 burgerListData={burgerListData}
                 setBurgerListData={setBurgerListData}
                 totalPrice={totalPrice}
+                modalHandler={modalHandler}
             />
         </div>
     )

@@ -1,19 +1,24 @@
+import ModalIngredient from '../../../../common/modal/modal-ingredient/ModalIngredient'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../BurgerConstructor.module.css'
 
 function BurgerConstructorInner({ data, modalHandler }) {
     const constructorData = separateByTypes(data)
 
+    function showIngredientProperty(data) {
+        modalHandler(<ModalIngredient ingredient={data} />)
+    }
+
     return (
         <div className={`${styles.constructor_inner} custom-scroll`}>
             {constructorData.map((item, index) => (
-                <ConstructorTypeList type={item.type} list={item.list} key={index} modalHandler={modalHandler} />
+                <ConstructorTypeList type={item.type} list={item.list} key={index} showIngredientProperty={showIngredientProperty} />
             ))}
         </div>
     )
 }
 
-function ConstructorTypeList({ type, list, modalHandler }) {
+function ConstructorTypeList({ type, list, showIngredientProperty }) {
     const headline = {
         bun: 'Булки',
         sauce: 'Соусы',
@@ -25,18 +30,18 @@ function ConstructorTypeList({ type, list, modalHandler }) {
             <h2 className='headline text text_type_main-medium'>{headline[type]}</h2>
             <ul className={`${styles.constructor_elements} pl-4 pr-4 pt-6 pb-10`}>
                 {list.map(item => (
-                    <BurgerElement data={item} modalHandler={modalHandler} key={item._id} />
+                    <BurgerElement data={item} showIngredientProperty={showIngredientProperty} key={item._id} />
                 ))}
             </ul>
         </div>
     )
 }
 
-function BurgerElement({ data, modalHandler }) {
+function BurgerElement({ data, showIngredientProperty }) {
     const { image, price, name } = data
 
     return (
-        <li className={styles.list_item} onClick={() => modalHandler(data)}>
+        <li className={styles.list_item} onClick={() => showIngredientProperty(data)}>
             <img className={styles.image} src={image} alt={name} />
             <div className={`${styles.price} text text_type_digits-default`}>
                 <span>{price}</span>

@@ -2,7 +2,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './Modal.module.css'
 
 function Modal(props) {
-    return (
+    return props.isActive && (
         <div className={styles.modal}>
             <ModalOverlay modalHandler={props.modalHandler} />
             <ModalContainer children={props.children} modalHandler={props.modalHandler} />
