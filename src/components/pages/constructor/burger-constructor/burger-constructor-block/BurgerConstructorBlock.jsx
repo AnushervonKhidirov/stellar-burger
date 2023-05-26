@@ -1,12 +1,12 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from '../BurgerIngredients.module.css'
+import styles from '../BurgerConstructor.module.css'
 
 
-function BurgerIngredientsBlock({ list, setList }) {
+function BurgerConstructorBlock({ list, setList }) {
     return (
         <div className={styles.ingredients_block}>
             <BurgerBun position='top' />
-            <BurgerIngredientList list={list} />
+            <BurgerConstructor list={list} />
             <BurgerBun position='bottom' />
         </div>
     )
@@ -35,14 +35,14 @@ function BurgerBun(props) {
     )
 }
 
-function BurgerIngredientList(props) {
+function BurgerConstructor(props) {
     return props.list ? (
         <ul className={`${styles.ingredient_list} custom-scroll`}>
             {props.list?.map((ingredient, index) => {
                 return (
                     <li className={styles.ingredient_item} key={`${ingredient._id}-${index}`}>
                         <DragIcon type='primary' />
-                        <BurgerIngredientItem ingredient={ingredient} />
+                        <BurgerConstructorItem ingredient={ingredient} />
                     </li>
                 )
             })}
@@ -54,8 +54,8 @@ function BurgerIngredientList(props) {
     )
 }
 
-function BurgerIngredientItem({ ingredient }) {
+function BurgerConstructorItem({ ingredient }) {
     return <ConstructorElement text={ingredient.name} price={ingredient.price} thumbnail={ingredient.image} />
 }
 
-export default BurgerIngredientsBlock
+export default BurgerConstructorBlock

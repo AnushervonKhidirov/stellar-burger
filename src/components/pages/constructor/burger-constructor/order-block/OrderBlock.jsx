@@ -1,12 +1,12 @@
-import ModalOrder from '../../../../common/modal/modal-order/ModalOrder'
+import OrderDetails from '../../../../common/modal/order-details/OrderDetails'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from '../BurgerIngredients.module.css'
+import styles from '../BurgerConstructor.module.css'
 
 function OrderBlock({ totalPrice, modalHandler }) {
     return (
         <div className={styles.order_block}>
             <TotalPrice totalPrice={totalPrice} />
-            <Button htmlType='button' type='primary' size='large' onClick={() => modalHandler(<ModalOrder />)}>
+            <Button htmlType='button' type='primary' size='large' onClick={() => modalHandler(<OrderDetails />)}>
                 Нажми на меня
             </Button>
         </div>

@@ -1,6 +1,6 @@
-import styles from './ModalIngredient.module.css'
+import styles from './IngredientDetails.module.css'
 
-function ModalIngredient({ ingredient }) {
+function IngredientDetails({ ingredient }) {
     return (
         <>
             <h1 className={`${styles.ingredient_headline} text text_type_main-large`}>Детали ингредиента</h1>
@@ -34,4 +34,4 @@ function IngredientPropertyItem({ name, value }) {
     )
 }
 
-export default ModalIngredient
+export default IngredientDetails

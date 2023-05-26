@@ -1,12 +1,22 @@
-import OrderBlock from './order-block/OrderBlock'
-import BurgerIngredientsBlock from './burger-ingredients-block/BurgerIngredientsBlock'
+import BurgerNavigation from './burget-navigation/BurgerNavigation'
+import BurgerIngredientsInner from './burger-ingredients-inner/BurgerIngredientsInner'
+
 import styles from './BurgerIngredients.module.css'
 
-function BurgerIngredients({ burgerListData, setBurgerListData, totalPrice, modalHandler }) {
+function BurgerIngredients({ data, modalHandler }) {
     return (
-        <div className={styles.ingredients}>
-            <BurgerIngredientsBlock list={burgerListData} setList={setBurgerListData} />
-            <OrderBlock totalPrice={totalPrice} modalHandler={modalHandler} />
+        <div className={styles.burger_ingredients}>
+            <HeaderConstructor />
+            <BurgerIngredientsInner data={data} modalHandler={modalHandler} />
+        </div>
+    )
+}
+
+function HeaderConstructor() {
+    return (
+        <div>
+            <h1 className='text text_type_main-large'>Соберите бургер</h1>
+            <BurgerNavigation />
         </div>
     )
 }

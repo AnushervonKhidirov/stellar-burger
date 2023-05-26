@@ -3,55 +3,21 @@ import { useEffect, useState } from 'react'
 import BurgerConstructor from './burger-constructor/BurgerConstructor'
 import BurgerIngredients from './burger-ingredients/BurgerIngredients'
 
-import data from '../../../utils/data.json'
+const url = 'https://norma.nomoreparties.space/api/ingredients'
 
 function Constructor({ modalHandler }) {
-    const [burgerListData, setBurgerListData] = useState([
-        {
-            _id: '60666c42cc7b410027a1a9b9',
-            name: 'Соус традиционный галактический',
-            type: 'sauce',
-            price: 15,
-            image: 'https://code.s3.yandex.net/react/code/sauce-03.png',
-        },
-        {
-            _id: '60666c42cc7b410027a1a9b4',
-            name: 'Мясо бессмертных моллюсков Protostomia',
-            type: 'main',
-            price: 1337,
-            image: 'https://code.s3.yandex.net/react/code/meat-02.png',
-        },
-        {
-            _id: '60666c42cc7b410027a1a9bc',
-            name: 'Плоды Фалленианского дерева',
-            type: 'main',
-            price: 874,
-            image: 'https://code.s3.yandex.net/react/code/sp_1.png',
-        },
-        {
-            _id: '60666c42cc7b410027a1a9bb',
-            name: 'Хрустящие минеральные кольца',
-            type: 'main',
-            price: 300,
-            image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
-        },
-        {
-            _id: '60666c42cc7b410027a1a9bb',
-            name: 'Хрустящие минеральные кольца',
-            type: 'main',
-            price: 300,
-            image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
-        },
-        {
-            _id: '60666c42cc7b410027a1a9bb',
-            name: 'Хрустящие минеральные кольца',
-            type: 'main',
-            price: 300,
-            image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
-        }
-    ])
-
+    const [burgerListData, setBurgerListData] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
+
+    useEffect(() => {
+        fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            if (result.success) setBurgerListData(result.data)
+            else throw new Error()
+        })
+        .catch(err => alert(err))
+    }, [])
 
     useEffect(() => {
         setTotalPrice(
@@ -63,8 +29,8 @@ function Constructor({ modalHandler }) {
 
     return (
         <div style={styles}>
-            <BurgerConstructor data={data} modalHandler={modalHandler} />
-            <BurgerIngredients
+            <BurgerIngredients data={burgerListData} modalHandler={modalHandler} />
+            <BurgerConstructor
                 burgerListData={burgerListData}
                 setBurgerListData={setBurgerListData}
                 totalPrice={totalPrice}

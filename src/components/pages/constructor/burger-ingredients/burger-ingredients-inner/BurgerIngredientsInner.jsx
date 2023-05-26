@@ -1,24 +1,29 @@
-import ModalIngredient from '../../../../common/modal/modal-ingredient/ModalIngredient'
+import IngredientDetails from '../../../../common/modal/ingredient-details/IngredientDetails'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from '../BurgerConstructor.module.css'
+import styles from '../BurgerIngredients.module.css'
 
-function BurgerConstructorInner({ data, modalHandler }) {
+function BurgerIngredientsInner({ data, modalHandler }) {
     const constructorData = separateByTypes(data)
 
     function showIngredientProperty(data) {
-        modalHandler(<ModalIngredient ingredient={data} />)
+        modalHandler(<IngredientDetails ingredient={data} />)
     }
 
     return (
-        <div className={`${styles.constructor_inner} custom-scroll`}>
+        <div className={`${styles.ingredients_inner} custom-scroll`}>
             {constructorData.map((item, index) => (
-                <ConstructorTypeList type={item.type} list={item.list} key={index} showIngredientProperty={showIngredientProperty} />
+                <IngredientsTypeList
+                    type={item.type}
+                    list={item.list}
+                    key={index}
+                    showIngredientProperty={showIngredientProperty}
+                />
             ))}
         </div>
     )
 }
 
-function ConstructorTypeList({ type, list, showIngredientProperty }) {
+function IngredientsTypeList({ type, list, showIngredientProperty }) {
     const headline = {
         bun: 'Булки',
         sauce: 'Соусы',
@@ -28,7 +33,7 @@ function ConstructorTypeList({ type, list, showIngredientProperty }) {
     return (
         <div className={styles.constructor_type_list} data-title={type}>
             <h2 className='headline text text_type_main-medium'>{headline[type]}</h2>
-            <ul className={`${styles.constructor_elements} pl-4 pr-4 pt-6 pb-10`}>
+            <ul className={`${styles.ingredient_elements} pl-4 pr-4 pt-6 pb-10`}>
                 {list.map(item => (
                     <BurgerElement data={item} showIngredientProperty={showIngredientProperty} key={item._id} />
                 ))}
@@ -75,4 +80,4 @@ function separateByTypes(arr) {
     return newArr
 }
 
-export default BurgerConstructorInner
+export default BurgerIngredientsInner

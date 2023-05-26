@@ -1,6 +1,6 @@
 import doneImage from '../../../../images/order_done.png'
 
-function ModalOrder() {
+function OrderDetails() {
     return (
         <>
             <p className='text text_type_digits-large mb-8 mt-15' style={mainDigitStyles}>
@@ -23,4 +23,4 @@ const doneIconStyles = {
     height: '120px',
 }
 
-export default ModalOrder
+export default OrderDetails
