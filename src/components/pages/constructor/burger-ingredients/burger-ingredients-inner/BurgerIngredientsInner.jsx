@@ -82,7 +82,7 @@ function separateByTypes(arr) {
     return newArr
 }
 
-// BurgerIngredientsInner.propTypes = burgerIngredientsPropTypes
+BurgerIngredientsInner.propTypes = burgerIngredientsPropTypes
 
 BurgerElement.propTypes = {
     data: ingredientDataTypes.isRequired,

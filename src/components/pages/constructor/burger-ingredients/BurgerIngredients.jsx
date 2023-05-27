@@ -22,6 +22,6 @@ function HeaderConstructor() {
     )
 }
 
-// BurgerIngredients.propTypes = burgerIngredientsPropTypes
+BurgerIngredients.propTypes = burgerIngredientsPropTypes
 
 export default BurgerIngredients

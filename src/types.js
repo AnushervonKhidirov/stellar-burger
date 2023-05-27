@@ -14,7 +14,7 @@ export const ingredientDataTypes = PropTypes.shape({
     image_mobile: PropTypes.string,
 })
 
-export const burgerIngredientsPropTypes = PropTypes.shape({
+export const burgerIngredientsPropTypes = {
     data: PropTypes.arrayOf(ingredientDataTypes).isRequired,
     modalHandler: PropTypes.func.isRequired,
-})
+}
