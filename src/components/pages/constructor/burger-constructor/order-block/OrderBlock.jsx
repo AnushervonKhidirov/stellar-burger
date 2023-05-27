@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import OrderDetails from '../../../../common/modal/order-details/OrderDetails'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../BurgerConstructor.module.css'
@@ -20,6 +21,15 @@ function TotalPrice({ totalPrice }) {
             <CurrencyIcon type='primary' />
         </div>
     )
+}
+
+OrderBlock.propTypes = {
+    totalPrice: PropTypes.number,
+    modalHandler: PropTypes.func,
+}
+
+TotalPrice.propTypes = {
+    totalPrice: PropTypes.number,
 }
 
 export default OrderBlock

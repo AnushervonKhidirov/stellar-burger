@@ -1,20 +1,21 @@
+import PropTypes from 'prop-types'
+import { ingredientDataTypes } from '../../../../../types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../BurgerConstructor.module.css'
-
 
 function BurgerConstructorBlock({ list, setList }) {
     return (
         <div className={styles.ingredients_block}>
-            <BurgerBun position='top' />
+            <BurgerBun position='top' bun={list[0]} />
             <BurgerConstructor list={list} />
-            <BurgerBun position='bottom' />
+            <BurgerBun position='bottom' bun={list[0]} />
         </div>
     )
 }
 
-function BurgerBun(props) {
-    const classForEmpty = `constructor-element constructor-element_pos_${props.position}
-        ${styles[`bun_${props.position}`]}
+function BurgerBun({ position, bun }) {
+    const classForEmpty = `constructor-element constructor-element_pos_${position}
+        ${styles[`bun_${position}`]}
         ${styles.constructor_element}`
 
     const positionText = {
@@ -22,13 +23,13 @@ function BurgerBun(props) {
         bottom: 'низ',
     }
 
-    return !props.name ? (
+    return bun ? (
         <ConstructorElement
-            type={props.position}
+            type={position}
             isLocked={true}
-            text={`${'Краторная булка N-200i'} (${positionText[props.position]})`}
-            price={200}
-            thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+            text={`${bun.name} (${positionText[position]})`}
+            price={bun.price}
+            thumbnail={bun.image}
         />
     ) : (
         <div className={classForEmpty}>Выберите булки</div>
@@ -56,6 +57,24 @@ function BurgerConstructor(props) {
 
 function BurgerConstructorItem({ ingredient }) {
     return <ConstructorElement text={ingredient.name} price={ingredient.price} thumbnail={ingredient.image} />
+}
+
+BurgerConstructorBlock.propTypes = {
+    list: PropTypes.arrayOf(ingredientDataTypes),
+    setList: PropTypes.func,
+}
+
+BurgerBun.propTypes = {
+    position: PropTypes.oneOf(['top', 'bottom']).isRequired,
+    bun: ingredientDataTypes,
+}
+
+BurgerConstructor.propTypes = {
+    list: PropTypes.arrayOf(ingredientDataTypes),
+}
+
+BurgerConstructorItem.propTypes = {
+    ingredient: ingredientDataTypes.isRequired,
 }
 
 export default BurgerConstructorBlock

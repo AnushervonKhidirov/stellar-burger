@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+import { ingredientDataTypes, burgerIngredientsPropTypes } from '../../../../../types'
 import IngredientDetails from '../../../../common/modal/ingredient-details/IngredientDetails'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../BurgerIngredients.module.css'
@@ -78,6 +80,19 @@ function separateByTypes(arr) {
     })
 
     return newArr
+}
+
+// BurgerIngredientsInner.propTypes = burgerIngredientsPropTypes
+
+BurgerElement.propTypes = {
+    data: ingredientDataTypes.isRequired,
+    showIngredientProperty: PropTypes.func.isRequired,
+}
+
+IngredientsTypeList.propTypes = {
+    type: PropTypes.string.isRequired,
+    list: PropTypes.arrayOf(ingredientDataTypes).isRequired,
+    showIngredientProperty: PropTypes.func.isRequired,
 }
 
 export default BurgerIngredientsInner

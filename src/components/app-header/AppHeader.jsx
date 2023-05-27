@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import ContentWrapper from '../common/content-wrapper/ContentWrapper'
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -29,6 +30,12 @@ function HeaderButton({ title, icon, active }) {
             <div className='text text_type_main-default'>{title}</div>
         </button>
     )
+}
+
+HeaderButton.propTypes = {
+    title: PropTypes.string.isRequired,
+    active: PropTypes.bool,
+    icon: PropTypes.element,
 }
 
 export default AppHeader

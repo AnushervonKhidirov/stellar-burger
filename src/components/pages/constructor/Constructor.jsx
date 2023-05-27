@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 import BurgerConstructor from './burger-constructor/BurgerConstructor'
 import BurgerIngredients from './burger-ingredients/BurgerIngredients'
 
-const url = 'https://norma.nomoreparties.space/api/ingredients'
+const INGREDIENTS_URL = 'https://norma.nomoreparties.space/api/ingredients'
 
 function Constructor({ modalHandler }) {
     const [burgerListData, setBurgerListData] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
 
     useEffect(() => {
-        fetch(url)
+        fetch(INGREDIENTS_URL)
         .then(res => res.json())
         .then(result => {
             if (result.success) setBurgerListData(result.data)

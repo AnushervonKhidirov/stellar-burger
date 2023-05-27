@@ -1,3 +1,6 @@
+import PropTypes from 'prop-types'
+import { modalTypes } from '../../../types'
+import ModalOverlay from '../modal-overlay/ModalOverlay'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './Modal.module.css'
 
@@ -8,10 +11,6 @@ function Modal(props) {
             <ModalContainer children={props.children} modalHandler={props.modalHandler} />
         </div>
     )
-}
-
-function ModalOverlay({ modalHandler }) {
-    return <div className={styles.modal_overlay} onClick={modalHandler}></div>
 }
 
 function ModalContainer({ children, modalHandler }) {
@@ -30,5 +29,9 @@ function CloseButton({ modalHandler }) {
         </div>
     )
 }
+
+// Modal.propTypes = 
+
+
 
 export default Modal

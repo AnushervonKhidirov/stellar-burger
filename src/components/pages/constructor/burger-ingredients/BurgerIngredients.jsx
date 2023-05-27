@@ -1,3 +1,4 @@
+import { burgerIngredientsPropTypes } from '../../../../types'
 import BurgerNavigation from './burget-navigation/BurgerNavigation'
 import BurgerIngredientsInner from './burger-ingredients-inner/BurgerIngredientsInner'
 
@@ -20,5 +21,7 @@ function HeaderConstructor() {
         </div>
     )
 }
+
+// BurgerIngredients.propTypes = burgerIngredientsPropTypes
 
 export default BurgerIngredients
