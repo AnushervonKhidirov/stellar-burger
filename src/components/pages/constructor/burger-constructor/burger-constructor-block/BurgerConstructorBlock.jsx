@@ -70,11 +70,11 @@ BurgerBun.propTypes = {
 }
 
 BurgerConstructor.propTypes = {
-    list: PropTypes.arrayOf(ingredientDataTypes),
+    list: PropTypes.arrayOf(ingredientDataTypes).isRequired,
 }
 
 BurgerConstructorItem.propTypes = {
-    ingredient: ingredientDataTypes.isRequired,
+    ingredient: ingredientDataTypes,
 }
 
 export default BurgerConstructorBlock

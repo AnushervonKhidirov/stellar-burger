@@ -1,22 +1,14 @@
 import { useEffect, useState } from 'react'
-
+import { getIngredients } from '../../../utils/burger-api'
 import BurgerConstructor from './burger-constructor/BurgerConstructor'
 import BurgerIngredients from './burger-ingredients/BurgerIngredients'
-
-const INGREDIENTS_URL = 'https://norma.nomoreparties.space/api/ingredients'
 
 function Constructor({ modalHandler }) {
     const [burgerListData, setBurgerListData] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
 
     useEffect(() => {
-        fetch(INGREDIENTS_URL)
-        .then(res => res.json())
-        .then(result => {
-            if (result.success) setBurgerListData(result.data)
-            else throw new Error()
-        })
-        .catch(err => alert(err))
+        getIngredients().then(data => setBurgerListData(data))
     }, [])
 
     useEffect(() => {
@@ -27,7 +19,7 @@ function Constructor({ modalHandler }) {
         )
     }, [burgerListData])
 
-    return (
+    return burgerListData.length && (
         <div style={styles}>
             <BurgerIngredients data={burgerListData} modalHandler={modalHandler} />
             <BurgerConstructor

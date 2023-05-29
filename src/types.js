@@ -11,10 +11,10 @@ export const ingredientDataTypes = PropTypes.shape({
     proteins: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string,
-})
+    image_mobile: PropTypes.string.isRequired,
+}).isRequired
 
-export const burgerIngredientsPropTypes = {
+export const burgerIngredientsPropTypes = PropTypes.shape({
     data: PropTypes.arrayOf(ingredientDataTypes).isRequired,
     modalHandler: PropTypes.func.isRequired,
-}
+}).isRequired

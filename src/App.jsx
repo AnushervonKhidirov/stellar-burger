@@ -13,10 +13,6 @@ function App() {
         setModalChildren(children ? children : null)
     }
 
-    document.onkeydown = e => {
-        if (e.key === 'Escape' && isModalOpen === true) modalHandler()
-    }
-
     return (
         <>
             <AppHeader />
@@ -26,9 +22,9 @@ function App() {
                 </ContentWrapper>
             </main>
 
-            <Modal modalHandler={modalHandler} isActive={isModalOpen}>
+            {isModalOpen && (<Modal modalHandler={modalHandler} isActive={isModalOpen}>
                 {modalChildren}
-            </Modal>
+            </Modal>)}
         </>
     )
 }

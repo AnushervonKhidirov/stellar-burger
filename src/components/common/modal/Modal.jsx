@@ -1,11 +1,23 @@
+import { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { modalTypes } from '../../../types'
 import ModalOverlay from '../modal-overlay/ModalOverlay'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './Modal.module.css'
 
 function Modal(props) {
-    return props.isActive && (
+    function closeModal(e) {
+        if (e.key === 'Escape') props.modalHandler()
+    }
+    
+    useEffect(() => {
+        document.addEventListener('keydown', closeModal)
+
+        return () => {
+            document.removeEventListener('keydown', closeModal)
+        }
+    }, [])
+
+    return (
         <div className={styles.modal}>
             <ModalOverlay modalHandler={props.modalHandler} />
             <ModalContainer children={props.children} modalHandler={props.modalHandler} />
@@ -30,7 +42,29 @@ function CloseButton({ modalHandler }) {
     )
 }
 
-// Modal.propTypes = 
+Modal.propTypes = {
+    modalHandler: PropTypes.func.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ])
+}
+
+ModalContainer.propTypes = {
+    modalHandler: PropTypes.func.isRequired,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ])
+}
+
+ModalOverlay.propTypes = {
+    modalHandler: PropTypes.func.isRequired,
+}
+
+CloseButton.propTypes = {
+    modalHandler: PropTypes.func.isRequired,
+}
 
 
 

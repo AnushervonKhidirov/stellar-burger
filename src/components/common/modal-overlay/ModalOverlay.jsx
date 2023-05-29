@@ -4,6 +4,6 @@ export default function ModalOverlay({ modalHandler }) {
 
 const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    position: 'absolut',
+    position: 'absolute',
     inset: 0,
 }

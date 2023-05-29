@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+import { ingredientDataTypes } from '../../../../types'
 import styles from './IngredientDetails.module.css'
 
 function IngredientDetails({ ingredient }) {
@@ -32,6 +34,22 @@ function IngredientPropertyItem({ name, value }) {
             <div className='text text_type_digits-default text_color_inactive'>{value}</div>
         </li>
     )
+}
+
+IngredientDetails.propTypes = {
+    ingredient: ingredientDataTypes,
+}
+
+IngredientProperties.protoTypes = {
+    calories: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+}
+
+IngredientPropertyItem.propTypes = {
+    name: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
 }
 
 export default IngredientDetails

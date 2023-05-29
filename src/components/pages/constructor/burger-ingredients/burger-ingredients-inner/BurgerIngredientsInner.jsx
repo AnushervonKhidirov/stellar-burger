@@ -85,7 +85,7 @@ function separateByTypes(arr) {
 BurgerIngredientsInner.propTypes = burgerIngredientsPropTypes
 
 BurgerElement.propTypes = {
-    data: ingredientDataTypes.isRequired,
+    data: ingredientDataTypes,
     showIngredientProperty: PropTypes.func.isRequired,
 }
 
