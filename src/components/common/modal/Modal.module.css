@@ -1,0 +1,32 @@
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+}
+
+.modal_container {
+    border-radius: var(--common-border-radius-s);
+    background-color: var(--background);
+    width: 720px;
+    position: relative;
+    z-index: 9;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+.close_button {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.modal_container_inner {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
