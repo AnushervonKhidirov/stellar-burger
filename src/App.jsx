@@ -1,31 +1,38 @@
-import { useState } from 'react'
+import { useReducer } from 'react'
+import { ModalContext } from './utils/context'
 import AppHeader from './components/app-header/AppHeader'
-import ContentWrapper from './components/common/content-wrapper/ContentWrapper'
 import Constructor from './components/pages/constructor/Constructor'
 import Modal from './components/common/modal/Modal'
 
 function App() {
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [modalChildren, setModalChildren] = useState(null)
+    const initialModalState = {
+        isOpen: false,
+        modalInner: null,
+    }
+    const [modalState, modalDispatch] = useReducer(modalHandlerReducer, initialModalState)
 
-    function modalHandler(children) {
-        setIsModalOpen(!isModalOpen)
-        setModalChildren(children ? children : null)
+    function modalHandlerReducer(state, action) {
+        if (action.type === 'open') {
+            return {
+                isOpen: true,
+                modalInner: action.payload,
+            }
+        } else if (action.type === 'close') {
+            return initialModalState
+        } else {
+            throw new Error(`Wrong type of action: ${action.type}`)
+        }
     }
 
     return (
-        <>
+        <ModalContext.Provider value={{ modalState, modalDispatch }}>
             <AppHeader />
             <main>
-                <ContentWrapper>
-                    <Constructor modalHandler={modalHandler} />
-                </ContentWrapper>
+                <Constructor />
             </main>
 
-            {isModalOpen && (<Modal modalHandler={modalHandler} isActive={isModalOpen}>
-                {modalChildren}
-            </Modal>)}
-        </>
+            {modalState.isOpen && <Modal />}
+        </ModalContext.Provider>
     )
 }
 

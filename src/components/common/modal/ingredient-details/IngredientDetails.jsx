@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { ingredientDataTypes } from '../../../../types'
+import { ingredientDataTypes } from '../../../../utils/types'
 import styles from './IngredientDetails.module.css'
 
 function IngredientDetails({ ingredient }) {

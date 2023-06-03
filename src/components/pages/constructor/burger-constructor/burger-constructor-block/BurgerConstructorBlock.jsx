@@ -1,16 +1,36 @@
 import PropTypes from 'prop-types'
-import { ingredientDataTypes } from '../../../../../types'
+import { useContext } from 'react'
+import { ConstructorContext } from '../../../../../utils/context'
+import { ingredientDataTypes } from '../../../../../utils/types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../BurgerConstructor.module.css'
 
-function BurgerConstructorBlock({ list, setList }) {
+function BurgerConstructorBlock() {
+    const { peakedIngredientList } = useContext(ConstructorContext)
+    const convertedList = convertData(peakedIngredientList)
+
     return (
         <div className={styles.ingredients_block}>
-            <BurgerBun position='top' bun={list[0]} />
-            <BurgerConstructor list={list} />
-            <BurgerBun position='bottom' bun={list[0]} />
+            <BurgerBun position='top' bun={convertedList.bun} />
+            <BurgerInnerConstructor ingredientList={convertedList.ingredientList} />
+            <BurgerBun position='bottom' bun={convertedList.bun} />
         </div>
     )
+}
+
+function convertData(data) {
+    const convertedData = {
+        bun: {},
+        ingredientList: [],
+    }
+
+    data.forEach(ing => {
+        if (ing.type === 'bun') {
+            convertedData.bun = ing
+        } else convertedData.ingredientList.push(ing)
+    })
+
+    return convertedData
 }
 
 function BurgerBun({ position, bun }) {
@@ -23,7 +43,7 @@ function BurgerBun({ position, bun }) {
         bottom: 'низ',
     }
 
-    return bun ? (
+    return bun._id ? (
         <ConstructorElement
             type={position}
             isLocked={true}
@@ -36,14 +56,38 @@ function BurgerBun({ position, bun }) {
     )
 }
 
-function BurgerConstructor(props) {
-    return props.list ? (
+function BurgerInnerConstructor({ ingredientList }) {
+    const { peakedIngredientList, setPeakedIngredientList, setIngredientList } = useContext(ConstructorContext)
+
+    function removeIngredient(ingredient) {
+        const newList = []
+
+        const indexToRemove = peakedIngredientList.findIndex(
+            listItem => listItem._id === ingredient._id && listItem.peakId === ingredient.peakId
+        )
+
+        peakedIngredientList.forEach((ing, index) => {
+            if (indexToRemove !== index) newList.push(ing)
+        })
+
+        setPeakedIngredientList(newList)
+        setIngredientList(prev =>
+            prev.map(ing => (ing._id === ingredient._id ? { ...ing, amount: ing.amount - 1 } : ing))
+        )
+    }
+
+    return ingredientList.length !== 0 ? (
         <ul className={`${styles.ingredient_list} custom-scroll`}>
-            {props.list?.map((ingredient, index) => {
+            {ingredientList?.map(ingredient => {
                 return (
-                    <li className={styles.ingredient_item} key={`${ingredient._id}-${index}`}>
+                    <li className={styles.ingredient_item} key={`${ingredient._id}_${ingredient.peakId}`}>
                         <DragIcon type='primary' />
-                        <BurgerConstructorItem ingredient={ingredient} />
+                        <ConstructorElement
+                            text={ingredient.name}
+                            price={ingredient.price}
+                            thumbnail={ingredient.image}
+                            handleClose={() => removeIngredient(ingredient)}
+                        />
                     </li>
                 )
             })}
@@ -55,26 +99,13 @@ function BurgerConstructor(props) {
     )
 }
 
-function BurgerConstructorItem({ ingredient }) {
-    return <ConstructorElement text={ingredient.name} price={ingredient.price} thumbnail={ingredient.image} />
-}
-
-BurgerConstructorBlock.propTypes = {
-    list: PropTypes.arrayOf(ingredientDataTypes),
-    setList: PropTypes.func,
-}
-
 BurgerBun.propTypes = {
-    position: PropTypes.oneOf(['top', 'bottom']).isRequired,
-    bun: ingredientDataTypes,
+    position: PropTypes.oneOf(['top', 'bottom']),
+    bun: PropTypes.oneOfType([ingredientDataTypes, PropTypes.object]),
 }
 
-BurgerConstructor.propTypes = {
-    list: PropTypes.arrayOf(ingredientDataTypes).isRequired,
-}
-
-BurgerConstructorItem.propTypes = {
-    ingredient: ingredientDataTypes,
+BurgerInnerConstructor.propTypes = {
+    ingredientList: PropTypes.arrayOf(ingredientDataTypes).isRequired,
 }
 
 export default BurgerConstructorBlock

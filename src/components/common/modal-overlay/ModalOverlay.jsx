@@ -1,5 +1,9 @@
-export default function ModalOverlay({ modalHandler }) {
-    return <div style={styles} onClick={modalHandler}></div>
+import { useContext } from 'react'
+import { ModalContext } from '../../../utils/context'
+
+export default function ModalOverlay() {
+    const { modalDispatch } = useContext(ModalContext)
+    return <div style={styles} onClick={() => modalDispatch({ type: 'close' })}></div>
 }
 
 const styles = {

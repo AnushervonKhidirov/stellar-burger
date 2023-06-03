@@ -1,34 +1,33 @@
 import { useEffect, useState } from 'react'
+import { ConstructorContext } from '../../../utils/context'
 import { getIngredients } from '../../../utils/burger-api'
 import BurgerConstructor from './burger-constructor/BurgerConstructor'
 import BurgerIngredients from './burger-ingredients/BurgerIngredients'
 
-function Constructor({ modalHandler }) {
-    const [burgerListData, setBurgerListData] = useState([])
+function Constructor() {
+    const [ingredientList, setIngredientList] = useState(null)
     const [totalPrice, setTotalPrice] = useState(0)
+    const [peakedIngredientList, setPeakedIngredientList] = useState([])
 
     useEffect(() => {
-        getIngredients().then(data => setBurgerListData(data))
+        getIngredients().then(data => setIngredientList(data.map(elem => ({ ...elem, amount: 0, peakId: 0 }))))
     }, [])
 
     useEffect(() => {
-        setTotalPrice(
-            burgerListData.reduce((prevProd, prod) => {
-                return prevProd + prod.price
-            }, 0)
-        )
-    }, [burgerListData])
+        setTotalPrice(peakedIngredientList.reduce((acc, item) => item.type === 'bun' ? acc + (item.price * 2) : acc + item.price, 0))
+    }, [peakedIngredientList])
 
-    return burgerListData.length && (
-        <div style={styles}>
-            <BurgerIngredients data={burgerListData} modalHandler={modalHandler} />
-            <BurgerConstructor
-                burgerListData={burgerListData}
-                setBurgerListData={setBurgerListData}
-                totalPrice={totalPrice}
-                modalHandler={modalHandler}
-            />
-        </div>
+    return (
+        ingredientList && (
+            <ConstructorContext.Provider
+                value={{ ingredientList, setIngredientList, peakedIngredientList, setPeakedIngredientList, totalPrice }}
+            >
+                <div style={styles}>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                </div>
+            </ConstructorContext.Provider>
+        )
     )
 }
 

@@ -10,3 +10,17 @@ body,
 main {
     overflow: hidden;
 }
+
+main {
+    width: 1240px;
+    margin: auto;
+    height: 100%;
+}
+
+.header_inner {
+    display: grid;
+    width: calc(1240px + 40px);
+    height: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    margin: auto;
+}

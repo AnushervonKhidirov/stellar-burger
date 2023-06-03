@@ -1,5 +1,5 @@
+import { memo } from 'react'
 import PropTypes from 'prop-types'
-import ContentWrapper from '../common/content-wrapper/ContentWrapper'
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles from './AppHeader.module.css'
@@ -7,7 +7,7 @@ import styles from './AppHeader.module.css'
 function AppHeader() {
     return (
         <header>
-            <ContentWrapper extraClass={styles.header_inner}>
+            <div className='header_inner'>
                 <div className={styles.header_side_left}>
                     <HeaderButton title='Конструктор' icon={<BurgerIcon type='primary' />} active />
                     <HeaderButton title='Лента заказов' icon={<ListIcon type='secondary' />} />
@@ -18,7 +18,7 @@ function AppHeader() {
                 <div className={styles.header_side_right}>
                     <HeaderButton title='Личный кабинет' icon={<ProfileIcon type='secondary' />} />
                 </div>
-            </ContentWrapper>
+            </div>
         </header>
     )
 }
@@ -38,4 +38,4 @@ HeaderButton.propTypes = {
     icon: PropTypes.element,
 }
 
-export default AppHeader
+export default memo(AppHeader)
