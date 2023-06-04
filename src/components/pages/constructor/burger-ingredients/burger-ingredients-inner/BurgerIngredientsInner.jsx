@@ -49,21 +49,49 @@ function BurgerElement({ data }) {
         modalDispatch({ type: 'open', payload: <IngredientDetails ingredient={data} /> })
     }
 
-    function addToConstructor(data) {
-        // TODO: bun amount checking
-        if (data.type === 'bun' && data.amount > 0) {
-            alert("WTF? you can't eat burger with 2 bund")
-            return
+    function addToConstructor(newIng) {
+        if (newIng.type === 'bun') {
+            if (newIng.amount > 0) {
+                alert("You can't eat burger with 2 bund")
+                return
+            }
         }
 
-        setIngredientList(prev =>
-            prev.map(ing => ing._id === data._id ? { ...ing, amount: ing.amount + 1, peakId: ing.peakId + 1 } : ing)
-        )
-        setPeakedIngredientList(prev => [...prev, data])
+        setIngredientList(prev => {
+            return prev.map(ing => {
+                if (ing._id === newIng._id) {
+                    return { ...ing, amount: ing.amount + 1, peakId: ing.peakId + 1 }
+                } else if (ing.type === 'bun' && newIng.type === 'bun' && ing._id !== newIng._id) {
+                    return { ...ing, amount: 0 }
+                } else {
+                    return ing
+                }
+            })
+        })
+
+        setPeakedIngredientList(prev => {
+            const newList = []
+
+            if (newIng.type === 'bun') {
+                const indexToRemove = prev.findIndex(
+                    listItem => listItem.type === 'bun' && newIng.type === 'bun' && listItem._id !== newIng._id
+                )
+
+                if (indexToRemove !== -1) {
+                    prev.forEach((ing, index) => {
+                        if (indexToRemove !== index) newList.push(ing)
+                    })
+
+                    return [...newList, newIng]
+                }
+            }
+
+            return [...prev, newIng]
+        })
     }
 
     return (
-        <li className={styles.list_item} onClick={() => addToConstructor(data)}>
+        <li className={styles.list_item} onClick={() => showIngredientProperty(data)}>
             <img className={styles.image} src={image} alt={name} />
             <div className={`${styles.price} text text_type_digits-default`}>
                 <span>{price}</span>
