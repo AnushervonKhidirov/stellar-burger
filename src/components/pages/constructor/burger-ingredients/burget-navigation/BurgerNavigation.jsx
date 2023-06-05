@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useContext } from 'react'
+import { IngredientContext } from '../../../../../utils/context'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function BurgerNavigation() {
-    const [current, setCurrent] = useState('bun')
+    const { currentTab, setCurrentTab, setIsAutoscroll } = useContext(IngredientContext)
+
     const tabs = [
         {
             value: 'bun',
@@ -18,10 +20,15 @@ function BurgerNavigation() {
         },
     ]
 
+    function tabHandler(value) {
+        setCurrentTab(value)
+        setIsAutoscroll(true)
+    }
+    
     return (
         <nav style={{ display: 'flex' }} className='mt-5'>
             {tabs.map(tab => (
-                <Tab value={tab.value} active={current === tab.value} onClick={setCurrent} key={tab.value}>
+                <Tab value={tab.value} active={currentTab === tab.value} onClick={tabHandler} key={tab.value}>
                     {tab.title}
                 </Tab>
             ))}

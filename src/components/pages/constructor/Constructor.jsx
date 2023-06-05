@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ConstructorContext } from '../../../utils/context'
-import { getIngredients } from '../../../utils/burger-api'
+import { fetchIngredients } from '../../../utils/burger-api'
 import BurgerConstructor from './burger-constructor/BurgerConstructor'
 import BurgerIngredients from './burger-ingredients/BurgerIngredients'
 
@@ -10,7 +10,7 @@ function Constructor() {
     const [peakedIngredientList, setPeakedIngredientList] = useState([])
 
     useEffect(() => {
-        getIngredients().then(data => setIngredientList(data.map(elem => ({ ...elem, amount: 0, peakId: 0 }))))
+        fetchIngredients().then(data => setIngredientList(data.map(elem => ({ ...elem, amount: 0, peakId: 0 }))))
     }, [])
 
     useEffect(() => {

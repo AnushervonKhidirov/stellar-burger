@@ -1,33 +1,53 @@
 import PropTypes from 'prop-types'
-import { useContext } from 'react'
-import { ConstructorContext, ModalContext } from '../../../../../utils/context'
+import { useContext, useEffect, useRef } from 'react'
+import { ConstructorContext, ModalContext, IngredientContext } from '../../../../../utils/context'
 import { ingredientDataTypes } from '../../../../../utils/types'
 import IngredientDetails from '../../../../common/modal/ingredient-details/IngredientDetails'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../BurgerIngredients.module.css'
 
 function BurgerIngredientsInner() {
+    const { setScrollPosition, currentTab, typesPosition, isAutoscroll } = useContext(IngredientContext)
     const { ingredientList } = useContext(ConstructorContext)
     const constructorData = separateByTypes(ingredientList)
+    const scrollRef = useRef(null)
+
+    function showScrollPosition(e) {
+        setScrollPosition(scrollRef.current?.scrollTop)
+    }
+
+    useEffect(() => {
+        if (isAutoscroll) scrollRef.current.scrollTo(0, typesPosition[currentTab].top)
+    }, [currentTab, typesPosition, isAutoscroll])
 
     return (
-        <div className={`${styles.ingredients_inner} custom-scroll`}>
+        <div className={`${styles.ingredients_inner} custom-scroll`} ref={scrollRef} onScroll={showScrollPosition}>
             {constructorData.map((item, index) => (
-                <IngredientsTypeList type={item.type} list={item.list} key={index} />
+                <IngredientsTypeList type={item.type} parentTop={scrollRef.current?.getBoundingClientRect().top} list={item.list} key={index} />
             ))}
         </div>
     )
 }
 
-function IngredientsTypeList({ type, list }) {
+function IngredientsTypeList({ type, list, parentTop = 0 }) {
+    const { setTypesPosition } = useContext(IngredientContext)
+    const hRef = useRef(null)
     const headline = {
         bun: 'Булки',
         sauce: 'Соусы',
         main: 'Начинки',
     }
 
+    useEffect(() => {
+        setTypesPosition(prev => {
+            prev[type].top = Math.round(hRef.current?.getBoundingClientRect().top - parentTop)
+            prev[type].bottom = Math.round(hRef.current?.getBoundingClientRect().bottom - parentTop)
+            return prev
+        })
+    }, [setTypesPosition, type, parentTop])
+
     return (
-        <div className={styles.constructor_type_list} data-title={type}>
+        <div className={styles.constructor_type_list} data-title={type} ref={hRef}>
             <h2 id={type} className='headline text text_type_main-medium'>
                 {headline[type]}
             </h2>
