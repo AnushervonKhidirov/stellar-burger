@@ -1,9 +1,9 @@
-import { useContext } from 'react'
-import { ModalContext } from '../../../utils/context'
+import { useDispatch } from 'react-redux'
+import { closeModal } from '../../../store/modalSlice'
 
 export default function ModalOverlay() {
-    const { modalDispatch } = useContext(ModalContext)
-    return <div style={styles} onClick={() => modalDispatch({ type: 'close' })}></div>
+    const dispatch = useDispatch()
+    return <div style={styles} onClick={() => dispatch(closeModal())}></div>
 }
 
 const styles = {

@@ -1,25 +1,28 @@
-import { useEffect, useContext } from 'react'
-import { ModalContext } from '../../../utils/context'
+import { useSelector, useDispatch } from 'react-redux'
+import { closeModal } from '../../../store/modalSlice'
+
+import { useEffect } from 'react'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'
 
 function Modal() {
-    const { modalDispatch } = useContext(ModalContext)
+    const isOpened = useSelector(store => store.modal.isOpen)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        function closeModal(e) {
-            if (e.key === 'Escape') modalDispatch({ type: 'close' })
+        function modalCloseHandler(e) {
+            if (e.key === 'Escape') dispatch(closeModal())
         }
 
-        document.addEventListener('keydown', closeModal)
+        document.addEventListener('keydown', modalCloseHandler)
 
         return () => {
-            document.removeEventListener('keydown', closeModal)
+            document.removeEventListener('keydown', modalCloseHandler)
         }
-    }, [modalDispatch])
+    }, [dispatch])
 
-    return (
+    return isOpened && (
         <div className={styles.modal}>
             <ModalOverlay />
             <ModalContainer />
@@ -28,22 +31,22 @@ function Modal() {
 }
 
 function ModalContainer() {
-    const { modalState } = useContext(ModalContext)
+    const children = useSelector(store => store.modal.modalChildren)
 
     return (
         <div className={styles.modal_container}>
             <CloseButton />
-            <div className={styles.modal_container_inner}>{modalState.modalInner}</div>
+            <div className={styles.modal_container_inner}>{children}</div>
         </div>
     )
 }
 
 function CloseButton() {
-    const { modalDispatch } = useContext(ModalContext)
+    const dispatch = useDispatch()
 
     return (
         <div className={styles.close_button}>
-            <CloseIcon type='primary' onClick={() => modalDispatch({ type: 'close' })} />
+            <CloseIcon type='primary' onClick={() => dispatch(closeModal())} />
         </div>
     )
 }

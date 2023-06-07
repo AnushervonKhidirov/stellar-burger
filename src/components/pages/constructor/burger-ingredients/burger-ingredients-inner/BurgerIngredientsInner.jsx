@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types'
 import { useContext, useEffect, useRef } from 'react'
-import { ConstructorContext, ModalContext, IngredientContext } from '../../../../../utils/context'
+import { useDispatch } from 'react-redux'
+import { openModal } from '../../../../../store/modalSlice'
+import { setDetail } from '../../../../../store/ingredientDetailSlice'
+
+import { ConstructorContext, IngredientContext } from '../../../../../utils/context'
 import { ingredientDataTypes } from '../../../../../utils/types'
 import IngredientDetails from '../../../../common/modal/ingredient-details/IngredientDetails'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -61,12 +65,14 @@ function IngredientsTypeList({ type, list, parentTop = 0 }) {
 }
 
 function BurgerElement({ data }) {
-    const { modalDispatch } = useContext(ModalContext)
+    const dispatch = useDispatch()
+
     const { setIngredientList, setPeakedIngredientList } = useContext(ConstructorContext)
     const { image, price, name } = data
 
     function showIngredientProperty(data) {
-        modalDispatch({ type: 'open', payload: <IngredientDetails ingredient={data} /> })
+        dispatch(setDetail(data))
+        dispatch(openModal(<IngredientDetails ingredient={data} />))
     }
 
     function addToConstructor(newIng) {

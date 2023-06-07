@@ -1,12 +1,15 @@
+import { useDispatch } from 'react-redux'
+import { openModal } from '../../../../../store/modalSlice'
+
 import { useContext } from 'react'
-import { ModalContext, ConstructorContext } from '../../../../../utils/context'
+import { ConstructorContext } from '../../../../../utils/context'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../../../../common/modal/order-details/OrderDetails'
 import { fetchOrder } from '../../../../../utils/burger-api'
 import styles from '../BurgerConstructor.module.css'
 
 function OrderBlock() {
-    const { modalDispatch } = useContext(ModalContext)
+    const dispatch = useDispatch()
     const { peakedIngredientList } = useContext(ConstructorContext)
 
     function getOrder() {
@@ -16,7 +19,8 @@ function OrderBlock() {
         const isAvailableToOrder = isBun && isMain
 
         if (isAvailableToOrder) {
-            modalDispatch({ type: 'open', payload: <OrderDetails /> })
+            dispatch(openModal(<OrderDetails />))
+            // modalDispatch({ type: 'open', payload: <OrderDetails /> })
             // fetchOrder(peakedIngredientList.map(ing => ing._id))
         } else if (!isBun && isMain) {
             alert('You can\'t eat burger without buns. Peak a bun)')
