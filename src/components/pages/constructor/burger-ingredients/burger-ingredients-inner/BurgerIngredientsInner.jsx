@@ -1,22 +1,24 @@
 import PropTypes from 'prop-types'
-import { useContext, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { addIngredientToConstructor } from '../../../../../store/constructorIngredientListSlice'
+
+import { useContext, useEffect, useRef } from 'react'
 import { openModal } from '../../../../../store/modalSlice'
 import { setDetail } from '../../../../../store/ingredientDetailSlice'
 
-import { ConstructorContext, IngredientContext } from '../../../../../utils/context'
+import { IngredientContext } from '../../../../../utils/context'
+
 import { ingredientDataTypes } from '../../../../../utils/types'
 import IngredientDetails from '../../../../common/modal/ingredient-details/IngredientDetails'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import Loader from '../../../../common/loader/Loader'
 import styles from '../BurgerIngredients.module.css'
 
 function BurgerIngredientsInner() {
-    const ingredientList = useSelector(store => store.ingredientList.ingredients)
-    const constructorData = separateByTypes(ingredientList)
-    
+    const ingredientList = useSelector(store => store.ingredientList)
+    const separatedList = separateByTypes(ingredientList.ingredients)
 
     const { setScrollPosition, currentTab, typesPosition, isAutoscroll } = useContext(IngredientContext)
-    // const { ingredientList } = useContext(ConstructorContext)
     const scrollRef = useRef(null)
 
     function showScrollPosition(e) {
@@ -29,9 +31,14 @@ function BurgerIngredientsInner() {
 
     return (
         <div className={`${styles.ingredients_inner} custom-scroll`} ref={scrollRef} onScroll={showScrollPosition}>
-            {constructorData.map((item, index) => (
-                <IngredientsTypeList type={item.type} parentTop={scrollRef.current?.getBoundingClientRect().top} list={item.list} key={index} />
-            ))}
+            {ingredientList.leaded && !ingredientList.rejected ? separatedList.map((item, index) => (
+                <IngredientsTypeList
+                    type={item.type}
+                    parentTop={scrollRef.current?.getBoundingClientRect().top}
+                    list={item.list}
+                    key={index}
+                />
+            )) : <Loader />}
         </div>
     )
 }
@@ -69,8 +76,8 @@ function IngredientsTypeList({ type, list, parentTop = 0 }) {
 
 function BurgerElement({ data }) {
     const dispatch = useDispatch()
+    const amount = useSelector(store => store.constructorIngredientList.amounts[data._id])
 
-    const { setIngredientList, setPeakedIngredientList } = useContext(ConstructorContext)
     const { image, price, name } = data
 
     function showIngredientProperty(data) {
@@ -78,46 +85,7 @@ function BurgerElement({ data }) {
         dispatch(openModal(<IngredientDetails />))
     }
 
-    function addToConstructor(newIng) {
-        if (newIng.type === 'bun') {
-            if (newIng.amount > 0) {
-                alert("You can't eat burger with 2 bund")
-                return
-            }
-        }
-
-        setIngredientList(prev => {
-            return prev.map(ing => {
-                if (ing._id === newIng._id) {
-                    return { ...ing, amount: ing.amount + 1, peakId: ing.peakId + 1 }
-                } else if (ing.type === 'bun' && newIng.type === 'bun' && ing._id !== newIng._id) {
-                    return { ...ing, amount: 0 }
-                } else {
-                    return ing
-                }
-            })
-        })
-
-        setPeakedIngredientList(prev => {
-            const newList = []
-
-            if (newIng.type === 'bun') {
-                const indexToRemove = prev.findIndex(
-                    listItem => listItem.type === 'bun' && newIng.type === 'bun' && listItem._id !== newIng._id
-                )
-
-                if (indexToRemove !== -1) {
-                    prev.forEach((ing, index) => {
-                        if (indexToRemove !== index) newList.push(ing)
-                    })
-
-                    return [...newList, newIng]
-                }
-            }
-
-            return [...prev, newIng]
-        })
-    }
+    // dispatch(addIngredientToConstructor(data))
 
     return (
         <li className={styles.list_item} onClick={() => showIngredientProperty(data)}>
@@ -127,7 +95,7 @@ function BurgerElement({ data }) {
                 <CurrencyIcon type='primary' />
             </div>
             <h3 className={`${styles.name} text text_type_main-default`}>{name}</h3>
-            {data.amount ? <Counter count={data.amount} size='default' /> : null}
+            {amount ? <Counter count={amount} size='default' /> : null}
         </li>
     )
 }

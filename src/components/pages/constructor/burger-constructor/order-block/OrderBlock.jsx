@@ -1,34 +1,34 @@
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { openModal } from '../../../../../store/modalSlice'
 import { setOrderNumber } from '../../../../../store/orderDetailSlice'
 
-import { useContext } from 'react'
-import { ConstructorContext } from '../../../../../utils/context'
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../../../../common/modal/order-details/OrderDetails'
 import { fetchOrder } from '../../../../../utils/burger-api'
+
 import styles from '../BurgerConstructor.module.css'
 
 function OrderBlock() {
+    const constructorBun = useSelector(store => store.constructorIngredientList.bun)
+    const constructorList = useSelector(store => store.constructorIngredientList.ingredients)
     const dispatch = useDispatch()
-    const { peakedIngredientList } = useContext(ConstructorContext)
 
     function getOrder() {
-        const isBun = peakedIngredientList.findIndex(ing => ing.type === 'bun') !== -1
-        const isMain = peakedIngredientList.findIndex(ing => ing.type === 'main') !== -1
-        const isSauce = peakedIngredientList.findIndex(ing => ing.type === 'sauce') !== -1
+        const isBun = constructorBun._id
+        const isMain = constructorList.findIndex(ing => ing.type === 'main') !== -1
+        const isSauce = constructorList.findIndex(ing => ing.type === 'sauce') !== -1
         const isAvailableToOrder = isBun && isMain
 
-        if (isAvailableToOrder || true) {
+        if (isAvailableToOrder) {
             dispatch(openModal(<OrderDetails />))
             dispatch(setOrderNumber('123456'))
-            // fetchOrder(peakedIngredientList.map(ing => ing._id))
+            // fetchOrder(constructorList.map(ing => ing._id))
         } else if (!isBun && isMain) {
-            alert('You can\'t eat burger without buns. Peak a bun)')
+            alert("You can't eat burger without buns. Peak a bun)")
         } else if (!isMain && isBun) {
-            alert('You can\'t eat only bun, it isn\'t tasty(')
-        } else if(isSauce && !isAvailableToOrder) {
-            alert('We think you don\'t want to order only sauce)')
+            alert("You can't eat only bun, it isn't tasty(")
+        } else if (isSauce && !isAvailableToOrder) {
+            alert("We think you don't want to order only sauce)")
         } else {
             alert('Your attempt to order nothing is failed!')
         }
@@ -37,12 +37,7 @@ function OrderBlock() {
     return (
         <div className={styles.order_block}>
             <TotalPrice />
-            <Button
-                htmlType='button'
-                type='primary'
-                size='large'
-                onClick={() => getOrder()}
-            >
+            <Button htmlType='button' type='primary' size='large' onClick={() => getOrder()}>
                 Оформить заказ
             </Button>
         </div>
@@ -50,7 +45,7 @@ function OrderBlock() {
 }
 
 function TotalPrice() {
-    const { totalPrice } = useContext(ConstructorContext)
+    const totalPrice = useSelector(store => store.constructorIngredientList.totalPrice)
 
     return (
         <div className={styles.total_price}>

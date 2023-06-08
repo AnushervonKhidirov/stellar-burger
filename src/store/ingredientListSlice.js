@@ -9,21 +9,22 @@ export const ingredientListSlice = createSlice({
     name: 'ingredientList',
     initialState: {
         ingredients: [],
-        loading: false,
+        leaded: false,
+        rejected: false,
     },
     extraReducers: builder => {
         builder.addCase(loadIngredient.pending, state => {
-            state.loading = true
+            state.leaded = false
         })
         builder.addCase(loadIngredient.fulfilled, (state, action) => {
             state.ingredients = action.payload
-            state.loading = false
+            state.leaded = true
         })
         builder.addCase(loadIngredient.rejected, state => {
-            state.loading = false
+            state.leaded = true
+            state.rejected = true
         })
     },
 })
 
-// export const { loadIngredient } = ingredientListSlice.actions
 export default ingredientListSlice.reducer

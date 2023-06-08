@@ -3,14 +3,16 @@ import thunk from 'redux-thunk'
 import modalSlice from './modalSlice'
 import ingredientDetailSlice from './ingredientDetailSlice'
 import ingredientListSlice from './ingredientListSlice'
+import constructorIngredientListSlice from './constructorIngredientListSlice'
 import orderDetailSlice from './orderDetailSlice'
 
 export const store = configureStore({
     reducer: {
-        modal: modalSlice,
+        constructorIngredientList: constructorIngredientListSlice,
         ingredientDetails: ingredientDetailSlice,
         ingredientList: ingredientListSlice,
         orderDetails: orderDetailSlice,
+        modal: modalSlice,
     },
     middleware: [thunk]
 })

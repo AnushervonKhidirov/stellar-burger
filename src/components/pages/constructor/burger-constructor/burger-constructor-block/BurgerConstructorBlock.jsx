@@ -1,36 +1,21 @@
 import PropTypes from 'prop-types'
-import { useContext } from 'react'
-import { ConstructorContext } from '../../../../../utils/context'
+import { useSelector, useDispatch } from 'react-redux'
+import { removeIngredientFromConstructor } from '../../../../../store/constructorIngredientListSlice'
+
 import { ingredientDataTypes } from '../../../../../utils/types'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from '../BurgerConstructor.module.css'
 
 function BurgerConstructorBlock() {
-    const { peakedIngredientList } = useContext(ConstructorContext)
-    const convertedList = convertData(peakedIngredientList)
+    const constructorList = useSelector(store => store.constructorIngredientList)
 
     return (
         <div className={styles.ingredients_block}>
-            <BurgerBun position='top' bun={convertedList.bun} />
-            <BurgerInnerConstructor ingredientList={convertedList.ingredientList} />
-            <BurgerBun position='bottom' bun={convertedList.bun} />
+            <BurgerBun position='top' bun={constructorList.bun} />
+            <BurgerInnerConstructor ingredientList={constructorList.ingredients} />
+            <BurgerBun position='bottom' bun={constructorList.bun} />
         </div>
     )
-}
-
-function convertData(data) {
-    const convertedData = {
-        bun: {},
-        ingredientList: [],
-    }
-
-    data.forEach(ing => {
-        if (ing.type === 'bun') {
-            convertedData.bun = ing
-        } else convertedData.ingredientList.push(ing)
-    })
-
-    return convertedData
 }
 
 function BurgerBun({ position, bun }) {
@@ -57,36 +42,21 @@ function BurgerBun({ position, bun }) {
 }
 
 function BurgerInnerConstructor({ ingredientList }) {
-    const { peakedIngredientList, setPeakedIngredientList, setIngredientList } = useContext(ConstructorContext)
+    const dispatch = useDispatch()
 
-    function removeIngredient(ingredient) {
-        const newList = []
+    console.log(ingredientList);
 
-        const indexToRemove = peakedIngredientList.findIndex(
-            listItem => listItem._id === ingredient._id && listItem.peakId === ingredient.peakId
-        )
-
-        peakedIngredientList.forEach((ing, index) => {
-            if (indexToRemove !== index) newList.push(ing)
-        })
-
-        setPeakedIngredientList(newList)
-        setIngredientList(prev =>
-            prev.map(ing => (ing._id === ingredient._id ? { ...ing, amount: ing.amount - 1 } : ing))
-        )
-    }
-
-    return ingredientList.length !== 0 ? (
+    return ingredientList && ingredientList.length !== 0 ? (
         <ul className={`${styles.ingredient_list} custom-scroll`}>
             {ingredientList?.map(ingredient => {
                 return (
-                    <li className={styles.ingredient_item} key={`${ingredient._id}_${ingredient.peakId}`}>
+                    <li className={styles.ingredient_item} key={`${ingredient._id}_${ingredient.key}`}>
                         <DragIcon type='primary' />
                         <ConstructorElement
                             text={ingredient.name}
                             price={ingredient.price}
                             thumbnail={ingredient.image}
-                            handleClose={() => removeIngredient(ingredient)}
+                            handleClose={() => dispatch(removeIngredientFromConstructor(ingredient))}
                         />
                     </li>
                 )
