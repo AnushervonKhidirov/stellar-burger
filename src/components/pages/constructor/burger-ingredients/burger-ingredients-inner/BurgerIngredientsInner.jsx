@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useContext, useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { openModal } from '../../../../../store/modalSlice'
 import { setDetail } from '../../../../../store/ingredientDetailSlice'
 
@@ -11,9 +11,12 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from '../BurgerIngredients.module.css'
 
 function BurgerIngredientsInner() {
-    const { setScrollPosition, currentTab, typesPosition, isAutoscroll } = useContext(IngredientContext)
-    const { ingredientList } = useContext(ConstructorContext)
+    const ingredientList = useSelector(store => store.ingredientList.ingredients)
     const constructorData = separateByTypes(ingredientList)
+    
+
+    const { setScrollPosition, currentTab, typesPosition, isAutoscroll } = useContext(IngredientContext)
+    // const { ingredientList } = useContext(ConstructorContext)
     const scrollRef = useRef(null)
 
     function showScrollPosition(e) {
@@ -72,7 +75,7 @@ function BurgerElement({ data }) {
 
     function showIngredientProperty(data) {
         dispatch(setDetail(data))
-        dispatch(openModal(<IngredientDetails ingredient={data} />))
+        dispatch(openModal(<IngredientDetails />))
     }
 
     function addToConstructor(newIng) {

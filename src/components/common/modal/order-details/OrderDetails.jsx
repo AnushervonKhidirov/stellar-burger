@@ -1,10 +1,13 @@
+import { useSelector } from 'react-redux'
 import doneImage from '../../../../images/order_done.png'
 
 function OrderDetails() {
+    const orderNumber = useSelector(store => store.orderDetails.orderNumber)
+
     return (
         <>
             <p className='text text_type_digits-large mb-8 mt-15' style={mainDigitStyles}>
-                034536
+                {orderNumber}
             </p>
             <h2 className='text text_type_main-medium mt-4'>Идентификатор заказа</h2>
             <img src={doneImage} alt="Done" className='mt-15 mb-15' style={doneIconStyles} />

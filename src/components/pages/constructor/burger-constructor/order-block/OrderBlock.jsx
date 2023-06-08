@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { openModal } from '../../../../../store/modalSlice'
+import { setOrderNumber } from '../../../../../store/orderDetailSlice'
 
 import { useContext } from 'react'
 import { ConstructorContext } from '../../../../../utils/context'
@@ -18,9 +19,9 @@ function OrderBlock() {
         const isSauce = peakedIngredientList.findIndex(ing => ing.type === 'sauce') !== -1
         const isAvailableToOrder = isBun && isMain
 
-        if (isAvailableToOrder) {
+        if (isAvailableToOrder || true) {
             dispatch(openModal(<OrderDetails />))
-            // modalDispatch({ type: 'open', payload: <OrderDetails /> })
+            dispatch(setOrderNumber('123456'))
             // fetchOrder(peakedIngredientList.map(ing => ing._id))
         } else if (!isBun && isMain) {
             alert('You can\'t eat burger without buns. Peak a bun)')

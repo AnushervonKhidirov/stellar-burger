@@ -1,7 +1,8 @@
+import { useEffect } from 'react'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { closeModal } from '../../../store/modalSlice'
 
-import { useEffect } from 'react'
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'

@@ -1,30 +1,31 @@
 import PropTypes from 'prop-types'
-import { ingredientDataTypes } from '../../../../utils/types'
+import { useSelector } from 'react-redux'
 import styles from './IngredientDetails.module.css'
 
-function IngredientDetails({ ingredient }) {
+function IngredientDetails() {
+    const { name, image_large } = useSelector(store => store.ingredientDetails.ingredient)
+
     return (
         <>
             <h1 className={`${styles.ingredient_headline} text text_type_main-large`}>Детали ингредиента</h1>
-            <img src={ingredient.image_large} alt={ingredient.name} />
-            <h2 className='text text_type_main-medium mt-4 mb-8'>{ingredient.name}</h2>
-            <IngredientProperties
-                calories={ingredient.calories}
-                proteins={ingredient.proteins}
-                fat={ingredient.fat}
-                carbohydrates={ingredient.carbohydrates}
-            />
+            <img src={image_large} alt={name} />
+            <h2 className='text text_type_main-medium mt-4 mb-8'>{name}</h2>
+            <IngredientProperties />
         </>
     )
 }
 
-function IngredientProperties({ calories, proteins, fat, carbohydrates }) {
-    return <ul className={styles.ingredient_properties}>
-        <IngredientPropertyItem name={'Калории, ккал'} value={calories} />
-        <IngredientPropertyItem name={'Белки, г'} value={proteins} />
-        <IngredientPropertyItem name={'Жиры, г'} value={fat} />
-        <IngredientPropertyItem name={'Углеводы, г'} value={carbohydrates} />
-    </ul>
+function IngredientProperties() {
+    const { calories, proteins, fat, carbohydrates } = useSelector(store => store.ingredientDetails.ingredient)
+
+    return (
+        <ul className={styles.ingredient_properties}>
+            <IngredientPropertyItem name={'Калории, ккал'} value={calories} />
+            <IngredientPropertyItem name={'Белки, г'} value={proteins} />
+            <IngredientPropertyItem name={'Жиры, г'} value={fat} />
+            <IngredientPropertyItem name={'Углеводы, г'} value={carbohydrates} />
+        </ul>
+    )
 }
 
 function IngredientPropertyItem({ name, value }) {
@@ -36,20 +37,9 @@ function IngredientPropertyItem({ name, value }) {
     )
 }
 
-IngredientDetails.propTypes = {
-    ingredient: ingredientDataTypes,
-}
-
-IngredientProperties.protoTypes = {
-    calories: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-}
-
-IngredientPropertyItem.propTypes = {
+IngredientPropertyItem.propTypes = PropTypes.shape({
     name: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
-}
+}).isRequired
 
 export default IngredientDetails
