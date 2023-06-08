@@ -1,61 +1,45 @@
-import { useEffect, useState } from 'react'
-import { IngredientContext } from '../../../../utils/context'
+import { useSelector, useDispatch } from 'react-redux'
+import { setAutoScroll, setCurrentTab } from '../../../../store/ingredientTabSlice'
+
+import { useEffect } from 'react'
 import BurgerNavigation from './burget-navigation/BurgerNavigation'
 import BurgerIngredientsInner from './burger-ingredients-inner/BurgerIngredientsInner'
 
 import styles from './BurgerIngredients.module.css'
 
 function BurgerIngredients() {
-    const [currentTab, setCurrentTab] = useState('bun')
-    const [scrollPosition, setScrollPosition] = useState(0)
-    const [isAutoscroll, setIsAutoscroll] = useState(false)
-    const [typesPosition, setTypesPosition] = useState({
-        bun: {
-            top: 0,
-            bottom: 0,
-        },
-        sauce: {
-            top: 0,
-            bottom: 0,
-        },
-        main: {
-            top: 0,
-            bottom: 0,
-        },
-    })
+    const dispatch = useDispatch()
+
+    const { isAutoScroll, ingredientsTypePosition, scrollPosition, currentTab } = useSelector(
+        store => store.ingredientTab
+    )
 
     useEffect(() => {
-        if (isAutoscroll) return
+        if (isAutoScroll) return
 
-        for (const key in typesPosition) {
-            if (scrollPosition >= typesPosition[key].top && scrollPosition < typesPosition[key].bottom) {
-                setCurrentTab(key)
+        for (const key in ingredientsTypePosition) {
+            if (
+                scrollPosition >= ingredientsTypePosition[key].top &&
+                scrollPosition < ingredientsTypePosition[key].bottom
+            ) {
+                dispatch(setCurrentTab(key))
             }
         }
-    }, [scrollPosition, typesPosition, isAutoscroll])
+    }, [dispatch, isAutoScroll, scrollPosition, ingredientsTypePosition])
 
     useEffect(() => {
-        if (isAutoscroll) setIsAutoscroll(!(scrollPosition === typesPosition[currentTab].top))
-    }, [currentTab, scrollPosition, isAutoscroll, typesPosition])
+        if (isAutoScroll) {
+            dispatch(setAutoScroll(!(scrollPosition === ingredientsTypePosition[currentTab].top)))
+        }
+    }, [dispatch, isAutoScroll, scrollPosition, currentTab, ingredientsTypePosition])
 
     return (
-        <IngredientContext.Provider
-            value={{
-                currentTab,
-                setCurrentTab,
-                scrollPosition,
-                setScrollPosition,
-                typesPosition,
-                setTypesPosition,
-                isAutoscroll,
-                setIsAutoscroll,
-            }}
-        >
+        <>
             <div className={styles.burger_ingredients}>
                 <HeaderConstructor />
                 <BurgerIngredientsInner />
             </div>
-        </IngredientContext.Provider>
+        </>
     )
 }
 

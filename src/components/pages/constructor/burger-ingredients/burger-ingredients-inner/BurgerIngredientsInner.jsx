@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { addIngredientToConstructor } from '../../../../../store/constructorIngredientListSlice'
+import { setTypesPosition, setScrollPosition } from '../../../../../store/ingredientTabSlice'
 
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { openModal } from '../../../../../store/modalSlice'
 import { setDetail } from '../../../../../store/ingredientDetailSlice'
-
-import { IngredientContext } from '../../../../../utils/context'
 
 import { ingredientDataTypes } from '../../../../../utils/types'
 import IngredientDetails from '../../../../common/modal/ingredient-details/IngredientDetails'
@@ -15,37 +14,40 @@ import Loader from '../../../../common/loader/Loader'
 import styles from '../BurgerIngredients.module.css'
 
 function BurgerIngredientsInner() {
+    const dispatch = useDispatch()    
+    const { isAutoScroll, ingredientsTypePosition, currentTab } = useSelector(store => store.ingredientTab)
+    
     const ingredientList = useSelector(store => store.ingredientList)
-    const separatedList = separateByTypes(ingredientList.ingredients)
 
-    const { setScrollPosition, currentTab, typesPosition, isAutoscroll } = useContext(IngredientContext)
+    const separatedList = separateByTypes(ingredientList.ingredients)
     const scrollRef = useRef(null)
 
-    function showScrollPosition(e) {
-        setScrollPosition(scrollRef.current?.scrollTop)
+    function scrollHandler() {
+        if (!isAutoScroll) dispatch(setScrollPosition(scrollRef.current?.scrollTop))
     }
 
     useEffect(() => {
-        if (isAutoscroll) scrollRef.current.scrollTo(0, typesPosition[currentTab].top)
-    }, [currentTab, typesPosition, isAutoscroll])
+        if (isAutoScroll) scrollRef.current.scrollTo(0, ingredientsTypePosition[currentTab].top)
+    }, [dispatch, isAutoScroll, ingredientsTypePosition, currentTab])
 
     return (
-        <div className={`${styles.ingredients_inner} custom-scroll`} ref={scrollRef} onScroll={showScrollPosition}>
-            {!ingredientList.isLoading && !ingredientList.rejected ? separatedList.map((item, index) => (
+        <div className={`${styles.ingredients_inner} custom-scroll`} ref={scrollRef} onScroll={scrollHandler}>
+            {!ingredientList.isLoading && !ingredientList.rejected ? separatedList.map(item => (
                 <IngredientsTypeList
                     type={item.type}
-                    parentTop={scrollRef.current?.getBoundingClientRect().top}
+                    parentTopPosition={scrollRef.current?.getBoundingClientRect().top}
                     list={item.list}
-                    key={index}
+                    key={item.type}
                 />
             )) : <Loader />}
         </div>
     )
 }
 
-function IngredientsTypeList({ type, list, parentTop = 0 }) {
-    const { setTypesPosition } = useContext(IngredientContext)
+function IngredientsTypeList({ type, list, parentTopPosition = 0 }) {
+    const dispatch = useDispatch()
     const hRef = useRef(null)
+
     const headline = {
         bun: 'Булки',
         sauce: 'Соусы',
@@ -53,12 +55,14 @@ function IngredientsTypeList({ type, list, parentTop = 0 }) {
     }
 
     useEffect(() => {
-        setTypesPosition(prev => {
-            prev[type].top = Math.round(hRef.current?.getBoundingClientRect().top - parentTop)
-            prev[type].bottom = Math.round(hRef.current?.getBoundingClientRect().bottom - parentTop)
-            return prev
-        })
-    }, [setTypesPosition, type, parentTop])
+        const typeData = {
+            type: type,
+            top: Math.round(hRef.current?.getBoundingClientRect().top - parentTopPosition),
+            bottom: Math.round(hRef.current?.getBoundingClientRect().bottom - parentTopPosition),
+        }
+
+        dispatch(setTypesPosition(typeData))
+    }, [dispatch, type, parentTopPosition])
 
     return (
         <div className={styles.constructor_type_list} data-title={type} ref={hRef}>
@@ -83,12 +87,14 @@ function BurgerElement({ data }) {
     function showIngredientProperty(data) {
         dispatch(setDetail(data))
         dispatch(openModal(<IngredientDetails />))
+
+        // Drag'n'Drop (will replace to another event)
+        dispatch(addIngredientToConstructor(data))
     }
 
-    // dispatch(addIngredientToConstructor(data))
 
     return (
-        <li className={styles.list_item} onClick={() => dispatch(addIngredientToConstructor(data))}>
+        <li className={styles.list_item} onClick={() => showIngredientProperty(data)}>
             <img className={styles.image} src={image} alt={name} />
             <div className={`${styles.price} text text_type_digits-default`}>
                 <span>{price}</span>
@@ -130,6 +136,7 @@ BurgerElement.propTypes = {
 IngredientsTypeList.propTypes = {
     type: PropTypes.string.isRequired,
     list: PropTypes.arrayOf(ingredientDataTypes).isRequired,
+    parentTopPosition: PropTypes.number,
 }
 
 export default BurgerIngredientsInner

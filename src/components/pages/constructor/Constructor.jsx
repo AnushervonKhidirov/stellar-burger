@@ -13,12 +13,10 @@ function Constructor() {
     }, [dispatch])
 
     return (
-        <>
-            <div style={styles}>
-                <BurgerIngredients />
-                <BurgerConstructor />
-            </div>
-        </>
+        <div style={styles}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+        </div>
     )
 }
 

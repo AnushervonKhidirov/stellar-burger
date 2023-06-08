@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import PropTypes from 'prop-types'
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -38,4 +37,4 @@ HeaderButton.propTypes = {
     icon: PropTypes.element,
 }
 
-export default memo(AppHeader)
+export default AppHeader
