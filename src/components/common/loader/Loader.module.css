@@ -7,10 +7,9 @@
 }
 
 .lds_ripple {
-    display: inline-block;
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
 }
 
 .lds_ripple div {

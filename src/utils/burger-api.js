@@ -15,10 +15,12 @@ export function fetchOrder(ingredientsID) {
 
     return fetch(`${API_URL}/orders`, {
         method: 'POST',
-        body: body,
+        body: JSON.stringify(body),
+        headers: {
+            "Content-Type": "application/json",
+        }
     })
         .then(res => {
-            console.log(res)
             if (res.ok) return res.json()
             else throw new Error()
         })

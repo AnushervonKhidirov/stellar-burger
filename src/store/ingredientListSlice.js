@@ -2,26 +2,26 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchIngredients } from '../utils/burger-api'
 
 export const loadIngredient = createAsyncThunk('ingredientList/loadIngredient', async () => {
-    return fetchIngredients().then(data => data.map(elem => ({ ...elem, amount: 0, peakId: 0 })))
+    return fetchIngredients()
 })
 
 export const ingredientListSlice = createSlice({
     name: 'ingredientList',
     initialState: {
         ingredients: [],
-        leaded: false,
+        isLoading: false,
         rejected: false,
     },
     extraReducers: builder => {
         builder.addCase(loadIngredient.pending, state => {
-            state.leaded = false
+            state.isLoading = true
         })
         builder.addCase(loadIngredient.fulfilled, (state, action) => {
             state.ingredients = action.payload
-            state.leaded = true
+            state.isLoading = false
         })
         builder.addCase(loadIngredient.rejected, state => {
-            state.leaded = true
+            state.isLoading = false
             state.rejected = true
         })
     },

@@ -44,8 +44,6 @@ function BurgerBun({ position, bun }) {
 function BurgerInnerConstructor({ ingredientList }) {
     const dispatch = useDispatch()
 
-    console.log(ingredientList);
-
     return ingredientList && ingredientList.length !== 0 ? (
         <ul className={`${styles.ingredient_list} custom-scroll`}>
             {ingredientList?.map(ingredient => {

@@ -1,10 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { openModal } from '../../../../../store/modalSlice'
-import { setOrderNumber } from '../../../../../store/orderDetailSlice'
+import { sendIngredientsId } from '../../../../../store/orderDetailSlice'
 
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../../../../common/modal/order-details/OrderDetails'
-import { fetchOrder } from '../../../../../utils/burger-api'
 
 import styles from '../BurgerConstructor.module.css'
 
@@ -21,8 +20,7 @@ function OrderBlock() {
 
         if (isAvailableToOrder) {
             dispatch(openModal(<OrderDetails />))
-            dispatch(setOrderNumber('123456'))
-            // fetchOrder(constructorList.map(ing => ing._id))
+            dispatch(sendIngredientsId([...constructorList.map(ing => ing._id), constructorBun._id]))
         } else if (!isBun && isMain) {
             alert("You can't eat burger without buns. Peak a bun)")
         } else if (!isMain && isBun) {

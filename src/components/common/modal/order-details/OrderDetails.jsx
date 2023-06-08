@@ -1,20 +1,21 @@
 import { useSelector } from 'react-redux'
+import Loader from '../../loader/Loader'
 import doneImage from '../../../../images/order_done.png'
 
 function OrderDetails() {
-    const orderNumber = useSelector(store => store.orderDetails.orderNumber)
+    const order = useSelector(store => store.orderDetails)
 
-    return (
+    return !order.isLoading && !order.rejected ? (
         <>
             <p className='text text_type_digits-large mb-8 mt-15' style={mainDigitStyles}>
-                {orderNumber}
+                {order.orderNumber}
             </p>
             <h2 className='text text_type_main-medium mt-4'>Идентификатор заказа</h2>
             <img src={doneImage} alt="Done" className='mt-15 mb-15' style={doneIconStyles} />
             <p className='text text_type_main-default mb-2'>Ваш заказ начали готовить</p>
             <p className='text text_type_main-default text_color_inactive mb-15'>Дождитесь готовности на орбитальной станции</p>
         </>
-    )
+    ) : <Loader />
 }
 
 const mainDigitStyles = {

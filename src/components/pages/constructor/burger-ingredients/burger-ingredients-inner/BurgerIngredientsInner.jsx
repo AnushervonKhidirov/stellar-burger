@@ -31,7 +31,7 @@ function BurgerIngredientsInner() {
 
     return (
         <div className={`${styles.ingredients_inner} custom-scroll`} ref={scrollRef} onScroll={showScrollPosition}>
-            {ingredientList.leaded && !ingredientList.rejected ? separatedList.map((item, index) => (
+            {!ingredientList.isLoading && !ingredientList.rejected ? separatedList.map((item, index) => (
                 <IngredientsTypeList
                     type={item.type}
                     parentTop={scrollRef.current?.getBoundingClientRect().top}
@@ -88,7 +88,7 @@ function BurgerElement({ data }) {
     // dispatch(addIngredientToConstructor(data))
 
     return (
-        <li className={styles.list_item} onClick={() => showIngredientProperty(data)}>
+        <li className={styles.list_item} onClick={() => dispatch(addIngredientToConstructor(data))}>
             <img className={styles.image} src={image} alt={name} />
             <div className={`${styles.price} text text_type_digits-default`}>
                 <span>{price}</span>
