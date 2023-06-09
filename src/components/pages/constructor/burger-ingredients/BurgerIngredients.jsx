@@ -18,11 +18,11 @@ function BurgerIngredients() {
         if (isAutoScroll) return
 
         for (const key in ingredientsTypePosition) {
-            if (
-                scrollPosition >= ingredientsTypePosition[key].top &&
-                scrollPosition < ingredientsTypePosition[key].bottom
-            ) {
+            const middleOfType = Math.round((ingredientsTypePosition[key].top + ingredientsTypePosition[key].bottom) / 2)
+
+            if ((scrollPosition <= middleOfType) && !(scrollPosition > middleOfType)) {
                 dispatch(setCurrentTab(key))
+                break
             }
         }
     }, [dispatch, isAutoScroll, scrollPosition, ingredientsTypePosition])

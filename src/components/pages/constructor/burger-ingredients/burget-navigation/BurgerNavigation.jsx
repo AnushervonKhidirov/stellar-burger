@@ -5,7 +5,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function BurgerNavigation() {
     const dispatch = useDispatch()
-    const currentTabR = useSelector(store => store.ingredientTab.currentTab)
+    const currentTab = useSelector(store => store.ingredientTab.currentTab)
 
     const tabs = [
         {
@@ -30,7 +30,7 @@ function BurgerNavigation() {
     return (
         <nav style={{ display: 'flex' }} className='mt-5'>
             {tabs.map(tab => (
-                <Tab value={tab.value} active={currentTabR === tab.value} onClick={tabHandler} key={tab.value}>
+                <Tab value={tab.value} active={currentTab === tab.value} onClick={tabHandler} key={tab.value}>
                     {tab.title}
                 </Tab>
             ))}
