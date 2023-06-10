@@ -11,12 +11,13 @@ import { ingredientDataTypes } from '../../../../../utils/types'
 import IngredientDetails from '../../../../common/modal/ingredient-details/IngredientDetails'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Loader from '../../../../common/loader/Loader'
+import Rejected from '../../../../common/rejected/Rejected'
 import styles from '../BurgerIngredients.module.css'
 
 function BurgerIngredientsInner() {
-    const dispatch = useDispatch()    
+    const dispatch = useDispatch()
     const { isAutoScroll, ingredientsTypePosition, currentTab } = useSelector(store => store.ingredientTab)
-    
+
     const ingredientList = useSelector(store => store.ingredientList)
 
     const separatedList = separateByTypes(ingredientList.ingredients)
@@ -32,14 +33,20 @@ function BurgerIngredientsInner() {
 
     return (
         <div className={`${styles.ingredients_inner} custom-scroll`} ref={scrollRef} onScroll={scrollHandler}>
-            {!ingredientList.isLoading && !ingredientList.rejected ? separatedList.map(item => (
-                <IngredientsTypeList
-                    type={item.type}
-                    parentTopPosition={scrollRef.current?.getBoundingClientRect().top}
-                    list={item.list}
-                    key={item.type}
-                />
-            )) : <Loader />}
+            {ingredientList.isLoading ? (
+                <Loader />
+            ) : ingredientList.rejected ? (
+                <Rejected />
+            ) : (
+                separatedList.map(item => (
+                    <IngredientsTypeList
+                        type={item.type}
+                        parentTopPosition={scrollRef.current?.getBoundingClientRect().top}
+                        list={item.list}
+                        key={item.type}
+                    />
+                ))
+            )}
         </div>
     )
 }
@@ -87,11 +94,11 @@ function BurgerElement({ data }) {
     function showIngredientProperty(data) {
         dispatch(setDetail(data))
         dispatch(openModal(<IngredientDetails />))
-
-        // Drag'n'Drop (will replace to another event)
         dispatch(addIngredientToConstructor(data))
     }
 
+    // Drag'n'Drop
+    // dispatch(addIngredientToConstructor(data))
 
     return (
         <li className={styles.list_item} onClick={() => showIngredientProperty(data)}>

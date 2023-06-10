@@ -1,9 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchOrder } from '../utils/burger-api'
 
-export const sendIngredientsId = createAsyncThunk('orderDetail/sendIngredientsId', async (data) => {
-    return fetchOrder(data)
-})
+export const sendIngredientsId = createAsyncThunk(
+    'orderDetail/sendIngredientsId',
+    async (data, { rejectWithValue }) => {
+        return fetchOrder(data, rejectWithValue)
+    }
+)
 
 export const orderDetailSlice = createSlice({
     name: 'orderDetail',
@@ -28,7 +31,7 @@ export const orderDetailSlice = createSlice({
             state.isLoading = false
             state.rejected = true
         })
-    }
+    },
 })
 
 export default orderDetailSlice.reducer

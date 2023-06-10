@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setAutoScroll, setCurrentTab } from '../../../../store/ingredientTabSlice'
 
 import { useEffect } from 'react'
-import BurgerNavigation from './burget-navigation/BurgerNavigation'
+import BurgerNavigation from './burger-navigation/BurgerNavigation'
 import BurgerIngredientsInner from './burger-ingredients-inner/BurgerIngredientsInner'
 
 import styles from './BurgerIngredients.module.css'
