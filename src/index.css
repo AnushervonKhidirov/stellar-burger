@@ -24,3 +24,7 @@ main {
     grid-template-columns: repeat(3, 1fr);
     margin: auto;
 }
+
+.constructor-element {
+    flex-grow: initial !important;
+}

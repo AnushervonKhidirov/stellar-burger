@@ -16,6 +16,7 @@
 .ingredient_list {
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: 16px;
     list-style-type: none;
     margin: 0 -20px 0 0;

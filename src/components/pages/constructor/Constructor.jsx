@@ -2,6 +2,9 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { loadIngredient } from '../../../store/ingredientListSlice'
 
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 import BurgerConstructor from './burger-constructor/BurgerConstructor'
 import BurgerIngredients from './burger-ingredients/BurgerIngredients'
 
@@ -14,8 +17,10 @@ function Constructor() {
 
     return (
         <div style={styles}>
-            <BurgerIngredients />
-            <BurgerConstructor />
+            <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+            </DndProvider>
         </div>
     )
 }

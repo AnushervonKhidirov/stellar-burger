@@ -44,9 +44,20 @@ export const constructorIngredientListSlice = createSlice({
             state.totalPrice = state.ingredients.reduce((acc, item) => acc + item.price, 0) + (state.bun.price ? state.bun.price * 2 : 0)
 
             state.amounts[action.payload._id] = decreaseAmount(state.amounts[action.payload._id])
+        },
+        changeIngredientOrder: (state, action) => {
+            const ingredientList = action.payload.allIngredients
+            let currentIndex = ingredientList.findIndex(item => item._id === action.payload.id && item.key === action.payload.key)
+            let nextIndex = currentIndex + action.payload.side
+
+            if (nextIndex < 0 || nextIndex > ingredientList.length - 1) return
+
+            state.ingredients = ingredientList.map((ing, index) => (
+                index === currentIndex ? ingredientList[nextIndex] : index === nextIndex ? ingredientList[currentIndex] : ing
+            ))
         }
     },
 })
 
-export const { addIngredientToConstructor, removeIngredientFromConstructor } = constructorIngredientListSlice.actions
+export const { addIngredientToConstructor, removeIngredientFromConstructor, changeIngredientOrder } = constructorIngredientListSlice.actions
 export default constructorIngredientListSlice.reducer
