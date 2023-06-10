@@ -1,5 +1,9 @@
-export default function ModalOverlay({ modalHandler }) {
-    return <div style={styles} onClick={modalHandler}></div>
+import { useDispatch } from 'react-redux'
+import { closeModal } from '../../../store/modalSlice'
+
+export default function ModalOverlay() {
+    const dispatch = useDispatch()
+    return <div style={styles} onClick={() => dispatch(closeModal())}></div>
 }
 
 const styles = {

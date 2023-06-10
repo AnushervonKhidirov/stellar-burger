@@ -1,71 +1,55 @@
 import { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import ModalOverlay from '../modal-overlay/ModalOverlay'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { closeModal } from '../../../store/modalSlice'
+
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import ModalOverlay from '../modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'
 
-function Modal(props) {
-    function closeModal(e) {
-        if (e.key === 'Escape') props.modalHandler()
-    }
-    
+function Modal() {
+    const isOpened = useSelector(store => store.modal.isOpen)
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        document.addEventListener('keydown', closeModal)
+        function modalCloseHandler(e) {
+            if (e.key === 'Escape') dispatch(closeModal())
+        }
+
+        document.addEventListener('keydown', modalCloseHandler)
 
         return () => {
-            document.removeEventListener('keydown', closeModal)
+            document.removeEventListener('keydown', modalCloseHandler)
         }
-    }, [])
+    }, [dispatch])
 
-    return (
+    return isOpened && (
         <div className={styles.modal}>
-            <ModalOverlay modalHandler={props.modalHandler} />
-            <ModalContainer children={props.children} modalHandler={props.modalHandler} />
+            <ModalOverlay />
+            <ModalContainer />
         </div>
     )
 }
 
-function ModalContainer({ children, modalHandler }) {
+function ModalContainer() {
+    const children = useSelector(store => store.modal.modalChildren)
+
     return (
         <div className={styles.modal_container}>
-            <CloseButton modalHandler={modalHandler} />
+            <CloseButton />
             <div className={styles.modal_container_inner}>{children}</div>
         </div>
     )
 }
 
-function CloseButton({ modalHandler }) {
+function CloseButton() {
+    const dispatch = useDispatch()
+
     return (
         <div className={styles.close_button}>
-            <CloseIcon type='primary' onClick={() => modalHandler()} />
+            <CloseIcon type='primary' onClick={() => dispatch(closeModal())} />
         </div>
     )
 }
-
-Modal.propTypes = {
-    modalHandler: PropTypes.func.isRequired,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ])
-}
-
-ModalContainer.propTypes = {
-    modalHandler: PropTypes.func.isRequired,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ])
-}
-
-ModalOverlay.propTypes = {
-    modalHandler: PropTypes.func.isRequired,
-}
-
-CloseButton.propTypes = {
-    modalHandler: PropTypes.func.isRequired,
-}
-
-
 
 export default Modal

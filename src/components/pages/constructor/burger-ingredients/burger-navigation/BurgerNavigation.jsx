@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setCurrentTab, setAutoScroll } from '../../../../../store/ingredientTabSlice'
+
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function BurgerNavigation() {
-    const [current, setCurrent] = useState('bun')
+    const dispatch = useDispatch()
+    const currentTab = useSelector(store => store.ingredientTab.currentTab)
+
     const tabs = [
         {
             value: 'bun',
@@ -18,10 +22,15 @@ function BurgerNavigation() {
         },
     ]
 
+    function tabHandler(value) {
+        dispatch(setCurrentTab(value))
+        dispatch(setAutoScroll(true))
+    }
+
     return (
         <nav style={{ display: 'flex' }} className='mt-5'>
             {tabs.map(tab => (
-                <Tab value={tab.value} active={current === tab.value} onClick={setCurrent} key={tab.value}>
+                <Tab value={tab.value} active={currentTab === tab.value} onClick={tabHandler} key={tab.value}>
                     {tab.title}
                 </Tab>
             ))}

@@ -1,33 +1,26 @@
-import { useEffect, useState } from 'react'
-import { getIngredients } from '../../../utils/burger-api'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { loadIngredient } from '../../../store/ingredientListSlice'
+
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 import BurgerConstructor from './burger-constructor/BurgerConstructor'
 import BurgerIngredients from './burger-ingredients/BurgerIngredients'
 
-function Constructor({ modalHandler }) {
-    const [burgerListData, setBurgerListData] = useState([])
-    const [totalPrice, setTotalPrice] = useState(0)
+function Constructor() {
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        getIngredients().then(data => setBurgerListData(data))
-    }, [])
+        dispatch(loadIngredient())
+    }, [dispatch])
 
-    useEffect(() => {
-        setTotalPrice(
-            burgerListData.reduce((prevProd, prod) => {
-                return prevProd + prod.price
-            }, 0)
-        )
-    }, [burgerListData])
-
-    return burgerListData.length && (
+    return (
         <div style={styles}>
-            <BurgerIngredients data={burgerListData} modalHandler={modalHandler} />
-            <BurgerConstructor
-                burgerListData={burgerListData}
-                setBurgerListData={setBurgerListData}
-                totalPrice={totalPrice}
-                modalHandler={modalHandler}
-            />
+            <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+            </DndProvider>
         </div>
     )
 }

@@ -14,10 +14,13 @@
 }
 
 .ingredients_inner {
+    position: relative;
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 .list_item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
