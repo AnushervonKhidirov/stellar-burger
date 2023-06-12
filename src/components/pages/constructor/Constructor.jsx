@@ -5,8 +5,8 @@ import { loadIngredient } from '../../../store/ingredientListSlice'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
-import BurgerConstructor from './burger-constructor/BurgerConstructor'
-import BurgerIngredients from './burger-ingredients/BurgerIngredients'
+import BurgerIngredients from '../../constructor-page-components/burger-ingredients/BurgerIngredients'
+import BurgerConstructor from '../../constructor-page-components/burger-constructor/BurgerConstructor'
 
 function Constructor() {
     const dispatch = useDispatch()

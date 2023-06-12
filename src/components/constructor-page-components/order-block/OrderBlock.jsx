@@ -1,16 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { openModal } from '../../../../../store/modalSlice'
-import { sendIngredientsId } from '../../../../../store/orderDetailSlice'
+import { openModal } from '../../../store/modalSlice'
+import { sendIngredientsId } from '../../../store/orderDetailSlice'
 
-import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import OrderDetails from '../../../../common/modal/order-details/OrderDetails'
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import OrderDetails from '../../common/modal/order-details/OrderDetails'
 
-import styles from '../BurgerConstructor.module.css'
+import TotalPrice from '../../common/total-price/TotalPrice'
 
-function OrderBlock() {
+export default function OrderBlock() {
+    const dispatch = useDispatch()
     const constructorBun = useSelector(store => store.constructorIngredientList.bun)
     const constructorList = useSelector(store => store.constructorIngredientList.ingredients)
-    const dispatch = useDispatch()
+    const totalPrice = useSelector(store => store.constructorIngredientList.totalPrice)
 
     function getOrder() {
         const isBun = constructorBun._id
@@ -20,7 +21,9 @@ function OrderBlock() {
 
         if (isAvailableToOrder) {
             dispatch(openModal(<OrderDetails />))
-            dispatch(sendIngredientsId([...constructorList.map(ing => ing._id), constructorBun._id]))
+            dispatch(
+                sendIngredientsId([...constructorList.map(ing => ing._id), constructorBun._id])
+            )
         } else if (!isBun && isMain) {
             alert("You can't eat burger without buns. Peak a bun)")
         } else if (!isMain && isBun) {
@@ -33,8 +36,8 @@ function OrderBlock() {
     }
 
     return (
-        <div className={styles.order_block}>
-            <TotalPrice />
+        <div style={orderBlockStyle}>
+            <TotalPrice price={totalPrice} />
             <Button htmlType='button' type='primary' size='large' onClick={() => getOrder()}>
                 Оформить заказ
             </Button>
@@ -42,15 +45,12 @@ function OrderBlock() {
     )
 }
 
-function TotalPrice() {
-    const totalPrice = useSelector(store => store.constructorIngredientList.totalPrice)
-
-    return (
-        <div className={styles.total_price}>
-            <span className='text text_type_digits-medium'>{totalPrice}</span>
-            <CurrencyIcon type='primary' />
-        </div>
-    )
+const orderBlockStyle = {
+    position: 'absolute',
+    bottom: '50px',
+    right: '16px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: '40px',
 }
-
-export default OrderBlock

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import styles from './AppHeader.module.css'
+import styles from './Header.module.css'
 
-function AppHeader() {
+function Header() {
     return (
         <header>
             <div className='header_inner'>
@@ -37,4 +37,4 @@ HeaderButton.propTypes = {
     icon: PropTypes.element,
 }
 
-export default AppHeader
+export default Header
