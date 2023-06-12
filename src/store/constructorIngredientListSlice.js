@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { v4 as uuidv4 } from 'uuid';
 
 function increaseAmount(amount) {
     return Number.isInteger(amount) ? amount + 1 : 1
@@ -14,7 +15,6 @@ export const constructorIngredientListSlice = createSlice({
         bun: {},
         ingredients: [],
         totalPrice: 0,
-        key: 0,
         amounts: {}
     },
     reducers: {
@@ -29,20 +29,18 @@ export const constructorIngredientListSlice = createSlice({
                     ingredient => !(ingredient.type === 'bun' && action.payload.type === 'bun')
                 )
             } else {
-                state.ingredients.push({ ...action.payload, key: state.key })
+                state.ingredients.push({ ...action.payload, key: uuidv4() })
             }
 
             state.totalPrice = state.ingredients.reduce((acc, item) => acc + item.price, 0) + (state.bun.price ? state.bun.price * 2 : 0)
-
             state.amounts[action.payload._id] = increaseAmount(state.amounts[action.payload._id])
-            state.key++
         },
         removeIngredientFromConstructor: (state, action) => {
             state.ingredients = state.ingredients.filter(
                 ingredient => !(ingredient._id === action.payload._id && ingredient.key === action.payload.key)
             )
+            
             state.totalPrice = state.ingredients.reduce((acc, item) => acc + item.price, 0) + (state.bun.price ? state.bun.price * 2 : 0)
-
             state.amounts[action.payload._id] = decreaseAmount(state.amounts[action.payload._id])
         },
         changeIngredientOrder: (state, action) => {
