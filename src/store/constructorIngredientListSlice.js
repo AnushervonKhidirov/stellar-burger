@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { sendIngredientsId } from './orderDetailSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 function increaseAmount(amount) {
@@ -10,7 +11,7 @@ function decreaseAmount(amount) {
 }
 
 export const constructorIngredientListSlice = createSlice({
-    name: 'ingredientList',
+    name: 'constructorIngredientList',
     initialState: {
         bun: {},
         ingredients: [],
@@ -55,6 +56,14 @@ export const constructorIngredientListSlice = createSlice({
             ))
         }
     },
+    extraReducers: builder => {
+        builder.addCase(sendIngredientsId.fulfilled, state => {
+            state.bun = {}
+            state.ingredients = []
+            state.totalPrice = 0
+            state.amounts = {}
+        })
+    }
 })
 
 export const { addIngredientToConstructor, removeIngredientFromConstructor, changeIngredientOrder } = constructorIngredientListSlice.actions

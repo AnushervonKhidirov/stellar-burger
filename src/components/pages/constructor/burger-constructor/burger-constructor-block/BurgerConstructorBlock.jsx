@@ -93,7 +93,7 @@ function BurgerInnerConstructor({ ingredientList }) {
             ))}
         </ul>
     ) : (
-        <div className={`constructor-element ${styles.ingredient_list} ${styles.constructor_element}`}>
+        <div className={`constructor-element ${styles.ingredient_list} ${styles.constructor_element} ${styles.empty_constructor}`}>
             Выберите начинку
         </div>
     )

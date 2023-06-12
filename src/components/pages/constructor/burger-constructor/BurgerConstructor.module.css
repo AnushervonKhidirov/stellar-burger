@@ -2,6 +2,11 @@
     position: relative;
 }
 
+.empty_constructor {
+    flex-grow: 1 !important;
+    margin: 0 !important;
+}
+
 .ingredients_block {
     position: absolute;
     top: 100px;
