@@ -1,11 +1,10 @@
 const API_URL = 'https://norma.nomoreparties.space/api'
 
+const checkResponse = res => (res.ok ? res.json() : res.json().then(err => Promise.reject(err)))
+
 export function fetchIngredients(rejectWithValue) {
     return fetch(`${API_URL}/ingredients`)
-        .then(res => {
-            if (res.ok) return res.json()
-            else throw new Error()
-        })
+        .then(res => checkResponse(res))
         .then(result => result.data)
         .catch(() => rejectWithValue())
 }
@@ -17,13 +16,9 @@ export function fetchOrder(ingredientsID, rejectWithValue) {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
-            "Content-Type": "application/json",
-        }
+            'Content-Type': 'application/json',
+        },
     })
-        .then(res => {
-            if (res.ok) return res.json()
-            else throw new Error()
-        })
-        .then(result => result)
+        .then(res => checkResponse(res))
         .catch(() => rejectWithValue())
 }
