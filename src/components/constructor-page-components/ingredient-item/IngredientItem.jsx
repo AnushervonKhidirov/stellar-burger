@@ -1,4 +1,4 @@
-import { ingredientDataTypes } from '../../../utils/types'
+import { ingredientDataType } from '../../../utils/types'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setDetail } from '../../../store/ingredientDetailSlice'
@@ -42,5 +42,5 @@ export default function IngredientItem({ data }) {
 }
 
 IngredientItem.propTypes = {
-    data: ingredientDataTypes,
+    data: ingredientDataType,
 }

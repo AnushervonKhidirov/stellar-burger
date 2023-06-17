@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loadIngredient } from './store/ingredientListSlice'
 
 import Header from './components/common/header/Header'
-import Constructor from './pages/constructor/Constructor'
 import Modal from './components/common/modal/Modal'
+
+import { Constructor, Login, Register, ForgotPassword, ResetPassword, ErrorPage } from './pages'
 
 function App() {
     const dispatch = useDispatch()
@@ -15,13 +17,21 @@ function App() {
 
     return (
         <>
-            <Header />
+            <Router>
+                <Header />
+                <main>
+                    <Routes>
+                        <Route path='/' element={<Constructor />} />
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/register' element={<Register />} />
+                        <Route path='/forgot-password' element={<ForgotPassword />} />
+                        <Route path='/reset-password' element={<ResetPassword />} />
+                        <Route path='*' element={<ErrorPage />} />
+                    </Routes>
+                </main>
 
-            <main>
-                <Constructor />
-            </main>
-
-            <Modal />
+                <Modal />
+            </Router>
         </>
     )
 }

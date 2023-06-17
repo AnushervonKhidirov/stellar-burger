@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-export const ingredientDataTypes = PropTypes.shape({
+const ingredientDataType = PropTypes.shape({
     _id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -14,7 +14,17 @@ export const ingredientDataTypes = PropTypes.shape({
     image_mobile: PropTypes.string.isRequired,
 }).isRequired
 
-export const burgerIngredientsPropTypes = PropTypes.shape({
-    data: PropTypes.arrayOf(ingredientDataTypes).isRequired,
-    modalHandler: PropTypes.func.isRequired,
+const footerFormItemType = PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    link: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        href: PropTypes.string.isRequired,
+    }).isRequired,
 }).isRequired
+
+const formInputType = PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+}).isRequired
+
+export { ingredientDataType, footerFormItemType, formInputType }

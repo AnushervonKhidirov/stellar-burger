@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { ingredientDataTypes } from '../../../utils/types'
+import { ingredientDataType } from '../../../utils/types'
 
 import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
@@ -43,7 +43,7 @@ export default function IngredientTypeList({ type, list, parentTopPosition = 0 }
 
 IngredientTypeList.propTypes = {
     type: PropTypes.string.isRequired,
-    list: PropTypes.arrayOf(ingredientDataTypes).isRequired,
+    list: PropTypes.arrayOf(ingredientDataType).isRequired,
     parentTopPosition: PropTypes.number,
 }
 

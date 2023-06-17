@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { ingredientDataTypes } from '../../../utils/types'
+import { ingredientDataType } from '../../../utils/types'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { changeIngredientOrder } from '../../../store/constructorIngredientListSlice'
@@ -64,5 +64,5 @@ export default function BurgerConstructorIngredients() {
 }
 
 BurgerConstructorIngredients.propTypes = {
-    ingredientList: PropTypes.arrayOf(ingredientDataTypes).isRequired,
+    ingredientList: PropTypes.arrayOf(ingredientDataType).isRequired,
 }

@@ -11,6 +11,7 @@ header {
     gap: 8px;
     background-color: transparent;
     color: var(--text-inactive-color);
+    text-decoration: none;
     border: none;
     border-radius: 0;
     cursor: pointer;

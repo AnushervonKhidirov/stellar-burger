@@ -1,4 +1,4 @@
-import { ingredientDataTypes } from '../../../utils/types'
+import { ingredientDataType } from '../../../utils/types'
 
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
@@ -35,7 +35,7 @@ export default function BurgerConstructorIngredientItem({ ingredient }) {
 }
 
 BurgerConstructorIngredientItem.propTypes = {
-    ingredient: ingredientDataTypes,
+    ingredient: ingredientDataType,
 }
 
 const ingredientItemStyle = {
