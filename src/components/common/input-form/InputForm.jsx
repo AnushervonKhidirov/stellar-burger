@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 
 
-function PasswordInput({ value, onChange }) {
+function PasswordInput({ name, value, onChange }) {
     const [show, setShow] = useState(false)
 
     function handlePasswordInput() {
@@ -13,6 +13,7 @@ function PasswordInput({ value, onChange }) {
 
     return (
         <Input
+            name={name}
             type={show ? 'text' : 'password'}
             value={value}
             placeholder='password'
@@ -23,13 +24,14 @@ function PasswordInput({ value, onChange }) {
     )
 }
 
-export default function InputForm({ type, placeholder }) {
+export default function InputForm({ name, type, placeholder }) {
     const [value, setValue] = useState('')
 
     return type === 'password' ? (
-        <PasswordInput value={value} onChange={e => setValue(e.target.value)} />
+        <PasswordInput name={name} value={value} onChange={e => setValue(e.target.value)} />
     ) : (
         <Input
+            name={name}
             type={type}
             placeholder={placeholder}
             value={value}
@@ -42,5 +44,6 @@ InputForm.propTypes = formInputType
 
 PasswordInput.propTypes = PropTypes.shape({
     value: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
 }).isRequired

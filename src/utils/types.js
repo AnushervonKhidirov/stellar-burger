@@ -23,7 +23,8 @@ const footerFormItemType = PropTypes.shape({
 }).isRequired
 
 const formInputType = PropTypes.shape({
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['text', 'email', 'password']).isRequired,
+    name: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
 }).isRequired
 

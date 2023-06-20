@@ -15,10 +15,9 @@ function Header() {
             <div className='header_inner'>
                 <div className={styles.header_side_left}>
                     <HeaderNavLink link='/' title='Конструктор' Icon={BurgerIcon} />
-                    <HeaderNavLink link='/order-list' title='Лента заказов' Icon={ListIcon} />
+                    <HeaderNavLink link='/feed' title='Лента заказов' Icon={ListIcon} />
                 </div>
                 <div className={styles.header_side_center}>
-                    primary
                     <Logo />
                 </div>
                 <div className={styles.header_side_right}>
@@ -54,7 +53,7 @@ function HeaderNavLink({ link, title, Icon }) {
 HeaderNavLink.propTypes = {
     link: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    Icon: PropTypes.func.isRequired,
+    Icon: PropTypes.elementType.isRequired,
 }
 
 export default Header

@@ -1,0 +1,16 @@
+.profile_navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile_navigation_link {
+    color: var(--text-inactive-color);
+    text-decoration: none;
+    padding: 0.5em 0;
+}
+
+.profile_navigation_link_active {
+    composes: profile_navigation_link;
+    color: var(--text-primary-color);
+}

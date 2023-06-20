@@ -5,10 +5,12 @@ export default function ForgotPassword() {
     const inputs = [
         {
             type: 'password',
+            name: 'password',
             placeholder: 'Введите новый пароль',
         },
         {
             type: 'text',
+            name: 'sms',
             placeholder: 'Введите код из письма',
         },
     ]

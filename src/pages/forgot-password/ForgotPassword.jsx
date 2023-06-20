@@ -5,6 +5,7 @@ export default function ResetPassword() {
     const inputs = [
         {
             type: 'email',
+            name: 'email',
             placeholder: 'E-mail',
         },
     ]

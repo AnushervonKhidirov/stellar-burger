@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { formInputType } from '../../../utils/types'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -5,19 +6,32 @@ import InputForm from '../input-form/InputForm'
 
 import styles from './Form.module.css'
 
-export default function Form({ headline, inputs, buttonText }) {
+export default function Form({ headline, inputs, buttonText, onSubmit }) {
+    const dispatch = useDispatch()
     const isAllProps = headline && inputs && buttonText
 
+    function submitForm(e) {
+        e.preventDefault()
+
+        const dataToSend = {}
+
+        new FormData(e.target).forEach((value, property) => {
+            dataToSend[property] = value
+        })
+
+        dispatch(onSubmit(dataToSend))
+    }
+
     return isAllProps && (
-        <div className={styles.form}>
+        <form className={styles.form} onSubmit={submitForm}>
             <div className='text text_type_main-medium'>{headline}</div>
             {inputs.map(input => (
-                <InputForm type={input.type} placeholder={input.placeholder} key={input.type} />
+                <InputForm name={input.name} type={input.type} placeholder={input.placeholder} key={input.type} />
             ))}
-            <Button htmlType='button' type='primary' size='medium'>
+            <Button htmlType='submit' type='primary' size='medium'>
                 {buttonText}
             </Button>
-        </div>
+        </form>
     )
 }
 

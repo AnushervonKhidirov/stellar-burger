@@ -9,12 +9,8 @@ header {
     grid-template-columns: min-content 1fr;
     align-items: center;
     gap: 8px;
-    background-color: transparent;
     color: var(--text-inactive-color);
     text-decoration: none;
-    border: none;
-    border-radius: 0;
-    cursor: pointer;
 }
 
 .header_button_active {
