@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useSelector, useDispatch } from 'react-redux'
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 export default function ProfileForm() {
+    const dispatch = useDispatch()
     const userData = useSelector(store => store.profile.useData)
 
     const userInfo = [
@@ -19,13 +20,25 @@ export default function ProfileForm() {
         },
         {
             title: 'Пароль',
-            value: userData?.password ? userData.password : '',
+            value: '',
             type: 'password',
         },
     ]
 
+    function submitForm(e) {
+        e.preventDefault()
+
+        const dataToSend = {}
+
+        new FormData(e.target).forEach((value, property) => {
+            dataToSend[property] = value
+        })
+
+        // dispatch(onSubmit(dataToSend))
+    }
+
     return userData && (
-        <form style={profileFormStyles} className='mt-20'>
+        <form style={profileFormStyles} className='mt-20' onSubmit={submitForm}>
             {userInfo?.map(info => (
                 <ProfileInput
                     type={info.type}
@@ -34,6 +47,15 @@ export default function ProfileForm() {
                     key={info.type}
                 />
             ))}
+
+            <div style={profileFormControlsStyles}>
+                <Button htmlType="button" type="secondary" size="medium">
+                    Отмена
+                </Button>
+                <Button htmlType="button" type="primary" size="medium">
+                    Сохранить
+                </Button>
+            </div>
         </form>
     )
 }
@@ -67,6 +89,12 @@ const profileFormStyles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '24px',
+    width: '480px'
+}
+
+const profileFormControlsStyles = {
+    display: 'flex',
+    justifyContent: 'flex-end'
 }
 
 ProfileInput.propTypes = PropTypes.shape({

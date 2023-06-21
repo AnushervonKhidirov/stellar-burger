@@ -2,100 +2,150 @@ const API_URL = 'https://norma.nomoreparties.space/api'
 
 const checkResponse = res => (res.ok ? res.json() : res.json().then(err => Promise.reject(err)))
 
-function fetchIngredients(rejectWithValue) {
-    return fetch(`${API_URL}/ingredients`)
-        .then(res => checkResponse(res))
-        .then(result => result.data)
-        .catch(() => rejectWithValue())
+const setToken = result => {
+    localStorage.setItem('accessToken', result.accessToken.replace('Bearer ', ''))
+    localStorage.setItem('refreshToken', result.refreshToken)
 }
 
-function fetchOrder(ingredientsID, rejectWithValue) {
-    return fetch(`${API_URL}/orders`, {
+async function fetchIngredients() {
+    const res = await fetch(`${API_URL}/ingredients`)
+    const result = await checkResponse(res)
+    return result.data
+}
+
+async function fetchOrder(ingredientsID) {
+    const res = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         body: JSON.stringify({ ingredients: ingredientsID }),
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=utf-8',
         },
     })
-        .then(res => checkResponse(res))
-        .catch(() => rejectWithValue())
+
+    return await checkResponse(res)
 }
 
-function register(data, rejectWithValue) {
-    return fetch(`${API_URL}/auth/register`, {
+async function register(data) {
+    const res = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=utf-8',
         },
     })
-        .then(res => checkResponse(res))
-        .catch(() => rejectWithValue())
+
+    const result = await checkResponse(res)
+    if (result.success) setToken(result)
+
+    return result
 }
 
-function logIn(data, rejectWithValue) {
-    return fetch(`${API_URL}/auth/login`, {
+async function logIn(data) {
+    const res = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=utf-8',
         },
     })
-        .then(res => checkResponse(res))
-        .catch(() => rejectWithValue())
+
+    const result = await checkResponse(res)
+    if (result.success) setToken(result)
+
+    return result
 }
 
-function logOut(rejectWithValue) {
-    const rToken = localStorage.getItem('refreshToken')
-
-    return fetch(`${API_URL}/auth/logout`, {
+async function logOut() {
+    const res = await fetch(`${API_URL}/auth/logout`, {
         method: 'POST',
-        body: JSON.stringify({ token: rToken }),
+        body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;charset=utf-8',
         },
     })
-        .then(res => checkResponse(res))
-        .catch(() => rejectWithValue())
+
+    const result = await checkResponse(res)
+    if (result.success) localStorage.clear()
+
+    return result
 }
 
-function updateToken(rejectWithValue) {
-    const rToken = localStorage.getItem('refreshToken')
-
-    return fetch(`${API_URL}/auth/token`, {
-        method: 'POST',
-        body: JSON.stringify({ token: rToken }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-        .then(res => checkResponse(res))
-        .catch(() => rejectWithValue())
-}
-
-function getUserData(rejectWithValue) {
-    return fetch(`${API_URL}/auth/user`, {
+async function getUserData() {
+    return fetchWithRefresh(`${API_URL}/auth/user`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
     })
-        .then(res => checkResponse(res))
-        .catch(() => rejectWithValue())
 }
 
-function updateUserData(data, rejectWithValue) {
-    return fetch(`${API_URL}/auth/user`, {
+async function updateUserData(data) {
+    return fetchWithRefresh(`${API_URL}/auth/user`, {
         method: 'PATCH',
         body: JSON.stringify(data),
         headers: {
-            'Content-Type': 'application/json',
-            'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+            'Content-Type': 'application/json;charset=utf-8',
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
     })
-        .then(res => checkResponse(res))
-        .catch(() => rejectWithValue())
+}
+
+async function forgetPassword(data) {
+    const res = await fetchWithRefresh(`${API_URL}/password-reset`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        },
+    })
+
+    return await checkResponse(res)
+}
+
+async function resetPassword(data) {
+    const res = await fetchWithRefresh(`${API_URL}/password-reset/reset`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        },
+    })
+
+    return await checkResponse(res)
+}
+
+async function updateToken() {
+    const res = await fetch(`${API_URL}/auth/token`, {
+        method: 'POST',
+        body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+        },
+    })
+
+    return await checkResponse(res)
+}
+
+async function fetchWithRefresh(url, options) {
+        try {
+        const res = await fetch(url, options)
+        return await checkResponse(res)
+    } catch (err) {
+        if (err.message === 'jwt expired') {
+            const refreshData = await updateToken()
+
+            if (!refreshData.success) return Promise.reject(refreshData)
+            setToken(refreshData)
+
+            options.headers.authorization = refreshData.accessToken
+
+            const res = await fetch(url, options)
+            return await checkResponse(res)
+        } else {
+            return Promise.reject(err)
+        }
+    }
 }
 
 export {
@@ -104,7 +154,9 @@ export {
     register,
     logIn,
     logOut,
-    updateToken,
     getUserData,
     updateUserData,
+    forgetPassword,
+    resetPassword,
+    fetchWithRefresh,
 }

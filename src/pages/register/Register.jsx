@@ -1,6 +1,6 @@
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
-import { registerUser } from '../../store/profileSlice'
+import { registerUser } from '../../store/authSlice'
 
 export default function Register() {
     const inputs = [
@@ -33,7 +33,7 @@ export default function Register() {
 
     return (
         <>
-            <Form headline='Регистрация' inputs={inputs} buttonText='Зарегистрироваться' onSubmit={registerUser} />
+            <Form headline='Регистрация' inputs={inputs} buttonText='Зарегистрироваться' submitFunc={registerUser} />
             <FormFooter data={footerData} />
         </>
     )

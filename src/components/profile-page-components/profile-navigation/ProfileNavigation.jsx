@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
-import { logoutUser } from '../../../store/profileSlice'
+import { logOut } from '../../../utils/burger-api'
 import { NavLink, useLocation } from 'react-router-dom'
 import styles from './ProfileNavigation.module.css'
 
@@ -37,13 +36,11 @@ export default function ProfileNavigation({ navigationData }) {
 }
 
 function LogOutButton() {
-    const dispatch = useDispatch()
-
     return (
         <div
-            className='text text_type_main-medium text_color_inactive'
+            className={`${styles.profile_navigation_link} text text_type_main-medium text_color_inactive`}
             style={{ cursor: 'pointer' }}
-            onClick={() => dispatch(logoutUser())}
+            onClick={logOut}
         >
             Выход
         </div>

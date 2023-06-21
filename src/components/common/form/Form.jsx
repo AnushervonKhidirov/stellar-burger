@@ -1,12 +1,12 @@
-import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 import { formInputType } from '../../../utils/types'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import InputForm from '../input-form/InputForm'
 
 import styles from './Form.module.css'
 
-export default function Form({ headline, inputs, buttonText, onSubmit }) {
+export default function Form({ headline, inputs, buttonText, submitFunc }) {
     const dispatch = useDispatch()
     const isAllProps = headline && inputs && buttonText
 
@@ -19,7 +19,7 @@ export default function Form({ headline, inputs, buttonText, onSubmit }) {
             dataToSend[property] = value
         })
 
-        dispatch(onSubmit(dataToSend))
+        dispatch(submitFunc(dataToSend))
     }
 
     return isAllProps && (
@@ -39,4 +39,5 @@ Form.propTypes = {
     headline: PropTypes.string.isRequired,
     inputs: PropTypes.arrayOf(formInputType).isRequired,
     buttonText: PropTypes.string.isRequired,
+    submitFunc: PropTypes.func.isRequired,
 }

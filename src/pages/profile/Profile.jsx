@@ -1,7 +1,6 @@
 import { useLayoutEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getUser } from '../../store/profileSlice'
-import { updateToken } from '../../utils/burger-api'
 
 import ProfileNavigation from '../../components/profile-page-components/profile-navigation/ProfileNavigation'
 import ProfileForm from '../../components/profile-page-components/profile-form/ProfileForm'

@@ -1,14 +1,8 @@
-import { useNavigate } from 'react-router-dom'
-
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
-import { loginUser } from '../../store/profileSlice'
-import { useEffect } from 'react'
+import { loginUser } from '../../store/authSlice'
 
 export default function Login() {
-    const isAuthorized = localStorage.getItem('accessToken')
-    const navigate = useNavigate()
-
     const inputs = [
         {
             type: 'email',
@@ -39,13 +33,9 @@ export default function Login() {
         },
     ]
 
-    useEffect(() => {
-        // if (isAuthorized) navigate('/profile')
-    }, [isAuthorized, navigate])
-
     return (
         <>
-            <Form headline='Вход' inputs={inputs} buttonText='Войти' onSubmit={loginUser} />
+            <Form headline='Вход' inputs={inputs} buttonText='Войти' submitFunc={loginUser} />
             <FormFooter data={footerData} />
         </>
     )

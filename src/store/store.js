@@ -7,6 +7,7 @@ import ingredientTabSlice from './ingredientTabSlice'
 import constructorIngredientListSlice from './constructorIngredientListSlice'
 import orderDetailSlice from './orderDetailSlice'
 import profileSlice from './profileSlice'
+import authSlice from './authSlice'
 
 export const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
         orderDetails: orderDetailSlice,
         modal: modalSlice,
         profile: profileSlice,
+        auth: authSlice,
     },
-    middleware: [thunk]
+    middleware: [thunk],
 })

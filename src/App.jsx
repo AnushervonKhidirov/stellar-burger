@@ -5,7 +5,6 @@ import { loadIngredient } from './store/ingredientListSlice'
 
 import Header from './components/common/header/Header'
 import Modal from './components/common/modal/Modal'
-import ProtectedRouteElement from './components/common/protected-route-element/ProtectedRouteElement'
 
 import {
     Constructor,
@@ -30,7 +29,7 @@ function App() {
             <main>
                 <Routes>
                     <Route path='/' element={<Constructor />} />
-                    <Route path='/profile' element={<ProtectedRouteElement element={<Profile />} />} />
+                    <Route path='/profile' element={<Profile />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/forgot-password' element={<ForgotPassword />} />
