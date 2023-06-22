@@ -1,5 +1,3 @@
-// import styles from './Rejected.module.css'
-
 export default function Rejected() {
     return (
         <div style={styles}>

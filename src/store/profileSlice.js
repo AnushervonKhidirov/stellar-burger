@@ -10,7 +10,7 @@ const profileSlice = createSlice({
         isAuthorized: false,
         isLoading: false,
         rejected: false,
-        useData: null,
+        userInfo: null,
     },
     extraReducers: builder => {
         builder
@@ -19,11 +19,26 @@ const profileSlice = createSlice({
                 state.rejected = false
             })
             .addCase(getUser.fulfilled, (state, { payload }) => {
-                state.isLoading = false
-                state.useData = { ...payload.user }
+                state.userInfo = { ...payload.user }
                 state.isAuthorized = true
+                state.isLoading = false
             })
             .addCase(getUser.rejected, state => {
+                state.isLoading = false
+                state.rejected = true
+            })
+
+        builder
+            .addCase(updateUser.pending, state => {
+                state.isLoading = true
+                state.rejected = false
+            })
+            .addCase(updateUser.fulfilled, (state, { payload }) => {
+                state.userInfo = { ...payload.user }
+                state.isAuthorized = true
+                state.isLoading = false
+            })
+            .addCase(updateUser.rejected, state => {
                 state.isLoading = false
                 state.rejected = true
             })
