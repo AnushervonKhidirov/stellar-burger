@@ -92,7 +92,7 @@ async function updateUserData(data) {
 }
 
 async function forgetPassword(data) {
-    const res = await fetchWithRefresh(`${API_URL}/password-reset`, {
+    const res = await fetch(`${API_URL}/password-reset`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -104,7 +104,7 @@ async function forgetPassword(data) {
 }
 
 async function resetPassword(data) {
-    const res = await fetchWithRefresh(`${API_URL}/password-reset/reset`, {
+    const res = await fetch(`${API_URL}/password-reset/reset`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {

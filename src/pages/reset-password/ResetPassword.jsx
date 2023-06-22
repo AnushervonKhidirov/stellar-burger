@@ -1,7 +1,8 @@
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
+import { sendResetPassword } from '../../store/authSlice'
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
     const inputs = [
         {
             type: 'password',
@@ -10,7 +11,7 @@ export default function ForgotPassword() {
         },
         {
             type: 'text',
-            name: 'sms',
+            name: 'token',
             placeholder: 'Введите код из письма',
         },
     ]
@@ -27,7 +28,7 @@ export default function ForgotPassword() {
 
     return (
         <>
-            <Form headline='Восстановление пароля' inputs={inputs} buttonText='Сохранить' />
+            <Form headline='Восстановление пароля' inputs={inputs} buttonText='Сохранить' submitFunc={sendResetPassword} />
             <FormFooter data={footerData} />
         </>
     )

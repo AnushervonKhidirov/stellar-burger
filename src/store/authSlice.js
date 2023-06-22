@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { register, logIn, logOut } from '../utils/burger-api'
+import { register, logIn, logOut, forgetPassword, resetPassword } from '../utils/burger-api'
 
-const registerUser = createAsyncThunk('profile/register', async data => register(data))
-const loginUser = createAsyncThunk('profile/login', async data => logIn(data))
-const logoutUser = createAsyncThunk('profile/logout', async () => logOut())
+const registerUser = createAsyncThunk('auth/register', async data => register(data))
+const loginUser = createAsyncThunk('auth/login', async data => logIn(data))
+const logoutUser = createAsyncThunk('auth/logout', async () => logOut())
+const sendForgetPassword = createAsyncThunk('auth/forget-password', async data => forgetPassword(data))
+const sendResetPassword = createAsyncThunk('auth/reset-password', async data => resetPassword(data) )
 
 const authSlice = createSlice({
-    name: 'profile',
+    name: 'auth',
     initialState: {
         isAuthorized: false,
         isLoading: false,
@@ -61,5 +63,5 @@ const authSlice = createSlice({
     },
 })
 
-export { registerUser, loginUser, logoutUser }
+export { registerUser, loginUser, logoutUser, sendForgetPassword, sendResetPassword }
 export default authSlice.reducer
