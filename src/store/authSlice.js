@@ -8,7 +8,7 @@ const loginUser = createAsyncThunk('auth/login', async (data, rejectWithValue) =
     logIn(data, rejectWithValue)
 )
 const logoutUser = createAsyncThunk('auth/logout', async (data, rejectWithValue) =>
-    logOut(data, rejectWithValue)
+    logOut(rejectWithValue)
 )
 const sendForgetPassword = createAsyncThunk('auth/forget-password', async (data, rejectWithValue) =>
     forgetPassword(data, rejectWithValue)
@@ -68,9 +68,10 @@ const authSlice = createSlice({
                 state.userData = null
                 state.isAuthorized = false
             })
-            .addCase(logoutUser.rejected, state => {
+            .addCase(logoutUser.rejected, (state, { payload }) => {
                 state.isLoading = false
                 state.rejected = true
+                alert(payload.message)
             })
 
         builder

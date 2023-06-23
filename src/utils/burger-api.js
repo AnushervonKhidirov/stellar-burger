@@ -60,7 +60,7 @@ async function logIn(data, { rejectWithValue }) {
     return result
 }
 
-async function logOut(data) {
+async function logOut({ rejectWithValue }) {
     const res = await fetch(`${API_URL}/auth/logout`, {
         method: 'POST',
         body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
@@ -69,7 +69,7 @@ async function logOut(data) {
         },
     })
 
-    const result = await checkResponse(res)
+    const result = await checkResponse(res, rejectWithValue)
     if (result.success) localStorage.clear()
 
     return result
