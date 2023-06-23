@@ -6,7 +6,7 @@ import { openModal } from '../../../store/modalSlice'
 import { useDrag } from 'react-dnd'
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
-import IngredientDetails from '../../common/modal/ingredient-details/IngredientDetails'
+import IngredientDetails from '../../common/ingredient-details/IngredientDetails'
 
 import styles from './IngredientItem.module.css'
 

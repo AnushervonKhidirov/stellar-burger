@@ -3,7 +3,7 @@ import { openModal } from '../../../store/modalSlice'
 import { sendIngredientsId } from '../../../store/orderDetailSlice'
 
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import OrderDetails from '../../common/modal/order-details/OrderDetails'
+import OrderDetails from '../../common/order-details/OrderDetails'
 
 import TotalPrice from '../../common/total-price/TotalPrice'
 
