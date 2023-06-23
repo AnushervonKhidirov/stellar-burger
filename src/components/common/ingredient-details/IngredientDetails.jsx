@@ -8,7 +8,7 @@ function IngredientDetails() {
     return (
         <>
             <h1 className={`${styles.ingredient_headline} text text_type_main-large`}>Детали ингредиента</h1>
-            <img src={image_large} alt={name} />
+            <img style={{ height: '240px' }} src={image_large} alt={name} />
             <h2 className='text text_type_main-medium mt-4 mb-8'>{name}</h2>
             <IngredientProperties />
         </>

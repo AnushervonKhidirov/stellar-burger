@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
-import Loader from '../../loader/Loader'
-import Rejected from '../../rejected/Rejected'
-import doneImage from '../../../../images/order_done.png'
+import Loader from '../loader/Loader'
+import Rejected from '../rejected/Rejected'
+import doneImage from '../../../images/order_done.png'
 
 function OrderDetails() {
     const order = useSelector(store => store.orderDetails)
