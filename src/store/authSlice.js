@@ -1,11 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { register, logIn, logOut, forgetPassword, resetPassword } from '../utils/burger-api'
 
-const registerUser = createAsyncThunk('auth/register', async data => register(data))
-const loginUser = createAsyncThunk('auth/login', async data => logIn(data))
-const logoutUser = createAsyncThunk('auth/logout', async () => logOut())
-const sendForgetPassword = createAsyncThunk('auth/forget-password', async data => forgetPassword(data))
-const sendResetPassword = createAsyncThunk('auth/reset-password', async data => resetPassword(data) )
+const registerUser = createAsyncThunk('auth/register', async (data, rejectWithValue) =>
+    register(data, rejectWithValue)
+)
+const loginUser = createAsyncThunk('auth/login', async (data, rejectWithValue) =>
+    logIn(data, rejectWithValue)
+)
+const logoutUser = createAsyncThunk('auth/logout', async (data, rejectWithValue) =>
+    logOut(data, rejectWithValue)
+)
+const sendForgetPassword = createAsyncThunk('auth/forget-password', async (data, rejectWithValue) =>
+    forgetPassword(data, rejectWithValue)
+)
+const sendResetPassword = createAsyncThunk('auth/reset-password', async (data, rejectWithValue) =>
+    resetPassword(data, rejectWithValue)
+)
 
 const authSlice = createSlice({
     name: 'auth',
@@ -26,9 +36,10 @@ const authSlice = createSlice({
                 state.userData = { ...payload.user }
                 state.isAuthorized = true
             })
-            .addCase(registerUser.rejected, state => {
+            .addCase(registerUser.rejected, (state, { payload }) => {
                 state.isLoading = false
                 state.rejected = true
+                alert(payload.message)
             })
 
         builder
@@ -41,9 +52,10 @@ const authSlice = createSlice({
                 state.userData = { ...payload.user }
                 state.isAuthorized = true
             })
-            .addCase(loginUser.rejected, state => {
+            .addCase(loginUser.rejected, (state, { payload }) => {
                 state.isLoading = false
                 state.rejected = true
+                alert(payload.message)
             })
 
         builder
@@ -59,6 +71,22 @@ const authSlice = createSlice({
             .addCase(logoutUser.rejected, state => {
                 state.isLoading = false
                 state.rejected = true
+            })
+
+        builder
+            .addCase(sendForgetPassword.fulfilled, (state, { payload }) => {
+                alert(payload.message)
+            })
+            .addCase(sendForgetPassword.rejected, (state, { payload }) => {
+                alert(payload.message)
+            })
+
+        builder
+            .addCase(sendResetPassword.fulfilled, (state, { payload }) => {
+                alert(payload.message)
+            })
+            .addCase(sendResetPassword.rejected, (state, { payload }) => {
+                alert(payload.message)
             })
     },
 })

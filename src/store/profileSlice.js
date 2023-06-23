@@ -1,8 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getUserData, updateUserData } from '../utils/burger-api'
 
-const getUser = createAsyncThunk('profile/getUser', async data => getUserData(data))
-const updateUser = createAsyncThunk('profile/updateUser', async data => updateUserData(data))
+const getUser = createAsyncThunk('profile/getUser', async (data, rejectWithValue) =>
+    getUserData(rejectWithValue)
+)
+const updateUser = createAsyncThunk('profile/updateUser', async (data, rejectWithValue) =>
+    updateUserData(data, rejectWithValue)
+)
 
 const profileSlice = createSlice({
     name: 'profile',
@@ -37,10 +41,13 @@ const profileSlice = createSlice({
                 state.userInfo = { ...payload.user }
                 state.isAuthorized = true
                 state.isLoading = false
+                console.log(payload)
+                alert('Successfully changed')
             })
-            .addCase(updateUser.rejected, state => {
+            .addCase(updateUser.rejected, (state, { payload }) => {
                 state.isLoading = false
                 state.rejected = true
+                alert(payload.message)
             })
     },
 })
