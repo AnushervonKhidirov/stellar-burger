@@ -5,6 +5,7 @@ import { loadIngredient } from './store/ingredientListSlice'
 
 import Header from './components/common/header/Header'
 import Modal from './components/common/modal/Modal'
+import ProfileForm from './components/profile-page-components/profile-form/ProfileForm'
 
 import {
     Constructor,
@@ -29,7 +30,9 @@ function App() {
             <main>
                 <Routes>
                     <Route path='/' element={<Constructor />} />
-                    <Route path='/profile' element={<Profile />} />
+                    <Route path='/profile' element={<Profile />}>
+                        <Route path='' element={<ProfileForm />} />
+                    </Route>
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
                     <Route path='/forgot-password' element={<ForgotPassword />} />

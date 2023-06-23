@@ -20,6 +20,7 @@ export default function ProfileNavigation({ navigationData }) {
                         to={navigation.href}
                         className={({ isActive }) => setActive(isActive)}
                         key={navigation.title}
+                        end
                     >
                         {navigation.title}
                     </NavLink>
