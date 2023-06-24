@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchOrder } from '../utils/burger-api'
+import { fetchOrder } from '../../utils/burger-api'
 
 export const sendIngredientsId = createAsyncThunk(
     'orderDetail/sendIngredientsId',

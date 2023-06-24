@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { openModal } from '../../../store/modalSlice'
-import { sendIngredientsId } from '../../../store/orderDetailSlice'
+import { openModal } from '../../../services/store/modalSlice'
+import { sendIngredientsId } from '../../../services/store/orderDetailSlice'
 
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../../common/order-details/OrderDetails'

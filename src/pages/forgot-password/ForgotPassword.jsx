@@ -1,8 +1,15 @@
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
-import { sendForgetPassword } from '../../store/authSlice'
+
+import { API_URL, checkResponse } from '../../utils/burger-api'
+
 
 export default function ForgotPassword() {
+    const location = useLocation()
+    const navigate = useNavigate()
+
     const inputs = [
         {
             type: 'email',
@@ -21,9 +28,31 @@ export default function ForgotPassword() {
         },
     ]
 
+    async function forgetPassword(data) {
+        if (data.email === '') return alert('Please enter your email')
+
+        const res = await fetch(`${API_URL}/password-reset`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+            },
+        })
+    
+        const result =  await checkResponse(res)
+
+        if (result.success) {
+            alert(result.message)
+            localStorage.setItem('reset-password', true)
+            navigate('/reset-password', { state: { from: location } })
+        }
+
+        return result
+    }
+
     return (
         <>
-            <Form headline='Восстановление пароля' inputs={inputs} buttonText='Восстановить' submitFunc={sendForgetPassword} />
+            <Form headline='Восстановление пароля' inputs={inputs} buttonText='Восстановить' submitFunc={forgetPassword} isDispatch={false} />
             <FormFooter data={footerData} />
         </>
     )

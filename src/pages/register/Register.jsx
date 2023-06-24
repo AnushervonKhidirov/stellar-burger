@@ -1,6 +1,6 @@
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
-import { registerUser } from '../../store/authSlice'
+import { registerUser } from '../../services/user/action'
 
 export default function Register() {
     const inputs = [

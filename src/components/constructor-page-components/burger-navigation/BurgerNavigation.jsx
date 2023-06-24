@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { setCurrentTab, setAutoScroll } from '../../../store/ingredientTabSlice'
+import { setCurrentTab, setAutoScroll } from '../../../services/store/ingredientTabSlice'
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 

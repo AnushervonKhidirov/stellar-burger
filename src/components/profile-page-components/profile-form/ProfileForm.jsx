@@ -2,9 +2,7 @@ import PropTypes from 'prop-types'
 import { useCallback, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { updateUser } from '../../../store/profileSlice'
-
-import Loader from '../../common/loader/Loader'
+import { updateUser } from '../../../services/user/action'
 
 export default function ProfileForm() {
     const dispatch = useDispatch()
@@ -53,9 +51,7 @@ export default function ProfileForm() {
         dispatch(updateUser(dataToSend))
     }
 
-    return user.isLoading ? (
-        <Loader />
-    ) : (
+    return (
         <form style={profileFormStyles} className='mt-20' onSubmit={submitForm}>
             {profileForm?.map(info => (
                 <ProfileInput
@@ -84,7 +80,6 @@ function ProfileInput({ name, profileForm, setProfileForm }) {
 
     function inputValueHandler(e) {
         setProfileForm(prevState =>
-
             prevState.map(item => {
                 if (item.name === name) {
                     item.value = e.target.value

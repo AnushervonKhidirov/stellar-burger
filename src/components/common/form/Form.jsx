@@ -6,7 +6,7 @@ import InputForm from '../input-form/InputForm'
 
 import styles from './Form.module.css'
 
-export default function Form({ headline, inputs, buttonText, submitFunc }) {
+export default function Form({ headline, inputs, buttonText, submitFunc, isDispatch = true }) {
     const dispatch = useDispatch()
     const isAllProps = headline && inputs && buttonText
 
@@ -19,7 +19,7 @@ export default function Form({ headline, inputs, buttonText, submitFunc }) {
             dataToSend[property] = value
         })
 
-        dispatch(submitFunc(dataToSend))
+        isDispatch ? dispatch(submitFunc(dataToSend)) : submitFunc(dataToSend)
     }
 
     return isAllProps && (
@@ -40,4 +40,5 @@ Form.propTypes = {
     inputs: PropTypes.arrayOf(formInputType).isRequired,
     buttonText: PropTypes.string.isRequired,
     submitFunc: PropTypes.func.isRequired,
+    isDispatch: PropTypes.bool,
 }

@@ -3,7 +3,7 @@ import { ingredientDataType } from '../../../utils/types'
 
 import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { setTypesPosition } from '../../../store/ingredientTabSlice'
+import { setTypesPosition } from '../../../services/store/ingredientTabSlice'
 
 import IngredientItem from '../ingredient-item/IngredientItem'
 

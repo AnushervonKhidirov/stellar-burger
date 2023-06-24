@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
-import { logoutUser } from '../../../store/authSlice'
+import { logoutUser } from '../../../services/user/action'
 import { NavLink, useLocation } from 'react-router-dom'
 import styles from './ProfileNavigation.module.css'
 

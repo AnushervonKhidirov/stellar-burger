@@ -1,6 +1,6 @@
-const API_URL = 'https://norma.nomoreparties.space/api'
-
-const checkResponse = (res, rejectWithValue) =>
+export const API_URL = 'https://norma.nomoreparties.space/api'
+ 
+export const checkResponse = (res, rejectWithValue) =>
     res.ok
         ? res.json()
         : res.json().then(err => {

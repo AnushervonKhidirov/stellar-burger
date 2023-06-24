@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setScrollPosition } from '../../../store/ingredientTabSlice'
+import { setScrollPosition } from '../../../services/store/ingredientTabSlice'
 
 import Loader from '../../common/loader/Loader'
 import Rejected from '../../common/rejected/Rejected'

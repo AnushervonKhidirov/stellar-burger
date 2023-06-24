@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { setAutoScroll, setCurrentTab } from '../../../store/ingredientTabSlice'
+import { setAutoScroll, setCurrentTab } from '../../../services/store/ingredientTabSlice'
 
 import { useEffect } from 'react'
 import BurgerNavigation from '../burger-navigation/BurgerNavigation'

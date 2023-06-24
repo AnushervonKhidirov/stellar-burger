@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import {
     BurgerIcon,
     ListIcon,
@@ -29,9 +29,12 @@ function Header() {
 }
 
 function HeaderNavLink({ link, title, Icon }) {
+    const location = useLocation()
+
     return (
         <NavLink
             to={link}
+            state={{ from: location }}
             className={({ isActive }) => {
                 return `${
                     isActive ? styles.header_button_active : styles.header_button

@@ -1,8 +1,8 @@
 import { ingredientDataType } from '../../../utils/types'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setDetail } from '../../../store/ingredientDetailSlice'
-import { openModal } from '../../../store/modalSlice'
+import { setDetail } from '../../../services/store/ingredientDetailSlice'
+import { openModal } from '../../../services/store/modalSlice'
 import { useDrag } from 'react-dnd'
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'

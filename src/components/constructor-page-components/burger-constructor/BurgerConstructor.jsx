@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { addIngredientToConstructor } from '../../../store/constructorIngredientListSlice'
+import { addIngredientToConstructor } from '../../../services/store/constructorIngredientListSlice'
 
 import { useDrop } from 'react-dnd'
 

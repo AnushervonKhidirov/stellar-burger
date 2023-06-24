@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types'
 import { footerFormItemType } from '../../../utils/types'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function FormFooterItem({ text, link }) {
+    const location = useLocation()
+
     return (
         <p className='text text_type_main-default text_color_inactive m-0'>
-            {text} <Link to={link.href} style={footerLinkStyle}>{link.title}</Link>
+            {text} <Link to={link.href} state={{ from: location }} style={footerLinkStyle}>{link.title}</Link>
         </p>
     )
 }

@@ -2,7 +2,7 @@ import { ingredientDataType } from '../../../utils/types'
 
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { removeIngredientFromConstructor } from '../../../store/constructorIngredientListSlice'
+import { removeIngredientFromConstructor } from '../../../services/store/constructorIngredientListSlice'
 
 import { useDrag } from 'react-dnd'
 

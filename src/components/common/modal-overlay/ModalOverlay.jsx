@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { closeModal } from '../../../store/modalSlice'
+import { closeModal } from '../../../services/store/modalSlice'
 
 export default function ModalOverlay() {
     const dispatch = useDispatch()

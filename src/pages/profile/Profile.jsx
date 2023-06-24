@@ -1,19 +1,9 @@
-import { useLayoutEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { getUser } from '../../store/profileSlice'
-
 import ProfileNavigation from '../../components/profile-page-components/profile-navigation/ProfileNavigation'
 
 import styles from './Profile.module.css'
 
 export default function Profile() {
-    const dispatch = useDispatch()
-
-    useLayoutEffect(() => {
-        dispatch(getUser())
-    }, [dispatch])
-
     const profileNavigationData = [
         {
             title: 'Профиль',

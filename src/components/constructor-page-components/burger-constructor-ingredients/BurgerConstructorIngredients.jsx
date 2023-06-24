@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { ingredientDataType } from '../../../utils/types'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { changeIngredientOrder } from '../../../store/constructorIngredientListSlice'
+import { changeIngredientOrder } from '../../../services/store/constructorIngredientListSlice'
 
 import { useDrop } from 'react-dnd'
 
