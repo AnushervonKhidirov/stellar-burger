@@ -30,6 +30,11 @@ async function fetchOrder(ingredientsID) {
     return await checkResponse(res)
 }
 
+async function fetchOrderDetail(orderID) {
+    const res = await fetch(`${API_URL}/orders/${orderID}`)
+    return await checkResponse(res)
+}
+
 async function register(data, { rejectWithValue }) {
     const res = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
@@ -160,6 +165,7 @@ async function fetchWithRefresh(url, options, rejectWithValue) {
 export {
     fetchIngredients,
     fetchOrder,
+    fetchOrderDetail,
     register,
     logIn,
     logOut,

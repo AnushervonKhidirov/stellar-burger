@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { openModal } from '../../../services/store/modalSlice'
-import { sendIngredientsId } from '../../../services/store/orderDetailSlice'
+import { sendIngredientsId } from '../../../services/orders/action'
 
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../../common/order-details/OrderDetails'
@@ -34,6 +34,11 @@ export default function OrderBlock() {
             alert('Your attempt to order nothing is failed!')
         }
     }
+
+    // useEffect(() => {
+    //     orderNumber && navigate(`orders/${orderNumber}`, {state: { background: location }})
+    //     // eslint-disable-next-line
+    // }, [orderNumber])
 
     return (
         <div style={orderBlockStyle}>

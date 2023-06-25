@@ -13,11 +13,11 @@ export const modalSlice = createSlice({
             state.isOpen = true
             state.modalChildren = action.payload
         },
-        closeModal: (state) => {
+        closeModal: state => {
             state.isOpen = false
             state.modalChildren = null
-        }
-    }
+        },
+    },
 })
 
 export const { openModal, closeModal } = modalSlice.actions

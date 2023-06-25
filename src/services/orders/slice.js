@@ -1,12 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchOrder } from '../../utils/burger-api'
-
-export const sendIngredientsId = createAsyncThunk(
-    'orderDetail/sendIngredientsId',
-    async (data, { rejectWithValue }) => {
-        return fetchOrder(data, rejectWithValue)
-    }
-)
+import { createSlice } from '@reduxjs/toolkit'
+import { sendIngredientsId } from './action'
 
 export const orderDetailSlice = createSlice({
     name: 'orderDetail',
@@ -22,6 +15,7 @@ export const orderDetailSlice = createSlice({
             .addCase(sendIngredientsId.pending, (state, action) => {
                 state.ingredientsId = action.meta.arg
                 state.isLoading = true
+                state.rejected = false
             })
             .addCase(sendIngredientsId.fulfilled, (state, action) => {
                 state.orderNumber = action.payload.order.number

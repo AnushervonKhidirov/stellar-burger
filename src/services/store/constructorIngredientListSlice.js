@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { sendIngredientsId } from './orderDetailSlice';
+import { sendIngredientsId } from '../orders/action';
 import { v4 as uuidv4 } from 'uuid';
 
 function increaseAmount(amount) {
