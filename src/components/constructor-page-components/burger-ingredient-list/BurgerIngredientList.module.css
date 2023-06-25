@@ -1,0 +1,5 @@
+.ingredient_list {
+    position: relative;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}

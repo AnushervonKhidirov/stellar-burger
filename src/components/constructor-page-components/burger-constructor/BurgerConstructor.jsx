@@ -7,9 +7,11 @@ import BurgerConstructorBun from '../burger-constructor-bun/BurgerConstructorBun
 import BurgerConstructorIngredients from '../burger-constructor-ingredients/BurgerConstructorIngredients'
 import OrderBlock from '../order-block/OrderBlock'
 
+import styles from './BurgerConstructor.module.css'
+
 export default function BurgerConstructor() {
     return (
-        <div style={{ position: 'relative' }}>
+        <div className={styles.constructor_wrapper}>
             <BurgerConstructorBlock />
             <OrderBlock />
         </div>
@@ -28,21 +30,10 @@ function BurgerConstructorBlock() {
     })
 
     return (
-        <div style={constructorStyle} ref={dropRef}>
+        <div className={styles.constructor} ref={dropRef}>
             <BurgerConstructorBun position='top' />
             <BurgerConstructorIngredients ingredientList={constructorList.ingredients} />
             <BurgerConstructorBun position='bottom' />
         </div>
     )
-}
-
-const constructorStyle = {
-    position: 'absolute',
-    top: '100px',
-    display: 'flex',
-    width: 'calc(100% - 20px)',
-    height: '560px',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    gap: '16px',
 }

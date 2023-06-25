@@ -3,6 +3,10 @@
     width: 100%;
 }
 
+.image {
+    height: 240px;
+}
+
 .ingredient_properties {
     display: grid;
     grid-template-columns: repeat(4, 130px);

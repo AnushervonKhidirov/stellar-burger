@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { updateUser } from '../../../services/user/action'
 
+import styles from './ProfileForm.module.css'
+
 export default function ProfileForm() {
     const dispatch = useDispatch()
     const user = useSelector(store => store.profile)
@@ -52,7 +54,7 @@ export default function ProfileForm() {
     }
 
     return (
-        <form style={profileFormStyles} className='mt-20' onSubmit={submitForm}>
+        <form className={`${styles.profile_form} mt-20`} onSubmit={submitForm}>
             {profileForm?.map(info => (
                 <ProfileInput
                     name={info.name}
@@ -62,7 +64,7 @@ export default function ProfileForm() {
                 />
             ))}
 
-            <div style={profileFormControlsStyles}>
+            <div className={styles.profile_form_controls}>
                 <Button htmlType='button' type='secondary' size='medium' onClick={setInitialData}>
                     Отмена
                 </Button>
@@ -105,17 +107,6 @@ function ProfileInput({ name, profileForm, setProfileForm }) {
             icon='EditIcon'
         />
     )
-}
-
-const profileFormStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '24px',
-}
-
-const profileFormControlsStyles = {
-    display: 'flex',
-    justifyContent: 'flex-end',
 }
 
 ProfileInput.propTypes = {

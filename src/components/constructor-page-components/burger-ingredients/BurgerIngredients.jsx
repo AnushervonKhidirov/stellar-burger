@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import BurgerNavigation from '../burger-navigation/BurgerNavigation'
 import BurgerIngredientList from '../burger-ingredient-list/BurgerIngredientList'
 
+import styles from './BurgerIngredients.module.css'
+
 export default function BurgerIngredients() {
     const dispatch = useDispatch()
 
@@ -34,16 +36,9 @@ export default function BurgerIngredients() {
     }, [dispatch, isAutoScroll, scrollPosition, currentTab, ingredientsTypePosition])
 
     return (
-        <div style={burgerIngredientsStyle}>
+        <div className={styles.burger_ingredients}>
             <BurgerNavigation />
             <BurgerIngredientList />
         </div>
     )
-}
-
-const burgerIngredientsStyle = {
-    display: 'grid',
-    gridTemplateRows: 'min-content 1fr',
-    gap: '40px',
-    overflow: 'hidden',
 }

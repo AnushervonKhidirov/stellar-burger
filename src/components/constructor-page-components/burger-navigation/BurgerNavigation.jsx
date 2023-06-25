@@ -3,6 +3,8 @@ import { setCurrentTab, setAutoScroll } from '../../../services/store/ingredient
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
+import styles from './BurgerNavigation.module.css'
+
 export default function BurgerNavigation() {
     const dispatch = useDispatch()
     const currentTab = useSelector(store => store.ingredientTab.currentTab)
@@ -30,7 +32,7 @@ export default function BurgerNavigation() {
     return (
         <div>
             <h1 className='text text_type_main-large'>Соберите бургер</h1>
-            <nav style={{ display: 'flex' }} className='mt-5'>
+            <nav className={`${styles.navigation} mt-5`}>
                 {tabs.map(tab => (
                     <Tab
                         value={tab.value}

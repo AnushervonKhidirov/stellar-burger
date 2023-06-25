@@ -1,0 +1,9 @@
+.order_block {
+    position: absolute;
+    bottom: 50px;
+    right: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+}

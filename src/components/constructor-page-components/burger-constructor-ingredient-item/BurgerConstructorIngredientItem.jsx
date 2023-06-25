@@ -1,12 +1,11 @@
-import { ingredientDataType } from '../../../utils/types'
-
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { removeIngredientFromConstructor } from '../../../services/store/constructorIngredientListSlice'
-
 import { useDrag } from 'react-dnd'
-
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+
+import { ingredientDataType } from '../../../utils/types'
+import styles from './BurgerConstructorIngredientItem.module.css'
 
 export default function BurgerConstructorIngredientItem({ ingredient }) {
     const dispatch = useDispatch()
@@ -20,8 +19,12 @@ export default function BurgerConstructorIngredientItem({ ingredient }) {
     })
 
     return (
-        <li style={{ ...ingredientItemStyle, opacity: isDragging ? 0 : 1 }} ref={dragRef}>
-            <div style={{ cursor: 'move' }} ref={iconRef}>
+        <li
+            style={{ opacity: isDragging ? 0 : 1 }}
+            className={styles.constructor_item}
+            ref={dragRef}
+        >
+            <div className={styles.drag_icon} ref={iconRef}>
                 <DragIcon type='primary' />
             </div>
             <ConstructorElement
@@ -36,12 +39,4 @@ export default function BurgerConstructorIngredientItem({ ingredient }) {
 
 BurgerConstructorIngredientItem.propTypes = {
     ingredient: ingredientDataType,
-}
-
-const ingredientItemStyle = {
-    marginRight: '8px',
-    flexFrow: 'unset',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '7px',
 }

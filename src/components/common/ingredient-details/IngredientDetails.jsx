@@ -15,7 +15,7 @@ function IngredientDetails() {
                     Детали ингредиента
                 </h1>
                 <img
-                    style={{ height: '240px' }}
+                    className={styles.image}
                     src={ingredient.image_large}
                     alt={ingredient.name}
                 />

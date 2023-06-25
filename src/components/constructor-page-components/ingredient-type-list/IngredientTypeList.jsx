@@ -7,6 +7,8 @@ import { setTypesPosition } from '../../../services/store/ingredientTabSlice'
 
 import IngredientItem from '../ingredient-item/IngredientItem'
 
+import styles from './IngredientTypeList.module.css'
+
 export default function IngredientTypeList({ type, list, parentTopPosition = 0 }) {
     const dispatch = useDispatch()
     const ingredientTypeRef = useRef(null)
@@ -20,8 +22,12 @@ export default function IngredientTypeList({ type, list, parentTopPosition = 0 }
     useEffect(() => {
         const typeData = {
             type: type,
-            top: Math.round(ingredientTypeRef.current?.getBoundingClientRect().top - parentTopPosition),
-            bottom: Math.round(ingredientTypeRef.current?.getBoundingClientRect().bottom - parentTopPosition),
+            top: Math.round(
+                ingredientTypeRef.current?.getBoundingClientRect().top - parentTopPosition
+            ),
+            bottom: Math.round(
+                ingredientTypeRef.current?.getBoundingClientRect().bottom - parentTopPosition
+            ),
         }
 
         dispatch(setTypesPosition(typeData))
@@ -32,7 +38,7 @@ export default function IngredientTypeList({ type, list, parentTopPosition = 0 }
             <h2 id={type} className='headline text text_type_main-medium'>
                 {headline[type]}
             </h2>
-            <ul className='pl-4 pr-4 pt-6 pb-10' style={ingredientTypeStyle}>
+            <ul className={`${styles.ingredient_type} pl-4 pr-4 pt-6 pb-10`}>
                 {list.map(item => (
                     <IngredientItem data={item} key={item._id} />
                 ))}
@@ -45,12 +51,4 @@ IngredientTypeList.propTypes = {
     type: PropTypes.string.isRequired,
     list: PropTypes.arrayOf(ingredientDataType).isRequired,
     parentTopPosition: PropTypes.number,
-}
-
-const ingredientTypeStyle = {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '32px 24px',
-    listStyleType: 'none',
-    margin: '0',
 }

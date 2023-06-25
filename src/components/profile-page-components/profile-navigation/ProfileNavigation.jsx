@@ -43,7 +43,6 @@ function LogOutButton() {
     return (
         <div
             className={`${styles.profile_navigation_link} text text_type_main-medium text_color_inactive`}
-            style={{ cursor: 'pointer' }}
             onClick={() => dispatch(logoutUser())}
         >
             Выход

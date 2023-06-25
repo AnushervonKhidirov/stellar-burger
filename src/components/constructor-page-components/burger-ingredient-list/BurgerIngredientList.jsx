@@ -6,6 +6,8 @@ import Loader from '../../common/loader/Loader'
 import Rejected from '../../common/rejected/Rejected'
 import IngredientTypeList from '../ingredient-type-list/IngredientTypeList'
 
+import styles from './BurgerIngredientList.module.css'
+
 export default function BurgerIngredientList() {
     const dispatch = useDispatch()
     const { isAutoScroll, ingredientsTypePosition, currentTab } = useSelector(
@@ -30,8 +32,7 @@ export default function BurgerIngredientList() {
 
     return (
         <div
-            className='custom-scroll'
-            style={ingredientListStyle}
+            className={`${styles.ingredient_list} custom-scroll`}
             ref={scrollRef}
             onScroll={scrollHandler}
         >
@@ -74,10 +75,4 @@ function separateByTypes(arr) {
     })
 
     return newArr
-}
-
-const ingredientListStyle = {
-    position: 'relative',
-    overflowY: 'auto',
-    scrollBehavior: 'smooth',
 }

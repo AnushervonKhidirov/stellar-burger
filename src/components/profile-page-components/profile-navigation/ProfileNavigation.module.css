@@ -8,6 +8,7 @@
     color: var(--text-inactive-color);
     text-decoration: none;
     padding: 0.5em 0;
+    cursor: pointer;
 }
 
 .profile_navigation_link_active {

@@ -2,19 +2,11 @@ import PropTypes from 'prop-types'
 import { footerFormItemType } from '../../../utils/types'
 import { Link, useLocation } from 'react-router-dom'
 
-function FormFooterItem({ text, link }) {
-    const location = useLocation()
-
-    return (
-        <p className='text text_type_main-default text_color_inactive m-0'>
-            {text} <Link to={link.href} state={{ from: location }} style={footerLinkStyle}>{link.title}</Link>
-        </p>
-    )
-}
+import styles from './FormFooter.module.css'
 
 export default function FormFooter({ data }) {
     return data && (
-        <div style={footerStyle} className='mt-20'>
+        <div className={`${styles.form_footer} mt-20`}>
             {data.map((item, index) => (
                 <FormFooterItem text={item.text} link={item.link} key={index} />
             ))}
@@ -22,16 +14,14 @@ export default function FormFooter({ data }) {
     )
 }
 
-const footerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '16px',
-}
+function FormFooterItem({ text, link }) {
+    const location = useLocation()
 
-const footerLinkStyle = {
-    color: 'var(--colors-interface-accent)',
-    textDecoration: 'none',
+    return (
+        <p className='text text_type_main-default text_color_inactive m-0'>
+            {text} <Link to={link.href} state={{ from: location }} className={styles.footer_link}>{link.title}</Link>
+        </p>
+    )
 }
 
 FormFooterItem.propTypes = footerFormItemType

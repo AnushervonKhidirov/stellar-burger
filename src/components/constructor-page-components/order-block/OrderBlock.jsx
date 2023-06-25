@@ -4,8 +4,9 @@ import { sendIngredientsId } from '../../../services/orders/action'
 
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import OrderDetails from '../../common/order-details/OrderDetails'
-
 import TotalPrice from '../../common/total-price/TotalPrice'
+
+import styles from './OrderBlock.module.css'
 
 export default function OrderBlock() {
     const dispatch = useDispatch()
@@ -35,27 +36,12 @@ export default function OrderBlock() {
         }
     }
 
-    // useEffect(() => {
-    //     orderNumber && navigate(`orders/${orderNumber}`, {state: { background: location }})
-    //     // eslint-disable-next-line
-    // }, [orderNumber])
-
     return (
-        <div style={orderBlockStyle}>
+        <div className={styles.order_block}>
             <TotalPrice price={totalPrice} />
             <Button htmlType='button' type='primary' size='large' onClick={() => getOrder()}>
                 Оформить заказ
             </Button>
         </div>
     )
-}
-
-const orderBlockStyle = {
-    position: 'absolute',
-    bottom: '50px',
-    right: '16px',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    gap: '40px',
 }
