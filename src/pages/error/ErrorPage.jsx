@@ -1,11 +1,5 @@
-export default function ErrorPage() {
-    return <div className='text text_type_digits-large text_color_inactive' style={styles}>404</div>
-}
+import styles from './ErrorPage.module.css'
 
-const styles = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
+export default function ErrorPage() {
+    return <div className={`${styles.error_page} text text_type_digits-large text_color_inactive`} style={styles}>404</div>
 }

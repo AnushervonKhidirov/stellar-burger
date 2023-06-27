@@ -10,7 +10,7 @@ function IngredientDetails() {
 
     return (
         ingredient && (
-            <>
+            <div className={styles.ingredient_details}>
                 <h1 className={`${styles.ingredient_headline} text text_type_main-large`}>
                     Детали ингредиента
                 </h1>
@@ -26,7 +26,7 @@ function IngredientDetails() {
                     fat={ingredient.fat}
                     carbohydrates={ingredient.carbohydrates}
                 />
-            </>
+            </div>
         )
     )
 }

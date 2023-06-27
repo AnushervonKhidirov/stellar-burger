@@ -5,28 +5,11 @@ import FormFooter from '../../components/common/form-footer/FormFooter'
 
 import { API_URL, checkResponse } from '../../utils/burger-api'
 
+import { inputs, footerData } from './constant'
 
 export default function ForgotPassword() {
     const location = useLocation()
     const navigate = useNavigate()
-
-    const inputs = [
-        {
-            type: 'email',
-            name: 'email',
-            placeholder: 'E-mail',
-        },
-    ]
-
-    const footerData = [
-        {
-            text: 'Вспомнили пароль?',
-            link: {
-                title: 'Войти',
-                href: '/login',
-            },
-        },
-    ]
 
     async function forgetPassword(data) {
         if (data.email === '') return alert('Please enter your email')
@@ -38,8 +21,8 @@ export default function ForgotPassword() {
                 'Content-Type': 'application/json;charset=utf-8',
             },
         })
-    
-        const result =  await checkResponse(res)
+
+        const result = await checkResponse(res)
 
         if (result.success) {
             alert(result.message)
@@ -52,7 +35,13 @@ export default function ForgotPassword() {
 
     return (
         <>
-            <Form headline='Восстановление пароля' inputs={inputs} buttonText='Восстановить' submitFunc={forgetPassword} isDispatch={false} />
+            <Form
+                headline='Восстановление пароля'
+                inputs={inputs}
+                buttonText='Восстановить'
+                submitFunc={forgetPassword}
+                isDispatch={false}
+            />
             <FormFooter data={footerData} />
         </>
     )

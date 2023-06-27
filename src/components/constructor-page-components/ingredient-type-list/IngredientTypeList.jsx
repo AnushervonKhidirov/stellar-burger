@@ -4,20 +4,15 @@ import { ingredientDataType } from '../../../utils/types'
 import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { setTypesPosition } from '../../../services/store/ingredientTabSlice'
-
 import IngredientItem from '../ingredient-item/IngredientItem'
+
+import { headlines } from './constant'
 
 import styles from './IngredientTypeList.module.css'
 
 export default function IngredientTypeList({ type, list, parentTopPosition = 0 }) {
     const dispatch = useDispatch()
     const ingredientTypeRef = useRef(null)
-
-    const headline = {
-        bun: 'Булки',
-        sauce: 'Соусы',
-        main: 'Начинки',
-    }
 
     useEffect(() => {
         const typeData = {
@@ -36,7 +31,7 @@ export default function IngredientTypeList({ type, list, parentTopPosition = 0 }
     return (
         <div data-title={type} ref={ingredientTypeRef}>
             <h2 id={type} className='headline text text_type_main-medium'>
-                {headline[type]}
+                {headlines[type]}
             </h2>
             <ul className={`${styles.ingredient_type} pl-4 pr-4 pt-6 pb-10`}>
                 {list.map(item => (

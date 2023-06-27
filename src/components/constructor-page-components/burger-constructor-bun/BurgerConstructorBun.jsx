@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-
 import { useSelector } from 'react-redux'
-
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
+
+import { positionText } from './constant'
 
 import styles from './BurgerConstructorBun.module.css'
 
@@ -12,11 +12,6 @@ export default function BurgerConstructorBun({ position }) {
     const classForEmpty = `constructor-element constructor-element_pos_${position}
         ${styles[`bun_${position}`]}
         ${styles.constructor_element}`
-
-    const positionText = {
-        top: 'верх',
-        bottom: 'низ',
-    }
 
     return bun._id ? (
         <ConstructorElement

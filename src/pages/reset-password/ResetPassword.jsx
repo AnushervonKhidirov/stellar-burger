@@ -5,33 +5,12 @@ import FormFooter from '../../components/common/form-footer/FormFooter'
 
 import { API_URL, checkResponse } from '../../utils/burger-api'
 
+import { inputs, footerData } from './constant'
+
 
 export default function ResetPassword() {
     const location = useLocation()
     const navigate = useNavigate()
-
-    const inputs = [
-        {
-            type: 'password',
-            name: 'password',
-            placeholder: 'Введите новый пароль',
-        },
-        {
-            type: 'text',
-            name: 'token',
-            placeholder: 'Введите код из письма',
-        },
-    ]
-
-    const footerData = [
-        {
-            text: 'Вспомнили пароль?',
-            link: {
-                title: 'Войти',
-                href: '/login',
-            },
-        },
-    ]
 
     async function resetPassword(data) {
         const res = await fetch(`${API_URL}/password-reset/reset`, {
