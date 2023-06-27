@@ -1,9 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { openModal } from '../../../services/store/modalSlice'
 import { sendIngredientsId } from '../../../services/orders/action'
 
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import OrderDetails from '../../common/order-details/OrderDetails'
 import TotalPrice from '../../common/total-price/TotalPrice'
 
 import styles from './OrderBlock.module.css'
@@ -21,7 +19,7 @@ export default function OrderBlock() {
         const isAvailableToOrder = isBun && isMain
 
         if (isAvailableToOrder) {
-            dispatch(openModal(<OrderDetails />))
+            // dispatch(openModal(<OrderDetails />))
             dispatch(
                 sendIngredientsId([...constructorList.map(ing => ing._id), constructorBun._id])
             )

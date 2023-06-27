@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux'
 import { loadIngredient } from './services/store/ingredientListSlice'
 import { getUser } from './services/user/action'
 
-import { closeModal } from './services/store/modalSlice'
-
 import { OnlyAuth, OnlyUnAuth } from './components/common/protected-route/ProtectedRoute'
 
 import Header from './components/common/header/Header'
@@ -36,8 +34,7 @@ function App() {
     }, [dispatch])
 
     function closeModalHandler() {
-        background && navigate(-1)
-        dispatch(closeModal())
+        navigate(-1)
     }
 
     return (
@@ -66,11 +63,16 @@ function App() {
 
             {background && (
                 <Routes>
-                    <Route path='/ingredients/:ingredientId' element={<Modal onClose={closeModalHandler} withUrl><IngredientDetails /></Modal>} />
+                    <Route
+                        path='/ingredients/:ingredientId'
+                        element={
+                            <Modal onClose={closeModalHandler}>
+                                <IngredientDetails />
+                            </Modal>
+                        }
+                    />
                 </Routes>
             )}
-
-           {!background && <Modal onClose={closeModalHandler} />}
         </>
     )
 }

@@ -2,11 +2,9 @@ import { Link, useLocation } from 'react-router-dom'
 import { useDrag } from 'react-dnd'
 import { useSelector, useDispatch } from 'react-redux'
 import { setDetail } from '../../../services/store/ingredientDetailSlice'
-import { openModal } from '../../../services/store/modalSlice'
 import { ingredientDataType } from '../../../utils/types'
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
-import IngredientDetails from '../../common/ingredient-details/IngredientDetails'
 
 import styles from './IngredientItem.module.css'
 
@@ -22,7 +20,7 @@ export default function IngredientItem({ data }) {
 
     function showIngredientProperty(data) {
         dispatch(setDetail(data))
-        dispatch(openModal(<IngredientDetails />))
+        // dispatch(openModal(<IngredientDetails />))
     }
 
     return (

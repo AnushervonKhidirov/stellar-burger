@@ -1,13 +1,9 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'
 
-function Modal({ children, onClose, withUrl }) {
-    const isModalOpened = useSelector(store => store.modal.isOpen)
-
+function Modal({ children, onClose }) {
     useEffect(() => {
         function modalCloseHandler(e) {
             if (e.key === 'Escape') onClose()
@@ -20,7 +16,7 @@ function Modal({ children, onClose, withUrl }) {
         }
     }, [onClose])
 
-    return (isModalOpened || withUrl) && (
+    return (
         <div className={styles.modal}>
             <ModalOverlay onClose={onClose} />
             <ModalContainer onClose={onClose} children={children}></ModalContainer>
@@ -29,12 +25,10 @@ function Modal({ children, onClose, withUrl }) {
 }
 
 function ModalContainer({ children, onClose }) {
-    const storeChildren = useSelector(store => store.modal.modalChildren)
-
     return (
         <div className={styles.modal_container}>
             <CloseButton onClose={onClose} />
-            <div className={styles.modal_container_inner}>{children ? children : storeChildren}</div>
+            <div className={styles.modal_container_inner}>{children}</div>
         </div>
     )
 }

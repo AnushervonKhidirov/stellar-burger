@@ -1,14 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { sendIngredientsId } from './action'
 
+const initialState = {
+    orderName: null,
+    orderNumber: null,
+    ingredientsId: [],
+    isLoading: false,
+    rejected: false,
+}
+
 export const orderDetailSlice = createSlice({
     name: 'orderDetail',
-    initialState: {
-        orderName: null,
-        orderNumber: null,
-        ingredientsId: [],
-        isLoading: false,
-        rejected: false,
+    initialState,
+    reducers: {
+        clearOrder: () => initialState,
     },
     extraReducers: builder => {
         builder
@@ -29,4 +34,5 @@ export const orderDetailSlice = createSlice({
     },
 })
 
+export const { clearOrder } = orderDetailSlice.actions
 export default orderDetailSlice.reducer
