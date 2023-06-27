@@ -18,16 +18,11 @@ export default function IngredientItem({ data }) {
         item: data,
     })
 
-    function showIngredientProperty(data) {
-        dispatch(setDetail(data))
-        // dispatch(openModal(<IngredientDetails />))
-    }
-
     return (
         <Link to={`/ingredients/${data._id}`} state={{ background: location }}>
             <li
                 className={styles.ingredient_item}
-                onClick={() => showIngredientProperty(data)}
+                onClick={() => dispatch(setDetail(data))}
                 ref={dragRef}
             >
                 <img className={styles.image} src={data.image} alt={data.name} />
