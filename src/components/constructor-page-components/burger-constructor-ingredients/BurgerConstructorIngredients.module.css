@@ -1,0 +1,21 @@
+.empty_constructor {
+    flex-grow: 1 !important;
+    margin: 0 !important;
+}
+
+.ingredient_list {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 16px;
+    list-style-type: none;
+    margin: 0 -20px 0 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.constructor_element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

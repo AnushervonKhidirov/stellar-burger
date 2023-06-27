@@ -1,0 +1,11 @@
+.constructor_item {
+    margin-right: 8px;
+    flex-flow: unset;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.drag_icon {
+    cursor: move;
+}

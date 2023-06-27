@@ -1,0 +1,10 @@
+.constructor_element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bun_top,
+.bun_bottom {
+    flex-grow: unset;
+}

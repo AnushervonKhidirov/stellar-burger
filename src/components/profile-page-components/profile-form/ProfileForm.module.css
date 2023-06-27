@@ -1,0 +1,10 @@
+.profile_form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.profile_form_controls {
+    display: flex;
+    justify-content: flex-end;
+}

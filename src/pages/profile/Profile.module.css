@@ -1,0 +1,10 @@
+.profile {
+    display: grid;
+    grid-template-columns: 320px min-content;
+    gap: 60px;
+}
+
+.profile_content {
+    position: relative;
+    min-width: 480px;
+}
