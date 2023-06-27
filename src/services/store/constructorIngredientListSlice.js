@@ -3,21 +3,23 @@ import { sendIngredientsId } from '../orders/action';
 import { v4 as uuidv4 } from 'uuid';
 
 function increaseAmount(amount) {
-    return Number.isInteger(amount) ? amount + 1 : 1
+    return Number.isInteger(amount) ? ++amount : 1
 }
 
 function decreaseAmount(amount) {
-    return amount ? amount - 1 : 0
+    return amount ? --amount : 0
+}
+
+const initialState = {
+    bun: {},
+    ingredients: [],
+    totalPrice: 0,
+    amounts: {}
 }
 
 export const constructorIngredientListSlice = createSlice({
     name: 'constructorIngredientList',
-    initialState: {
-        bun: {},
-        ingredients: [],
-        totalPrice: 0,
-        amounts: {}
-    },
+    initialState,
     reducers: {
         addIngredientToConstructor: (state, action) => {
             if (action.payload.type === 'bun') {
@@ -54,12 +56,7 @@ export const constructorIngredientListSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(sendIngredientsId.fulfilled, state => {
-            state.bun = {}
-            state.ingredients = []
-            state.totalPrice = 0
-            state.amounts = {}
-        })
+        builder.addCase(sendIngredientsId.fulfilled, () => initialState)
     }
 })
 
