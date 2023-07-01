@@ -18,7 +18,7 @@ async function fetchIngredients() {
     return result.data
 }
 
-async function fetchOrder(ingredientsID) {
+async function fetchOrder(ingredientsID, {rejectWithValue}) {
     const res = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         body: JSON.stringify({ ingredients: ingredientsID }),
@@ -27,7 +27,7 @@ async function fetchOrder(ingredientsID) {
         },
     })
 
-    return await checkResponse(res)
+    return await checkResponse(res, rejectWithValue)
 }
 
 async function fetchOrderDetail(orderID) {
