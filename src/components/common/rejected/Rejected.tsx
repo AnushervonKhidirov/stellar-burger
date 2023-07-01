@@ -1,5 +1,5 @@
-import styles from './Rejected.module.css'
 import type { ReactElement } from 'react'
+import styles from './Rejected.module.css'
 
 export default function Rejected(): ReactElement {
     return (

@@ -1,3 +1,6 @@
+import type { ReactElement, ChangeEvent, FormEvent, SetStateAction, Dispatch } from 'react'
+import type { UserState } from '../../../utils/interfaces'
+
 import { useCallback, useLayoutEffect, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -5,27 +8,30 @@ import { updateUser } from '../../../services/user/action'
 
 import styles from './ProfileForm.module.css'
 
+
 interface ProfileInputData {
     title: string
-    name: 'name' | 'email' | 'password'
-    type: string
+    name: inputNames
+    type: 'text' | 'email' | 'password'
     value: string
 }
 
 interface ProfileInputProps {
-    name: 'name' | 'email' | 'password'
-    profileForm: any
-    setProfileForm: any
+    name: inputNames
+    profileForm: ProfileInputData[]
+    setProfileForm: Dispatch<SetStateAction<ProfileInputData[]>>
 }
 
 interface SendDataType {
     [key: string]: string
 }
 
-export default function ProfileForm() {
+type inputNames = 'name' | 'email' | 'password'
+
+export default function ProfileForm(): ReactElement {
     const dispatch = useAppDispatch()
-    const user = useAppSelector(store => store.profile)
-    const [profileForm, setProfileForm] = useState<ProfileInputData[] | null>(null)
+    const user: UserState = useAppSelector(store => store.profile)
+    const [profileForm, setProfileForm] = useState<ProfileInputData[]>([])
 
     const setInitialData = useCallback(() => {
         setProfileForm([
@@ -54,7 +60,7 @@ export default function ProfileForm() {
         if (user.userInfo) setInitialData()
     }, [user.userInfo, setInitialData])
 
-    function submitForm(e: any) {
+    function submitForm(e: FormEvent) {
         e.preventDefault()
         const dataToSend: SendDataType = {}
 
@@ -92,11 +98,11 @@ export default function ProfileForm() {
     )
 }
 
-function ProfileInput({ name, profileForm, setProfileForm }: ProfileInputProps) {
+function ProfileInput({ name, profileForm, setProfileForm }: ProfileInputProps): ReactElement {
     const [isDisabled, setDisabled] = useState(true)
     const item = profileForm.filter((item: ProfileInputData) => item.name === name)[0]
 
-    function inputValueHandler(e: any) {
+    function inputValueHandler(e: ChangeEvent<HTMLInputElement>): void {
         setProfileForm((prevState: ProfileInputData[]) =>
             prevState.map(item => {
                 if (item.name === name) {

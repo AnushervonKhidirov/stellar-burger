@@ -3,10 +3,11 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'
 
+import type { ReactElement } from 'react'
 import type { CloseModal } from '../../../utils/interfaces'
 
 interface ModalProps {
-    children: any
+    children: ReactElement
     onClose: CloseModal
 }
 

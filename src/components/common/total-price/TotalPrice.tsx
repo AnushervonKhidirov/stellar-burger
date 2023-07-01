@@ -1,12 +1,15 @@
+import type { ReactElement } from 'react'
+import type { Ingredient, ConstructorIngredient } from '../../../utils/interfaces'
+
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useAppSelector } from '../../../utils/hooks'
+
 import styles from './TotalPrice.module.css'
 
-import type { Ingredient } from '../../../utils/interfaces'
 
-export default function TotalPrice() {
-    const constructorBun: any = useAppSelector(store => store.constructorIngredientList.bun)
-    const constructorList: any = useAppSelector(store => store.constructorIngredientList.ingredients)
+export default function TotalPrice(): ReactElement {
+    const constructorBun: Ingredient | null = useAppSelector(store => store.constructorIngredientList.bun)
+    const constructorList: ConstructorIngredient[] = useAppSelector(store => store.constructorIngredientList.ingredients)
     const totalPrice: number = constructorList?.reduce((acc: number, item: Ingredient) => acc + item.price, 0) + (constructorBun?.price ? constructorBun.price * 2 : 0)
 
     return (

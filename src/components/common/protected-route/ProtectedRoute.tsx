@@ -1,9 +1,9 @@
+import type { ReactElement } from 'react'
+
 import { useAppSelector } from '../../../utils/hooks'
 import { Navigate, useLocation } from 'react-router-dom'
-
 import Loader from '../loader/Loader'
 
-import type { ReactElement } from 'react'
 
 interface ProtectedProps {
     onlyUnAuth?: boolean

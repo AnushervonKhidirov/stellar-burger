@@ -1,3 +1,6 @@
+import type { ReactElement } from 'react'
+import type { Ingredient } from '../../../utils/interfaces'
+
 import { useRef } from 'react'
 import { useAppDispatch } from '../../../utils/hooks'
 import { removeIngredientFromConstructor } from '../../../services/store/constructorIngredientListSlice'
@@ -6,13 +9,12 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 
 import styles from './BurgerConstructorIngredientItem.module.css'
 
-import type { Ingredient } from '../../../utils/interfaces'
 
 export default function BurgerConstructorIngredientItem({
     ingredient,
 }: {
     ingredient: Ingredient
-}) {
+}): ReactElement {
     const dispatch = useAppDispatch()
     const iconRef = useRef<HTMLDivElement>(null)
     const [{ isDragging }, dragRef] = useDrag({

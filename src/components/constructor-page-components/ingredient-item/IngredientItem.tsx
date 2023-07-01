@@ -1,16 +1,17 @@
+import type { ReactElement } from 'react'
+import type { Ingredient, ConstructorIngredient } from '../../../utils/interfaces'
+
 import { useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useDrag } from 'react-dnd'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { setDetail } from '../../../services/store/ingredientDetailSlice'
-
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles from './IngredientItem.module.css'
 
-import type { Ingredient, ConstructorIngredient } from '../../../utils/interfaces'
 
-export default function IngredientItem({ data }: { data: Ingredient }) {
+export default function IngredientItem({ data }: { data: Ingredient }): ReactElement {
     const dispatch = useAppDispatch()
     const location = useLocation()
     const allIngredients = useAppSelector(store => store.constructorIngredientList)

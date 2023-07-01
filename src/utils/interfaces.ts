@@ -17,6 +17,20 @@ interface ConstructorIngredient extends Ingredient {
     key?: string
 }
 
+interface UserState {
+    isAuthChecked: Boolean
+    isAuthorized: Boolean
+    isLoading: Boolean
+    rejected: Boolean
+    userInfo: UserInfo | null
+}
+
+interface UserInfo {
+    name: string
+    email: string
+}
+
+
 interface FooterText {
     text: string
     link: {
@@ -47,5 +61,7 @@ export type {
     CloseModal,
     TypesPositionPayload,
     IngredientTypes,
+    UserState,
+    UserInfo,
     ConstructorIngredient,
 }

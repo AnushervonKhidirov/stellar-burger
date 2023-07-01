@@ -1,20 +1,20 @@
-import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { changeIngredientOrder } from '../../../services/store/constructorIngredientListSlice'
+import type { ReactElement } from 'react'
+import type { ConstructorIngredient } from '../../../utils/interfaces'
 
 import { useDrop } from 'react-dnd'
-
+import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
+import { changeIngredientOrder } from '../../../services/store/constructorIngredientListSlice'
 import BurgerConstructorIngredientItem from '../burger-constructor-ingredient-item/BurgerConstructorIngredientItem'
 
 import styles from './BurgerConstructorIngredients.module.css'
 
-import type { ConstructorIngredient } from '../../../utils/interfaces'
 
 interface ConstructorIngDrag {
     ingredient: ConstructorIngredient
-    iconRef: any
+    iconRef: { current: HTMLDivElement }
 }
 
-export default function BurgerConstructorIngredients() {
+export default function BurgerConstructorIngredients(): ReactElement {
     const dispatch = useAppDispatch()
     const ingredientList = useAppSelector(store => store.constructorIngredientList.ingredients)
 
@@ -23,8 +23,10 @@ export default function BurgerConstructorIngredients() {
         hover({ ingredient, iconRef }: ConstructorIngDrag, monitor) {
             if (!iconRef) return
             const ingredientElem = iconRef.current.parentElement
-            const hoverBoundingRect = ingredientElem.getBoundingClientRect()
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+            const hoverBoundingRect = ingredientElem?.getBoundingClientRect()
+            
+            if (!hoverBoundingRect) return
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect?.top) / 2
             const clientOffset = monitor.getClientOffset()
             const hoverClientY = clientOffset ? clientOffset.y - hoverBoundingRect.top : 0
 

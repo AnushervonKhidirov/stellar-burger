@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { ReactElement, FormEvent } from 'react'
 import type { FormInput } from '../../../utils/interfaces'
 
 import { useAppDispatch } from '../../../utils/hooks'

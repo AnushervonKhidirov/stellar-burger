@@ -1,3 +1,6 @@
+import type { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils'
+import type { ReactElement } from 'react'
+
 import { NavLink, useLocation } from 'react-router-dom'
 import {
     BurgerIcon,
@@ -6,14 +9,12 @@ import {
     Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import type { ReactElement } from 'react'
-
 import styles from './Header.module.css'
 
 interface HeaderNavigation {
     link: string
     title: string
-    Icon: any
+    Icon: ({ type }: TIconProps) => ReactElement
 }
 
 function Header(): ReactElement {

@@ -1,7 +1,10 @@
+import type { ReactElement } from 'react'
+import type { Ingredient } from '../../../utils/interfaces'
+
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { addIngredientToConstructor } from '../../../services/store/constructorIngredientListSlice'
-
 import { useDrop } from 'react-dnd'
+import { clearOrder } from '../../../services/orders/slice'
 
 import BurgerConstructorBun from '../burger-constructor-bun/BurgerConstructorBun'
 import BurgerConstructorIngredients from '../burger-constructor-ingredients/BurgerConstructorIngredients'
@@ -10,13 +13,10 @@ import OrderDetails from '../../common/order-details/OrderDetails'
 import Modal from '../../common/modal/Modal'
 import Loader from '../../common/loader/Loader'
 
-import { clearOrder } from '../../../services/orders/slice'
-
 import styles from './BurgerConstructor.module.css'
 
-import type { Ingredient } from '../../../utils/interfaces'
 
-export default function BurgerConstructor() {
+export default function BurgerConstructor(): ReactElement {
     const dispatch = useAppDispatch()
 
     const orderNumber = useAppSelector(store => store.orderDetails.orderNumber)

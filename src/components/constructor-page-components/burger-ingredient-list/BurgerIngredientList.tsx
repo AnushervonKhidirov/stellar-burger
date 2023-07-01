@@ -1,21 +1,22 @@
+import type { ReactElement } from 'react'
+import type { Ingredient, IngredientTypes } from '../../../utils/interfaces'
+
 import { useEffect, useRef, useMemo } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { setScrollPosition } from '../../../services/store/ingredientTabSlice'
-
 import Loader from '../../common/loader/Loader'
 import Rejected from '../../common/rejected/Rejected'
 import IngredientTypeList from '../ingredient-type-list/IngredientTypeList'
 
 import styles from './BurgerIngredientList.module.css'
 
-import type { Ingredient, IngredientTypes } from '../../../utils/interfaces'
 
 interface SeparateTypes {
     type: IngredientTypes
     list: Ingredient[]
 }
 
-export default function BurgerIngredientList() {
+export default function BurgerIngredientList(): ReactElement {
     const dispatch = useAppDispatch()
 
     const scrollRef = useRef<HTMLDivElement>(null)

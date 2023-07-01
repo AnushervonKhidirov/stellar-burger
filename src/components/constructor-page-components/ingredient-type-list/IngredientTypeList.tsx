@@ -1,13 +1,14 @@
+import type { ReactElement } from 'react'
+import type { Ingredient, TypesPositionPayload, IngredientTypes } from '../../../utils/interfaces'
+
 import { useEffect, useRef } from 'react'
 import { useAppDispatch } from '../../../utils/hooks'
 import { setTypesPosition } from '../../../services/store/ingredientTabSlice'
 import IngredientItem from '../ingredient-item/IngredientItem'
 
 import { headlines } from './constant'
-
 import styles from './IngredientTypeList.module.css'
 
-import type { Ingredient, TypesPositionPayload, IngredientTypes } from '../../../utils/interfaces'
 
 interface IngredientTypeListProps {
     type: IngredientTypes
@@ -15,8 +16,11 @@ interface IngredientTypeListProps {
     parentTopPosition: number
 }
 
-
-export default function IngredientTypeList({ type, list, parentTopPosition = 0 }: IngredientTypeListProps) {
+export default function IngredientTypeList({
+    type,
+    list,
+    parentTopPosition = 0,
+}: IngredientTypeListProps): ReactElement {
     const dispatch = useAppDispatch()
     const ingredientTypeRef = useRef<HTMLDivElement>(null)
 
@@ -31,7 +35,7 @@ export default function IngredientTypeList({ type, list, parentTopPosition = 0 }
                     ingredientTypeRef.current.getBoundingClientRect().bottom - parentTopPosition
                 ),
             }
-    
+
             dispatch(setTypesPosition(typeData))
         }
     }, [dispatch, type, parentTopPosition])

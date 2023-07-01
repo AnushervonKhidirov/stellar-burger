@@ -1,6 +1,9 @@
+import type { ReactElement } from 'react'
+
 import { useAppDispatch } from '../../../utils/hooks'
 import { logoutUser } from '../../../services/user/action'
 import { NavLink, useLocation } from 'react-router-dom'
+
 import styles from './ProfileNavigation.module.css'
 
 interface NavigationData {
@@ -13,9 +16,9 @@ interface ProfileNavigationData {
     message: string
 }
 
-export default function ProfileNavigation({ navigationData }: NavigationData) {
+export default function ProfileNavigation({ navigationData }: NavigationData): ReactElement {
     const location = useLocation()
-    
+
     const profileMessage: ProfileNavigationData | undefined = navigationData.find(
         (data: ProfileNavigationData): boolean => data.href === location.pathname
     )
@@ -49,7 +52,7 @@ export default function ProfileNavigation({ navigationData }: NavigationData) {
     )
 }
 
-function LogOutButton() {
+function LogOutButton(): ReactElement {
     const dispatch = useAppDispatch()
 
     return (

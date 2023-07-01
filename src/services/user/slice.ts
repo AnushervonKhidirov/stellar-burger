@@ -1,20 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
+import type { UserState, UserInfo } from '../../utils/interfaces'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+import { createSlice } from '@reduxjs/toolkit'
+
 import { registerUser, loginUser, logoutUser, getUser, updateUser } from './action'
-
-interface UserState {
-    isAuthChecked: Boolean
-    isAuthorized: Boolean
-    isLoading: Boolean
-    rejected: Boolean
-    userInfo: UserInfo | null
-}
-
-interface UserInfo {
-    name: string
-    email: string
-}
 
 interface FulfilledPayload {
     success: boolean
@@ -27,11 +16,6 @@ interface UserData {
     success: boolean
     user: UserInfo
 }
-
-// interface RejectedPayload {
-//     success: boolean
-//     message: string
-// }
 
 const initialState: UserState = {
     isAuthChecked: false,

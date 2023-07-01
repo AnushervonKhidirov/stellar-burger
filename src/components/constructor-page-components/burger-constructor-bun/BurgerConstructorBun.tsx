@@ -1,3 +1,6 @@
+import type { ReactElement } from 'react'
+import type { Ingredient } from '../../../utils/interfaces'
+
 import { useAppSelector } from '../../../utils/hooks'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -5,13 +8,12 @@ import { positionText } from './constant'
 
 import styles from './BurgerConstructorBun.module.css'
 
-import type { Ingredient } from '../../../utils/interfaces'
 
 interface BunPosition {
     position: 'top' | 'bottom'
 }
 
-export default function BurgerConstructorBun({ position }: BunPosition) {
+export default function BurgerConstructorBun({ position }: BunPosition): ReactElement {
     const bun: Ingredient | null = useAppSelector(store => store.constructorIngredientList.bun)
 
     const classForEmpty = `constructor-element constructor-element_pos_${position}

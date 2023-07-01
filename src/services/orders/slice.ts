@@ -29,7 +29,7 @@ export const orderDetailSlice = createSlice({
     name: 'orderDetail',
     initialState,
     reducers: {
-        clearOrder: () => initialState,
+        clearOrder: (): OrderDetail => initialState,
     },
     extraReducers: builder => {
         builder
@@ -38,9 +38,9 @@ export const orderDetailSlice = createSlice({
                 state.isLoading = true
                 state.rejected = false
             })
-            .addCase(sendIngredientsId.fulfilled, (state, action: PayloadAction<OrderResult>) => {
-                state.orderNumber = action.payload.order.number
-                state.orderName = action.payload.name
+            .addCase(sendIngredientsId.fulfilled, (state, { payload }: PayloadAction<OrderResult>) => {
+                state.orderNumber = payload.order.number
+                state.orderName = payload.name
                 state.isLoading = false
             })
             .addCase(sendIngredientsId.rejected, state => {

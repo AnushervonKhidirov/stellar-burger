@@ -1,15 +1,16 @@
-import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { setAutoScroll, setCurrentTab } from '../../../services/store/ingredientTabSlice'
+import type { ReactElement } from 'react'
+import type { IngredientTypes } from '../../../utils/interfaces'
 
 import { useEffect } from 'react'
+import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
+import { setAutoScroll, setCurrentTab } from '../../../services/store/ingredientTabSlice'
 import BurgerNavigation from '../burger-navigation/BurgerNavigation'
 import BurgerIngredientList from '../burger-ingredient-list/BurgerIngredientList'
 
 import styles from './BurgerIngredients.module.css'
 
-import type { IngredientTypes } from '../../../utils/interfaces'
 
-export default function BurgerIngredients() {
+export default function BurgerIngredients(): ReactElement {
     const dispatch = useAppDispatch()
 
     const { isAutoScroll, ingredientsTypePosition, scrollPosition, currentTab } = useAppSelector(

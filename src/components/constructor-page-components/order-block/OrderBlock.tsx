@@ -1,32 +1,38 @@
+import type { ReactElement,  FormEvent } from 'react'
+import type { Ingredient, ConstructorIngredient } from '../../../utils/interfaces'
+
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { sendIngredientsId } from '../../../services/orders/action'
-
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import TotalPrice from '../../common/total-price/TotalPrice'
 
 import styles from './OrderBlock.module.css'
 
-import type { Ingredient } from '../../../utils/interfaces'
-
-export default function OrderBlock() {
+export default function OrderBlock(): ReactElement {
     const dispatch = useAppDispatch()
-    const constructorBun: any = useAppSelector(store => store.constructorIngredientList.bun)
-    const constructorList: any = useAppSelector(store => store.constructorIngredientList.ingredients)
+    const constructorBun: Ingredient | null = useAppSelector(store => store.constructorIngredientList.bun)
+    const constructorList: ConstructorIngredient[] = useAppSelector(
+        store => store.constructorIngredientList.ingredients
+    )
 
-    function getOrder(e: any) {
+    function getOrder(e: FormEvent) {
         e.preventDefault()
 
-        const isBun = constructorBun._id
-        const isMain = constructorList.findIndex((ing: Ingredient) => ing.type === 'main') !== -1
-        const isSauce = constructorList.findIndex((ing: Ingredient) => ing.type === 'sauce') !== -1
+        const isBun = constructorBun?._id
+        const isMain =
+            constructorList.findIndex((ing: ConstructorIngredient) => ing.type === 'main') !== -1
+        const isSauce =
+            constructorList.findIndex((ing: ConstructorIngredient) => ing.type === 'sauce') !== -1
         const isAvailableToOrder = isBun && isMain
 
         if (isAvailableToOrder) {
             dispatch(
-                sendIngredientsId([...constructorList.map((ing: Ingredient) => ing._id), constructorBun._id])
+                sendIngredientsId([
+                    ...constructorList.map((ing: ConstructorIngredient) => ing._id),
+                    constructorBun._id,
+                ])
             )
-        } 
-        else if (!isBun && isMain) {
+        } else if (!isBun && isMain) {
             alert("You can't eat burger without buns. Peak a bun)")
         } else if (!isMain && isBun) {
             alert("You can't eat only bun, it isn't tasty(")

@@ -1,18 +1,19 @@
+import type { ReactElement } from 'react'
+import type { IngredientTypes } from '../../../utils/interfaces'
+
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { setCurrentTab, setAutoScroll } from '../../../services/store/ingredientTabSlice'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { tabList } from './constant'
-
 import styles from './BurgerNavigation.module.css'
 
-import type { ReactElement } from 'react'
 
 export default function BurgerNavigation(): ReactElement {
     const dispatch = useAppDispatch()
-    const currentTab = useAppSelector(store => store.ingredientTab.currentTab)
+    const currentTab: IngredientTypes = useAppSelector(store => store.ingredientTab.currentTab)
 
-    function tabHandler(value: string) {
+    function tabHandler(value: string): void {
         dispatch(setCurrentTab(value))
         dispatch(setAutoScroll(true))
     }
