@@ -3,21 +3,21 @@ import { sendIngredientsId } from '../orders/action'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Ingredient, ConstructorIngredient } from '../../utils/interfaces'
+import type { Ingredient } from '../../utils/interfaces'
 
 
-interface ConstructorList {
+export interface IConstructorList {
     bun: Ingredient | null
-    ingredients: ConstructorIngredient[]
+    ingredients: Ingredient[]
 }
 
-interface ChangeOrderPayload {
-    ingredientList: ConstructorIngredient[],
+interface IChangeOrderPayload {
+    ingredientList: Ingredient[],
     key: string,
     side: -1 | 1
 }
 
-const initialState: ConstructorList = {
+const initialState: IConstructorList = {
     bun: null,
     ingredients: [],
 }
@@ -31,21 +31,21 @@ export const constructorIngredientListSlice = createSlice({
                 ? (state.bun = payload)
                 : state.ingredients.push({ ...payload, key: uuidv4() })
         },
-        removeIngredientFromConstructor: (state, { payload }: PayloadAction<ConstructorIngredient>) => {
+        removeIngredientFromConstructor: (state, { payload }: PayloadAction<Ingredient>) => {
             state.ingredients = state.ingredients.filter(
-                (item: ConstructorIngredient) => item.key !== payload.key
+                (item: Ingredient) => item.key !== payload.key
             )
         },
-        changeIngredientOrder: (state, { payload }: PayloadAction<ChangeOrderPayload>) => {
+        changeIngredientOrder: (state, { payload }: PayloadAction<IChangeOrderPayload>) => {
             const ingredientList = payload.ingredientList
             let currentIndex = ingredientList.findIndex(
-                (item: ConstructorIngredient) => item.key === payload.key
+                (item: Ingredient) => item.key === payload.key
             )
             let nextIndex = currentIndex + payload.side
 
             if (nextIndex < 0 || nextIndex > ingredientList.length - 1) return
 
-            state.ingredients = ingredientList.map((ing: ConstructorIngredient, index: number) =>
+            state.ingredients = ingredientList.map((ing: Ingredient, index: number) =>
                 index === currentIndex
                     ? ingredientList[nextIndex]
                     : index === nextIndex

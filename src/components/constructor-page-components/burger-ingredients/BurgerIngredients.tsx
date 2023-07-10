@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import type { IngredientTypes } from '../../../utils/interfaces'
 
 import { useEffect } from 'react'
@@ -7,25 +7,25 @@ import { setAutoScroll, setCurrentTab } from '../../../services/store/ingredient
 import BurgerNavigation from '../burger-navigation/BurgerNavigation'
 import BurgerIngredientList from '../burger-ingredient-list/BurgerIngredientList'
 
+import type { Tabs } from '../../../services/store/ingredientTabSlice'
+
 import styles from './BurgerIngredients.module.css'
 
-
-export default function BurgerIngredients(): ReactElement {
+const BurgerIngredients: FC = () => {
     const dispatch = useAppDispatch()
 
-    const { isAutoScroll, ingredientsTypePosition, scrollPosition, currentTab } = useAppSelector(
-        store => store.ingredientTab
-    )
+    const { isAutoScroll, ingredientsTypePosition, scrollPosition, currentTab } =
+        useAppSelector<Tabs>(store => store.ingredientTab)
 
     useEffect(() => {
         if (isAutoScroll) return
         let key: IngredientTypes
-        
+
         for (key in ingredientsTypePosition) {
             const middleOfType = Math.round(
                 (ingredientsTypePosition[key].top + ingredientsTypePosition[key].bottom) / 2
             )
-            
+
             if (scrollPosition <= middleOfType && !(scrollPosition > middleOfType)) {
                 dispatch(setCurrentTab(key))
                 break
@@ -46,3 +46,5 @@ export default function BurgerIngredients(): ReactElement {
         </div>
     )
 }
+
+export default BurgerIngredients

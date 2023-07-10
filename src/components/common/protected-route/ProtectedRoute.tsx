@@ -1,18 +1,18 @@
-import type { ReactElement } from 'react'
+import type { FC, ReactElement } from 'react'
+import type { IUserInfo } from '../../../utils/interfaces'
 
 import { useAppSelector } from '../../../utils/hooks'
 import { Navigate, useLocation } from 'react-router-dom'
 import Loader from '../loader/Loader'
-
 
 interface ProtectedProps {
     onlyUnAuth?: boolean
     component: ReactElement
 }
 
-const Protected = ({ onlyUnAuth = false, component }: ProtectedProps): ReactElement => {
-    const isAuthChecked = useAppSelector(store => store.profile.isAuthChecked)
-    const user = useAppSelector(store => store.profile.userInfo)
+const Protected: FC<ProtectedProps> = ({ onlyUnAuth = false, component }) => {
+    const isAuthChecked = useAppSelector<boolean>(store => store.profile.isAuthChecked)
+    const user = useAppSelector<IUserInfo | null>(store => store.profile.userInfo)
     const location = useLocation()
 
     if (!isAuthChecked) {
@@ -32,6 +32,6 @@ const Protected = ({ onlyUnAuth = false, component }: ProtectedProps): ReactElem
 }
 
 export const OnlyAuth = Protected
-export const OnlyUnAuth = ({ component }: { component: ReactElement }) => (
+export const OnlyUnAuth: FC<{ component: ReactElement }> = ({ component }) => (
     <Protected onlyUnAuth={true} component={component} />
 )

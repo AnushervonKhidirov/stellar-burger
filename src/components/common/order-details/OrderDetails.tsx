@@ -1,4 +1,5 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
+import type { OrderDetail } from '../../../services/orders/slice'
 
 import { useAppSelector } from '../../../utils/hooks'
 import Rejected from '../rejected/Rejected'
@@ -6,8 +7,10 @@ import doneImage from '../../../images/order_done.png'
 
 import styles from './OrderDetails.module.css'
 
-function OrderDetails(): ReactElement {
-    const { rejected, orderNumber } = useAppSelector(store => store.orderDetails)
+type IOrderDetail = Omit<OrderDetail, 'orderName' | 'ingredientsId' | 'isLoading'>
+
+const OrderDetails: FC = () => {
+    const { rejected, orderNumber } = useAppSelector<IOrderDetail>(store => store.orderDetails)
 
     return rejected ? (
         <Rejected />

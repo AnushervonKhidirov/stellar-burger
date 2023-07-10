@@ -1,5 +1,5 @@
-import type { ReactElement,  FormEvent } from 'react'
-import type { Ingredient, ConstructorIngredient } from '../../../utils/interfaces'
+import type { FC, FormEvent } from 'react'
+import type { Ingredient } from '../../../utils/interfaces'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { sendIngredientsId } from '../../../services/orders/action'
@@ -8,10 +8,12 @@ import TotalPrice from '../../common/total-price/TotalPrice'
 
 import styles from './OrderBlock.module.css'
 
-export default function OrderBlock(): ReactElement {
+const OrderBlock: FC = () => {
     const dispatch = useAppDispatch()
-    const constructorBun: Ingredient | null = useAppSelector(store => store.constructorIngredientList.bun)
-    const constructorList: ConstructorIngredient[] = useAppSelector(
+    const constructorBun = useAppSelector<Ingredient | null>(
+        store => store.constructorIngredientList.bun
+    )
+    const constructorList = useAppSelector<Ingredient[]>(
         store => store.constructorIngredientList.ingredients
     )
 
@@ -20,15 +22,15 @@ export default function OrderBlock(): ReactElement {
 
         const isBun = constructorBun?._id
         const isMain =
-            constructorList.findIndex((ing: ConstructorIngredient) => ing.type === 'main') !== -1
+            constructorList.findIndex((ing: Ingredient) => ing.type === 'main') !== -1
         const isSauce =
-            constructorList.findIndex((ing: ConstructorIngredient) => ing.type === 'sauce') !== -1
+            constructorList.findIndex((ing: Ingredient) => ing.type === 'sauce') !== -1
         const isAvailableToOrder = isBun && isMain
 
         if (isAvailableToOrder) {
             dispatch(
                 sendIngredientsId([
-                    ...constructorList.map((ing: ConstructorIngredient) => ing._id),
+                    ...constructorList.map((ing: Ingredient) => ing._id),
                     constructorBun._id,
                 ])
             )
@@ -52,3 +54,5 @@ export default function OrderBlock(): ReactElement {
         </form>
     )
 }
+
+export default OrderBlock

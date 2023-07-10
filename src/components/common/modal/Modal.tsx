@@ -3,7 +3,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ModalOverlay from '../modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'
 
-import type { ReactElement } from 'react'
+import type { FC, ReactElement } from 'react'
 import type { CloseModal } from '../../../utils/interfaces'
 
 interface ModalProps {
@@ -11,7 +11,7 @@ interface ModalProps {
     onClose: CloseModal
 }
 
-function Modal({ children, onClose }: ModalProps) {
+const Modal: FC<ModalProps> = ({ children, onClose }) => {
     useEffect(() => {
         function modalCloseHandler(e: KeyboardEvent) {
             if (e.key === 'Escape') onClose()
@@ -32,7 +32,7 @@ function Modal({ children, onClose }: ModalProps) {
     )
 }
 
-function ModalContainer({ children, onClose }: ModalProps) {
+const ModalContainer: FC<ModalProps> = ({ children, onClose }) => {
     return (
         <div className={styles.modal_container}>
             <CloseButton onClose={onClose} />
@@ -41,7 +41,7 @@ function ModalContainer({ children, onClose }: ModalProps) {
     )
 }
 
-function CloseButton({ onClose }: { onClose: CloseModal }) {
+const CloseButton: FC<{ onClose: CloseModal }> = ({ onClose }) => {
     return (
         <div className={styles.close_button}>
             <CloseIcon type='primary' onClick={onClose} />

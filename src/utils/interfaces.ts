@@ -1,67 +1,51 @@
-interface Ingredient {
-    _id: string
-    name: string
-    type: IngredientTypes
-    proteins: number
-    fat: number
-    carbohydrates: number
-    calories: number
-    price: number
-    image: string
-    image_mobile: string
-    image_large: string
-    __v: number
+export interface Ingredient {
+    readonly _id: string
+    readonly name: string
+    readonly type: IngredientTypes
+    readonly proteins: number
+    readonly fat: number
+    readonly carbohydrates: number
+    readonly calories: number
+    readonly price: number
+    readonly image: string
+    readonly image_mobile: string
+    readonly image_large: string
+    readonly __v: number
+    readonly key?: string
 }
 
-interface ConstructorIngredient extends Ingredient {
-    key?: string
+export interface IProfileState {
+    isAuthChecked: boolean
+    isAuthorized: boolean
+    isLoading: boolean
+    rejected: boolean
+    userInfo: IUserInfo | null
 }
 
-interface UserState {
-    isAuthChecked: Boolean
-    isAuthorized: Boolean
-    isLoading: Boolean
-    rejected: Boolean
-    userInfo: UserInfo | null
-}
-
-interface UserInfo {
+export interface IUserInfo {
     name: string
     email: string
 }
 
-
-interface FooterText {
-    text: string
-    link: {
-        title: string
-        href: string
+export interface FooterText {
+    readonly text: string
+    readonly link: {
+        readonly title: string
+        readonly href: string
     }
 }
 
-interface FormInput {
-    type: 'text' | 'email' | 'password'
+export interface FormInput {
+    readonly type: 'text' | 'email' | 'password'
     name: string
     placeholder: string
 }
 
-interface TypesPositionPayload {
-    type: IngredientTypes
+export interface TypesPositionPayload {
+    readonly type: IngredientTypes
     top: number
     bottom: number
 }
 
-type IngredientTypes = 'bun' | 'sauce' | 'main'
-type CloseModal = () => void
-
-export type {
-    Ingredient,
-    FooterText,
-    FormInput,
-    CloseModal,
-    TypesPositionPayload,
-    IngredientTypes,
-    UserState,
-    UserInfo,
-    ConstructorIngredient,
-}
+export type IngredientTypes = Readonly<'bun' | 'sauce' | 'main'>
+export type CloseModal = () => void

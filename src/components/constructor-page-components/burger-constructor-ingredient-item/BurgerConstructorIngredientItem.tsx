@@ -1,5 +1,6 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import type { Ingredient } from '../../../utils/interfaces'
+import type { IConstructorIngDrag } from '../burger-constructor-ingredients/BurgerConstructorIngredients'
 
 import { useRef } from 'react'
 import { useAppDispatch } from '../../../utils/hooks'
@@ -9,15 +10,10 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 
 import styles from './BurgerConstructorIngredientItem.module.css'
 
-
-export default function BurgerConstructorIngredientItem({
-    ingredient,
-}: {
-    ingredient: Ingredient
-}): ReactElement {
+const BurgerConstructorIngredientItem: FC<{ ingredient: Ingredient }> = ({ ingredient }) => {
     const dispatch = useAppDispatch()
     const iconRef = useRef<HTMLDivElement>(null)
-    const [{ isDragging }, dragRef] = useDrag({
+    const [{ isDragging }, dragRef] = useDrag<IConstructorIngDrag, unknown, {isDragging: boolean}>({
         type: 'ingredient_position',
         item: { ingredient, iconRef },
         collect: monitor => ({
@@ -43,3 +39,5 @@ export default function BurgerConstructorIngredientItem({
         </li>
     )
 }
+
+export default BurgerConstructorIngredientItem

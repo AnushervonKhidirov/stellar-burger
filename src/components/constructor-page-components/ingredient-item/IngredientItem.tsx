@@ -1,5 +1,6 @@
-import type { ReactElement } from 'react'
-import type { Ingredient, ConstructorIngredient } from '../../../utils/interfaces'
+import type { FC } from 'react'
+import type { Ingredient } from '../../../utils/interfaces'
+import type { IConstructorList } from '../../../services/store/constructorIngredientListSlice'
 
 import { useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -10,16 +11,15 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 
 import styles from './IngredientItem.module.css'
 
-
-export default function IngredientItem({ data }: { data: Ingredient }): ReactElement {
+const IngredientItem: FC<{ data: Ingredient }> = ({ data }) => {
     const dispatch = useAppDispatch()
     const location = useLocation()
-    const allIngredients = useAppSelector(store => store.constructorIngredientList)
-    const getAmount = useMemo((): number => {
+    const allIngredients = useAppSelector<IConstructorList>(store => store.constructorIngredientList)
+    const getAmount = useMemo<number>(() => {
         if (data.type === 'bun') {
             return allIngredients.bun?._id === data._id ? 1 : 0
         } else {
-            return allIngredients.ingredients.reduce((acc: number, item: ConstructorIngredient) => {
+            return allIngredients.ingredients.reduce((acc: number, item: Ingredient) => {
                 if (item._id === data._id) ++acc
                 return acc
             }, 0)
@@ -28,7 +28,7 @@ export default function IngredientItem({ data }: { data: Ingredient }): ReactEle
 
     const amount: number = getAmount
 
-    const [, dragRef] = useDrag({
+    const [, dragRef] = useDrag<Ingredient>({
         type: 'ingredient',
         item: data,
     })
@@ -51,3 +51,5 @@ export default function IngredientItem({ data }: { data: Ingredient }): ReactEle
         </Link>
     )
 }
+
+export default IngredientItem

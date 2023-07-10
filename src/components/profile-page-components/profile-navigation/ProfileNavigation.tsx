@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 
 import { useAppDispatch } from '../../../utils/hooks'
 import { logoutUser } from '../../../services/user/action'
@@ -6,21 +6,23 @@ import { NavLink, useLocation } from 'react-router-dom'
 
 import styles from './ProfileNavigation.module.css'
 
-interface NavigationData {
-    navigationData: ProfileNavigationData[]
+interface IProfileNavigation {
+    navigationData: IProfileMessage[]
 }
 
-interface ProfileNavigationData {
+interface IProfileMessage {
     title: string
     href: string
     message: string
 }
 
-export default function ProfileNavigation({ navigationData }: NavigationData): ReactElement {
+type TProfileMessage = IProfileMessage | undefined
+
+const ProfileNavigation: FC<IProfileNavigation> = ({ navigationData }) => {
     const location = useLocation()
 
-    const profileMessage: ProfileNavigationData | undefined = navigationData.find(
-        (data: ProfileNavigationData): boolean => data.href === location.pathname
+    const profileMessage: TProfileMessage = navigationData.find(
+        (data: IProfileMessage): boolean => data.href === location.pathname
     )
 
     function setActive(isActive: boolean): string {
@@ -52,7 +54,7 @@ export default function ProfileNavigation({ navigationData }: NavigationData): R
     )
 }
 
-function LogOutButton(): ReactElement {
+const LogOutButton: FC = () => {
     const dispatch = useAppDispatch()
 
     return (
@@ -64,3 +66,5 @@ function LogOutButton(): ReactElement {
         </div>
     )
 }
+
+export default ProfileNavigation

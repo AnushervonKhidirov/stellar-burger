@@ -1,7 +1,7 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import styles from './Rejected.module.css'
 
-export default function Rejected(): ReactElement {
+const Rejected: FC = () => {
     return (
         <div className={styles.rejected}>
             <p className='text text_type_main-medium text_color_inactive'>
@@ -11,3 +11,5 @@ export default function Rejected(): ReactElement {
         </div>
     )
 }
+
+export default Rejected

@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import type { Ingredient } from '../../../utils/interfaces'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
@@ -15,13 +15,11 @@ import Loader from '../../common/loader/Loader'
 
 import styles from './BurgerConstructor.module.css'
 
-
-export default function BurgerConstructor(): ReactElement {
+const BurgerConstructor: FC = () => {
     const dispatch = useAppDispatch()
+    const orderNumber = useAppSelector<number | null>(store => store.orderDetails.orderNumber)
 
-    const orderNumber = useAppSelector(store => store.orderDetails.orderNumber)
-
-    function closeModalHandler() {
+    function closeModalHandler(): void {
         dispatch(clearOrder())
     }
 
@@ -31,24 +29,32 @@ export default function BurgerConstructor(): ReactElement {
                 <BurgerConstructorBlock />
                 <OrderBlock />
             </div>
-            {orderNumber && <Modal onClose={closeModalHandler}><OrderDetails /></Modal>}
+            {orderNumber && (
+                <Modal onClose={closeModalHandler}>
+                    <OrderDetails />
+                </Modal>
+            )}
         </>
     )
 }
 
-function BurgerConstructorBlock() {
+const BurgerConstructorBlock: FC = () => {
     const dispatch = useAppDispatch()
-    const isOrderLoading = useAppSelector(store => store.orderDetails.isLoading)
+    const isOrderLoading = useAppSelector<boolean>(store => store.orderDetails.isLoading)
+    
+    const constructorClassName: string = isOrderLoading
+        ? styles.constructor_loading
+        : styles.constructor_inner
 
-    const [, dropRef] = useDrop({
+    const [, dropRef] = useDrop<Ingredient>({
         accept: 'ingredient',
-        drop(ingredient: Ingredient) {
+        drop(ingredient) {
             dispatch(addIngredientToConstructor(ingredient))
         },
     })
 
     return (
-        <div className={isOrderLoading ? styles.constructor_loading : styles.constructor_inner} ref={dropRef}>
+        <div className={constructorClassName} ref={dropRef}>
             <BurgerConstructorBun position='top' />
             <BurgerConstructorIngredients />
             <BurgerConstructorBun position='bottom' />
@@ -56,3 +62,5 @@ function BurgerConstructorBlock() {
         </div>
     )
 }
+
+export default BurgerConstructor

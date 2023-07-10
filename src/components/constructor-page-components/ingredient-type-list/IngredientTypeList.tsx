@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import type { Ingredient, TypesPositionPayload, IngredientTypes } from '../../../utils/interfaces'
 
 import { useEffect, useRef } from 'react'
@@ -9,18 +9,13 @@ import IngredientItem from '../ingredient-item/IngredientItem'
 import { headlines } from './constant'
 import styles from './IngredientTypeList.module.css'
 
-
 interface IngredientTypeListProps {
     type: IngredientTypes
     list: Ingredient[]
     parentTopPosition: number
 }
 
-export default function IngredientTypeList({
-    type,
-    list,
-    parentTopPosition = 0,
-}: IngredientTypeListProps): ReactElement {
+const IngredientTypeList: FC<IngredientTypeListProps> = ({ type, list, parentTopPosition = 0 }) => {
     const dispatch = useAppDispatch()
     const ingredientTypeRef = useRef<HTMLDivElement>(null)
 
@@ -53,3 +48,5 @@ export default function IngredientTypeList({
         </div>
     )
 }
+
+export default IngredientTypeList

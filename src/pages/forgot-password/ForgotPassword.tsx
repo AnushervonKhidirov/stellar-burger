@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Form from '../../components/common/form/Form'
@@ -12,7 +12,7 @@ interface ForgetData {
     email: string
 }
 
-export default function ForgotPassword(): ReactElement {
+const ForgotPassword: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
@@ -51,3 +51,5 @@ export default function ForgotPassword(): ReactElement {
         </>
     )
 }
+
+export default ForgotPassword

@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import type { Ingredient } from '../../../utils/interfaces'
 
 import { useAppSelector } from '../../../utils/hooks'
@@ -8,13 +8,12 @@ import { positionText } from './constant'
 
 import styles from './BurgerConstructorBun.module.css'
 
-
 interface BunPosition {
     position: 'top' | 'bottom'
 }
 
-export default function BurgerConstructorBun({ position }: BunPosition): ReactElement {
-    const bun: Ingredient | null = useAppSelector(store => store.constructorIngredientList.bun)
+const BurgerConstructorBun: FC<BunPosition> = ({ position }) => {
+    const bun = useAppSelector<Ingredient | null>(store => store.constructorIngredientList.bun)
 
     const classForEmpty = `constructor-element constructor-element_pos_${position}
         ${styles[`bun_${position}`]}
@@ -32,3 +31,5 @@ export default function BurgerConstructorBun({ position }: BunPosition): ReactEl
         <div className={classForEmpty}>Выберите булки</div>
     )
 }
+
+export default BurgerConstructorBun

@@ -3,7 +3,7 @@ import { sendIngredientsId } from './action'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-interface OrderDetail {
+export interface OrderDetail {
     orderName: string | null
     orderNumber: number | null
     ingredientsId: string[] | void

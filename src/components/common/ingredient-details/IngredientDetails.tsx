@@ -1,8 +1,9 @@
+import type { FC } from 'react'
+import type { Ingredient } from '../../../utils/interfaces'
+
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from '../../../utils/hooks'
 import styles from './IngredientDetails.module.css'
-
-import type { Ingredient } from '../../../utils/interfaces'
 
 interface IngredientPropertiesType {
     calories: number
@@ -16,7 +17,7 @@ interface IngredientPropertyItemType {
     value: number
 }
 
-function IngredientDetails() {
+const IngredientDetails: FC = () => {
     const ingredientId: string | undefined = useParams().ingredientId
     const findIng = (ing: Ingredient): boolean => ing._id === ingredientId
     const ingredient = useAppSelector(store => store.ingredientList.ingredients).filter(findIng)[0]
@@ -40,12 +41,12 @@ function IngredientDetails() {
     )
 }
 
-function IngredientProperties({
+const IngredientProperties: FC<IngredientPropertiesType> = ({
     calories,
     proteins,
     fat,
     carbohydrates,
-}: IngredientPropertiesType) {
+}) => {
     return (
         <ul className={styles.ingredient_properties}>
             <IngredientPropertyItem name={'Калории, ккал'} value={calories} />
@@ -56,7 +57,7 @@ function IngredientProperties({
     )
 }
 
-function IngredientPropertyItem({ name, value }: IngredientPropertyItemType) {
+const IngredientPropertyItem: FC<IngredientPropertyItemType> = ({ name, value }) => {
     return (
         <li className={styles.ingredient_property_item}>
             <div className='text text_type_main-default text_color_inactive mb-2'>{name}</div>

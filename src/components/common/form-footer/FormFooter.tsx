@@ -1,15 +1,10 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import type { FooterText } from '../../../utils/interfaces'
-
 import { Link, useLocation } from 'react-router-dom'
 
 import styles from './FormFooter.module.css'
 
-interface FooterData {
-    data: FooterText[]
-}
-
-export default function FormFooter({ data }: FooterData): ReactElement {
+const FormFooter: FC<{ data: FooterText[] }> = ({ data }) => {
     return (
         data && (
             <div className={`${styles.form_footer} mt-20`}>
@@ -21,7 +16,7 @@ export default function FormFooter({ data }: FooterData): ReactElement {
     )
 }
 
-function FormFooterItem({ text, link }: FooterText) {
+const FormFooterItem: FC<FooterText> = ({ text, link }) => {
     const location = useLocation()
 
     return (
@@ -33,3 +28,5 @@ function FormFooterItem({ text, link }: FooterText) {
         </p>
     )
 }
+
+export default FormFooter

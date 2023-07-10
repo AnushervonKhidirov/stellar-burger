@@ -1,4 +1,4 @@
-import type { ReactElement, FormEvent } from 'react'
+import type { FC, ReactElement } from 'react'
 import type { FormInput } from '../../../utils/interfaces'
 
 import { useAppDispatch } from '../../../utils/hooks'
@@ -19,13 +19,13 @@ interface SendData {
     [key: string]: string
 }
 
-export default function Form({
+const Form: FC<FormData> = ({
     headline,
     inputs,
     buttonText,
     submitFunc,
     isDispatch = true,
-}: FormData): ReactElement | null {
+}): ReactElement | null => {
     const dispatch = useAppDispatch()
     const isAllProps = headline && inputs && buttonText
 
@@ -58,3 +58,5 @@ export default function Form({
         </form>
     ) : null
 }
+
+export default Form

@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import type { Ingredient, IngredientTypes } from '../../../utils/interfaces'
 
 import { useEffect, useRef, useMemo } from 'react'
@@ -10,13 +10,12 @@ import IngredientTypeList from '../ingredient-type-list/IngredientTypeList'
 
 import styles from './BurgerIngredientList.module.css'
 
-
 interface SeparateTypes {
     type: IngredientTypes
     list: Ingredient[]
 }
 
-export default function BurgerIngredientList(): ReactElement {
+const BurgerIngredientList: FC = () => {
     const dispatch = useAppDispatch()
 
     const scrollRef = useRef<HTMLDivElement>(null)
@@ -67,8 +66,8 @@ export default function BurgerIngredientList(): ReactElement {
     )
 }
 
-function separateByTypes(arr: Ingredient[]): SeparateTypes[] {
-    const newArr: SeparateTypes[] = [
+function separateByTypes(ingredients: Ingredient[]): SeparateTypes[] {
+    const separatedIngredients: SeparateTypes[] = [
         {
             type: 'bun',
             list: [],
@@ -83,9 +82,11 @@ function separateByTypes(arr: Ingredient[]): SeparateTypes[] {
         },
     ]
 
-    arr.forEach((item: Ingredient) => {
-        newArr.find((elem: SeparateTypes) => elem.type === item.type)?.list.push(item)
+    ingredients.forEach((item: Ingredient) => {
+        separatedIngredients.find((elem: SeparateTypes) => elem.type === item.type)?.list.push(item)
     })
 
-    return newArr
+    return separatedIngredients
 }
+
+export default BurgerIngredientList

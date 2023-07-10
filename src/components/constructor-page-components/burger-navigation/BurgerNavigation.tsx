@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import type { IngredientTypes } from '../../../utils/interfaces'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
@@ -9,9 +9,9 @@ import { tabList } from './constant'
 import styles from './BurgerNavigation.module.css'
 
 
-export default function BurgerNavigation(): ReactElement {
+const BurgerNavigation: FC = () => {
     const dispatch = useAppDispatch()
-    const currentTab: IngredientTypes = useAppSelector(store => store.ingredientTab.currentTab)
+    const currentTab = useAppSelector<IngredientTypes>(store => store.ingredientTab.currentTab)
 
     function tabHandler(value: string): void {
         dispatch(setCurrentTab(value))
@@ -36,3 +36,5 @@ export default function BurgerNavigation(): ReactElement {
         </div>
     )
 }
+
+export default BurgerNavigation

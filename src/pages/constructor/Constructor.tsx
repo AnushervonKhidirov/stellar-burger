@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -8,7 +8,7 @@ import BurgerConstructor from '../../components/constructor-page-components/burg
 
 import styles from './Constructor.module.css'
 
-function Constructor(): ReactElement {
+const Constructor: FC = () => {
     return (
         <div className={styles.burger_constructor}>
             <DndProvider backend={HTML5Backend}>

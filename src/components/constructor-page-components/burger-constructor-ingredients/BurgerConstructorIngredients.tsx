@@ -1,5 +1,6 @@
-import type { ReactElement } from 'react'
-import type { ConstructorIngredient } from '../../../utils/interfaces'
+import type { FC } from 'react'
+import type { Ingredient } from '../../../utils/interfaces'
+import { RefObject } from 'react'
 
 import { useDrop } from 'react-dnd'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
@@ -8,23 +9,22 @@ import BurgerConstructorIngredientItem from '../burger-constructor-ingredient-it
 
 import styles from './BurgerConstructorIngredients.module.css'
 
-
-interface ConstructorIngDrag {
-    ingredient: ConstructorIngredient
-    iconRef: { current: HTMLDivElement }
+export interface IConstructorIngDrag {
+    ingredient: Ingredient
+    iconRef: RefObject<HTMLDivElement>
 }
 
-export default function BurgerConstructorIngredients(): ReactElement {
+const BurgerConstructorIngredients: FC = () => {
     const dispatch = useAppDispatch()
     const ingredientList = useAppSelector(store => store.constructorIngredientList.ingredients)
 
-    const [, dropRef] = useDrop({
+    const [, dropRef] = useDrop<IConstructorIngDrag>({
         accept: 'ingredient_position',
-        hover({ ingredient, iconRef }: ConstructorIngDrag, monitor) {
+        hover({ ingredient, iconRef }, monitor) {
             if (!iconRef) return
-            const ingredientElem = iconRef.current.parentElement
+            const ingredientElem = iconRef.current?.parentElement
             const hoverBoundingRect = ingredientElem?.getBoundingClientRect()
-            
+
             if (!hoverBoundingRect) return
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect?.top) / 2
             const clientOffset = monitor.getClientOffset()
@@ -68,3 +68,5 @@ export default function BurgerConstructorIngredients(): ReactElement {
         </div>
     )
 }
+
+export default BurgerConstructorIngredients

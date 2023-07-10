@@ -1,23 +1,23 @@
-import type { UserState, UserInfo } from '../../utils/interfaces'
+import type { IProfileState, IUserInfo } from '../../utils/interfaces'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
 
 import { registerUser, loginUser, logoutUser, getUser, updateUser } from './action'
 
-interface FulfilledPayload {
+interface IFulfilledPayload {
     success: boolean
-    user: UserInfo
+    user: IUserInfo
     accessToken: string
     refreshToken: string
 }
 
-interface UserData {
+interface IUserResponse {
     success: boolean
-    user: UserInfo
+    user: IUserInfo
 }
 
-const initialState: UserState = {
+const initialState: IProfileState = {
     isAuthChecked: false,
     isAuthorized: false,
     isLoading: false,
@@ -38,7 +38,7 @@ export const profileSlice = createSlice({
             })
             .addCase(
                 registerUser.fulfilled,
-                (state, { payload }: PayloadAction<FulfilledPayload>) => {
+                (state, { payload }: PayloadAction<IFulfilledPayload>) => {
                     state.isLoading = false
                     state.userInfo = { ...payload.user }
                     state.isAuthorized = true
@@ -58,7 +58,7 @@ export const profileSlice = createSlice({
                 state.rejected = false
                 state.isAuthChecked = false
             })
-            .addCase(loginUser.fulfilled, (state, { payload }: PayloadAction<FulfilledPayload>) => {
+            .addCase(loginUser.fulfilled, (state, { payload }: PayloadAction<IFulfilledPayload>) => {
                 state.isLoading = false
                 state.userInfo = { ...payload.user }
                 state.isAuthorized = true
@@ -93,7 +93,7 @@ export const profileSlice = createSlice({
                 state.rejected = false
                 state.isAuthChecked = false
             })
-            .addCase(getUser.fulfilled, (state, { payload }: PayloadAction<UserData>) => {
+            .addCase(getUser.fulfilled, (state, { payload }: PayloadAction<IUserResponse>) => {
                 state.userInfo = { ...payload.user }
                 state.isAuthorized = true
                 state.isLoading = false
@@ -111,7 +111,7 @@ export const profileSlice = createSlice({
                 state.rejected = false
                 state.isAuthChecked = false
             })
-            .addCase(updateUser.fulfilled, (state, { payload }: PayloadAction<UserData>) => {
+            .addCase(updateUser.fulfilled, (state, { payload }: PayloadAction<IUserResponse>) => {
                 state.userInfo = { ...payload.user }
                 state.isAuthorized = true
                 state.isLoading = false

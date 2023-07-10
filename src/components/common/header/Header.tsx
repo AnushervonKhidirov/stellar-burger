@@ -1,5 +1,5 @@
 import type { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils'
-import type { ReactElement } from 'react'
+import type { FC, ReactElement } from 'react'
 
 import { NavLink, useLocation } from 'react-router-dom'
 import {
@@ -17,7 +17,7 @@ interface HeaderNavigation {
     Icon: ({ type }: TIconProps) => ReactElement
 }
 
-function Header(): ReactElement {
+const Header: FC = () => {
     return (
         <header>
             <div className='header_inner'>
@@ -36,7 +36,7 @@ function Header(): ReactElement {
     )
 }
 
-function HeaderNavLink({ link, title, Icon }: HeaderNavigation) {
+const HeaderNavLink: FC<HeaderNavigation> = ({ link, title, Icon }) => {
     const location = useLocation()
 
     return (

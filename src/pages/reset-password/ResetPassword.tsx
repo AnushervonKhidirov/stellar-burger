@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import Form from '../../components/common/form/Form'
@@ -13,8 +13,7 @@ interface ResetData {
     token: string
 }
 
-
-export default function ResetPassword(): ReactElement {
+const ResetPassword: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
@@ -26,7 +25,7 @@ export default function ResetPassword(): ReactElement {
                 'Content-Type': 'application/json;charset=utf-8',
             },
         })
-    
+
         const result = await checkResponse(res)
 
         if (result.success) {
@@ -38,11 +37,20 @@ export default function ResetPassword(): ReactElement {
         return result
     }
 
-    return localStorage.getItem('reset-password') ? 
-        (
-            <>
-                <Form headline='Восстановление пароля' inputs={inputs} buttonText='Сохранить' submitFunc={resetPassword} isDispatch={false} />
-                <FormFooter data={footerData} />
-            </>
-        ) : <Navigate to='/' /> 
+    return localStorage.getItem('reset-password') ? (
+        <>
+            <Form
+                headline='Восстановление пароля'
+                inputs={inputs}
+                buttonText='Сохранить'
+                submitFunc={resetPassword}
+                isDispatch={false}
+            />
+            <FormFooter data={footerData} />
+        </>
+    ) : (
+        <Navigate to='/' />
+    )
 }
+
+export default ResetPassword

@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 import ProfileNavigation from '../../components/profile-page-components/profile-navigation/ProfileNavigation'
 
@@ -6,7 +6,7 @@ import { profileNavigationData } from './constant'
 
 import styles from './Profile.module.css'
 
-export default function Profile(): ReactElement {
+const Profile: FC = () => {
     return (
         <div className={styles.profile}>
             <ProfileNavigation navigationData={profileNavigationData} />
@@ -17,3 +17,5 @@ export default function Profile(): ReactElement {
         </div>
     )
 }
+
+export default Profile
