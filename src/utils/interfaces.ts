@@ -49,3 +49,37 @@ export interface TypesPositionPayload {
 
 export type IngredientTypes = Readonly<'bun' | 'sauce' | 'main'>
 export type CloseModal = () => void
+
+// api
+export interface IRejected {
+    rejectWithValue: any
+}
+
+export interface IToken {
+    readonly accessToken: string
+    readonly refreshToken: string
+}
+
+export interface ILoginData {
+    readonly email: string
+    readonly password: string
+}
+
+export interface IRegisterData extends ILoginData {
+    readonly name: string
+}
+
+export interface IUpdateUserData {
+    readonly name?: string
+    readonly email?: string
+    readonly password?: string
+}
+
+export interface IForgotPassword {
+    readonly email: string
+}
+
+export interface IResetPassword {
+    readonly password: string
+    readonly token: string
+}

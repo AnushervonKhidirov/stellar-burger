@@ -1,24 +1,36 @@
-export const API_URL = 'https://norma.nomoreparties.space/api'
- 
-export const checkResponse = (res, rejectWithValue) =>
-    res.ok
-        ? res.json()
-        : res.json().then(err => {
-            return rejectWithValue ? rejectWithValue(err) : Promise.reject(err)
-        })
+import type {
+    IToken,
+    IRejected,
+    ILoginData,
+    IRegisterData,
 
-const setToken = result => {
+    IUpdateUserData,
+    IForgotPassword,
+    IResetPassword,
+} from './interfaces'
+
+const setToken = (result: IToken) => {
     localStorage.setItem('accessToken', result.accessToken.replace('Bearer ', ''))
     localStorage.setItem('refreshToken', result.refreshToken)
 }
 
-async function fetchIngredients() {
+export const API_URL = 'https://norma.nomoreparties.space/api'
+
+export const checkResponse = (res: any, rejectWithValue?: any) =>
+    res.ok
+        ? res.json()
+        : res.json().then((err: any) => {
+              return rejectWithValue ? rejectWithValue(err) : Promise.reject(err)
+          })
+
+export const fetchIngredients = async () => {
     const res = await fetch(`${API_URL}/ingredients`)
     const result = await checkResponse(res)
     return result.data
 }
 
-async function fetchOrder(ingredientsID, {rejectWithValue}) {
+// TODO: add return type
+export const fetchOrder = async (ingredientsID: string[], { rejectWithValue }: IRejected) => {
     const res = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         body: JSON.stringify({ ingredients: ingredientsID }),
@@ -30,12 +42,13 @@ async function fetchOrder(ingredientsID, {rejectWithValue}) {
     return await checkResponse(res, rejectWithValue)
 }
 
-async function fetchOrderDetail(orderID) {
+// TODO: add return type
+export const fetchOrderDetail = async (orderID: string) => {
     const res = await fetch(`${API_URL}/orders/${orderID}`)
     return await checkResponse(res)
 }
 
-async function register(data, { rejectWithValue }) {
+export const register = async (data: IRegisterData, { rejectWithValue }: IRejected) => {
     const res = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -50,7 +63,7 @@ async function register(data, { rejectWithValue }) {
     return result
 }
 
-async function logIn(data, { rejectWithValue }) {
+export const logIn = async (data: ILoginData, { rejectWithValue }: IRejected) => {
     const res = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -65,7 +78,7 @@ async function logIn(data, { rejectWithValue }) {
     return result
 }
 
-async function logOut({ rejectWithValue }) {
+export const logOut = async ({ rejectWithValue }: IRejected) => {
     const res = await fetch(`${API_URL}/auth/logout`, {
         method: 'POST',
         body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
@@ -80,31 +93,39 @@ async function logOut({ rejectWithValue }) {
     return result
 }
 
-async function getUserData({ rejectWithValue }) {
-    return fetchWithRefresh(`${API_URL}/auth/user`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+export const getUserData = async ({ rejectWithValue }: IRejected) => {
+    return fetchWithRefresh(
+        `${API_URL}/auth/user`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
         },
-    }, rejectWithValue)
+        rejectWithValue
+    )
 }
 
-async function updateUserData(data, { rejectWithValue }) {
-    if (Object.keys(data).length === 0) return rejectWithValue({message: 'Nothing to change'})
+export const updateUserData = async (data: IUpdateUserData, { rejectWithValue }: IRejected) => {
+    if (Object.keys(data).length === 0) return rejectWithValue({ message: 'Nothing to change' })
 
-    return fetchWithRefresh(`${API_URL}/auth/user`, {
-        method: 'PATCH',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    return fetchWithRefresh(
+        `${API_URL}/auth/user`,
+        {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
         },
-    }, rejectWithValue)
+        rejectWithValue
+    )
 }
 
-async function forgetPassword(data, { rejectWithValue }) {
-    if (data.email === '') return rejectWithValue({message: 'Please enter your email'})
+export const forgetPassword = async (data: IForgotPassword, { rejectWithValue }: IRejected) => {
+    if (data.email === '') return rejectWithValue({ message: 'Please enter your email' })
 
     const res = await fetch(`${API_URL}/password-reset`, {
         method: 'POST',
@@ -117,7 +138,7 @@ async function forgetPassword(data, { rejectWithValue }) {
     return await checkResponse(res, rejectWithValue)
 }
 
-async function resetPassword(data, { rejectWithValue }) {
+export const resetPassword = async (data: IResetPassword, { rejectWithValue }: IRejected) => {
     const res = await fetch(`${API_URL}/password-reset/reset`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -141,11 +162,19 @@ async function updateToken() {
     return await checkResponse(res)
 }
 
-async function fetchWithRefresh(url, options, rejectWithValue) {
+interface IFetchOptions {
+    method: 'GET' | 'POST' | 'PATCH'
+    body?: string
+    headers: {
+        [key: string]: string
+    }
+}
+
+async function fetchWithRefresh(url: string, options: IFetchOptions, rejectWithValue: IRejected) {
     try {
         const res = await fetch(url, options)
         return await checkResponse(res)
-    } catch (err) {
+    } catch (err: any) {
         if (err.message === 'jwt expired') {
             const refreshData = await updateToken()
 
@@ -160,18 +189,4 @@ async function fetchWithRefresh(url, options, rejectWithValue) {
             return Promise.reject(err)
         }
     }
-}
-
-export {
-    fetchIngredients,
-    fetchOrder,
-    fetchOrderDetail,
-    register,
-    logIn,
-    logOut,
-    getUserData,
-    updateUserData,
-    forgetPassword,
-    resetPassword,
-    fetchWithRefresh,
 }

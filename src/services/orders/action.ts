@@ -1,9 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchOrder } from '../../utils/burger-api'
 
-const sendIngredientsId: any = createAsyncThunk(
+export const sendIngredientsId: any = createAsyncThunk(
     'orderDetail/sendIngredientsId',
-    async (data, rejectWithValue) => fetchOrder(data, rejectWithValue)
+    async (data: string[], rejectWithValue) => fetchOrder(data, rejectWithValue)
 )
-
-export { sendIngredientsId }

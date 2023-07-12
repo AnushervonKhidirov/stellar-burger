@@ -1,33 +1,24 @@
+import type { IRegisterData, ILoginData, IUpdateUserData } from '../../utils/interfaces'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import {
-    register,
-    logIn,
-    logOut,
-    getUserData,
-    updateUserData,
-} from '../../utils/burger-api'
+import { register, logIn, logOut, getUserData, updateUserData } from '../../utils/burger-api'
 
-const registerUser: any = createAsyncThunk('profile/register', async (data, rejectWithValue) =>
-    register(data, rejectWithValue)
+export const registerUser = createAsyncThunk(
+    'profile/register',
+    async (data: IRegisterData, rejectWithValue) => register(data, rejectWithValue)
 )
-const loginUser: any = createAsyncThunk('profile/login', async (data, rejectWithValue) =>
-    logIn(data, rejectWithValue)
+export const loginUser = createAsyncThunk(
+    'profile/login',
+    async (data: ILoginData, rejectWithValue) => logIn(data, rejectWithValue)
 )
-const logoutUser: any = createAsyncThunk('profile/logout', async (data, rejectWithValue) =>
-    logOut(rejectWithValue)
+export const logoutUser: any = createAsyncThunk(
+    'profile/logout',
+    async (data: unknown, rejectWithValue) => logOut(rejectWithValue)
 )
-const getUser: any = createAsyncThunk('profile/getUser', async (data, rejectWithValue) =>
+export const getUser: any = createAsyncThunk('profile/getUser', async (data: unknown, rejectWithValue) =>
     getUserData(rejectWithValue)
 )
-const updateUser: any = createAsyncThunk('profile/updateUser', async (data, rejectWithValue) =>
-    updateUserData(data, rejectWithValue)
+export const updateUser: any = createAsyncThunk(
+    'profile/updateUser',
+    async (data: IUpdateUserData, rejectWithValue) => updateUserData(data, rejectWithValue)
 )
-
-export {
-    registerUser,
-    loginUser,
-    logoutUser,
-    getUser,
-    updateUser,
-}
