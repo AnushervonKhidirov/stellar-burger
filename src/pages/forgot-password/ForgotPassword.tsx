@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import type { TForgotPasswordSubmit } from '../../utils/interfaces'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Form from '../../components/common/form/Form'
@@ -8,34 +9,30 @@ import { API_URL, checkResponse } from '../../utils/burger-api'
 
 import { inputs, footerData } from './constant'
 
-interface ForgetData {
-    email: string
-}
-
 const ForgotPassword: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    async function forgetPassword(data: ForgetData) {
-        if (data.email === '') return alert('Please enter your email')
+    const forgetPassword: TForgotPasswordSubmit = async data => {
+        if (data.email === '') {
+            alert('Please enter your email')
+        } else {
+            const res = await fetch(`${API_URL}/password-reset`, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+            })
 
-        const res = await fetch(`${API_URL}/password-reset`, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-            },
-        })
+            const result = await checkResponse(res)
 
-        const result = await checkResponse(res)
-
-        if (result.success) {
-            alert(result.message)
-            localStorage.setItem('reset-password', 'true')
-            navigate('/reset-password', { state: { from: location } })
+            if (result.success) {
+                alert(result.message)
+                localStorage.setItem('reset-password', 'true')
+                navigate('/reset-password', { state: { from: location } })
+            }
         }
-
-        return result
     }
 
     return (

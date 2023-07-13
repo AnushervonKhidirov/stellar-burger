@@ -1,6 +1,6 @@
-import type { FormInput } from "../../utils/interfaces"
+import type { FormInput } from '../../utils/interfaces'
 
-const inputs: FormInput[] = [
+export const inputs: FormInput[] = [
     {
         type: 'password',
         name: 'password',
@@ -13,7 +13,7 @@ const inputs: FormInput[] = [
     },
 ]
 
-const footerData = [
+export const footerData = [
     {
         text: 'Вспомнили пароль?',
         link: {
@@ -22,5 +22,3 @@ const footerData = [
         },
     },
 ]
-
-export { inputs, footerData }

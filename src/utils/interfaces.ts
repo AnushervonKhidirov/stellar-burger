@@ -51,10 +51,6 @@ export type IngredientTypes = Readonly<'bun' | 'sauce' | 'main'>
 export type CloseModal = () => void
 
 // api
-export interface IRejected {
-    rejectWithValue: any
-}
-
 export interface IToken {
     readonly accessToken: string
     readonly refreshToken: string
@@ -83,3 +79,33 @@ export interface IResetPassword {
     readonly password: string
     readonly token: string
 }
+
+export interface IError {
+    message: string
+    fileName?: string
+    lineNumber?: string
+    options?: {
+        cause: string
+    }
+}
+
+// submit
+export type TSubmitFormFunc =
+    | TForgotPasswordSubmit
+    | TResetPasswordSubmit
+    | TLoginUser
+    | TRegisterUser
+
+export type TForgotPasswordSubmit = (data: IForgotPassword) => void
+export type TResetPasswordSubmit = (data: IResetPassword) => void
+
+
+// Redux actions type
+export interface IRejectedWithValueObj {
+    rejectWithValue: TRejectedWithValue
+}
+
+export type TRejectedWithValue = any
+
+export type TLoginUser = any
+export type TRegisterUser = any

@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import type { TResetPasswordSubmit } from '../../utils/interfaces'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import Form from '../../components/common/form/Form'
@@ -8,16 +9,11 @@ import { API_URL, checkResponse } from '../../utils/burger-api'
 
 import { inputs, footerData } from './constant'
 
-interface ResetData {
-    password: string
-    token: string
-}
-
 const ResetPassword: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    async function resetPassword(data: ResetData) {
+    const resetPassword: TResetPasswordSubmit = async data => {
         const res = await fetch(`${API_URL}/password-reset/reset`, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -33,8 +29,6 @@ const ResetPassword: FC = () => {
             localStorage.removeItem('reset-password')
             navigate('/profile', { state: { from: location } })
         }
-
-        return result
     }
 
     return localStorage.getItem('reset-password') ? (

@@ -1,12 +1,13 @@
 import type {
     IToken,
-    IRejected,
+    TRejectedWithValue,
+    IRejectedWithValueObj,
     ILoginData,
     IRegisterData,
-
     IUpdateUserData,
     IForgotPassword,
     IResetPassword,
+    IError,
 } from './interfaces'
 
 const setToken = (result: IToken) => {
@@ -16,10 +17,10 @@ const setToken = (result: IToken) => {
 
 export const API_URL = 'https://norma.nomoreparties.space/api'
 
-export const checkResponse = (res: any, rejectWithValue?: any) =>
+export const checkResponse = (res: Response, rejectWithValue?: TRejectedWithValue) =>
     res.ok
         ? res.json()
-        : res.json().then((err: any) => {
+        : res.json().then((err: IError) => {
               return rejectWithValue ? rejectWithValue(err) : Promise.reject(err)
           })
 
@@ -29,8 +30,7 @@ export const fetchIngredients = async () => {
     return result.data
 }
 
-// TODO: add return type
-export const fetchOrder = async (ingredientsID: string[], { rejectWithValue }: IRejected) => {
+export const fetchOrder = async (ingredientsID: string[], { rejectWithValue }: IRejectedWithValueObj) => {
     const res = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         body: JSON.stringify({ ingredients: ingredientsID }),
@@ -42,13 +42,12 @@ export const fetchOrder = async (ingredientsID: string[], { rejectWithValue }: I
     return await checkResponse(res, rejectWithValue)
 }
 
-// TODO: add return type
 export const fetchOrderDetail = async (orderID: string) => {
     const res = await fetch(`${API_URL}/orders/${orderID}`)
     return await checkResponse(res)
 }
 
-export const register = async (data: IRegisterData, { rejectWithValue }: IRejected) => {
+export const register = async (data: IRegisterData, { rejectWithValue }: IRejectedWithValueObj) => {
     const res = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -63,7 +62,7 @@ export const register = async (data: IRegisterData, { rejectWithValue }: IReject
     return result
 }
 
-export const logIn = async (data: ILoginData, { rejectWithValue }: IRejected) => {
+export const logIn = async (data: ILoginData, { rejectWithValue }: IRejectedWithValueObj) => {
     const res = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -78,7 +77,7 @@ export const logIn = async (data: ILoginData, { rejectWithValue }: IRejected) =>
     return result
 }
 
-export const logOut = async ({ rejectWithValue }: IRejected) => {
+export const logOut = async ({ rejectWithValue }: IRejectedWithValueObj) => {
     const res = await fetch(`${API_URL}/auth/logout`, {
         method: 'POST',
         body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
@@ -93,7 +92,7 @@ export const logOut = async ({ rejectWithValue }: IRejected) => {
     return result
 }
 
-export const getUserData = async ({ rejectWithValue }: IRejected) => {
+export const getUserData = async ({ rejectWithValue }: IRejectedWithValueObj) => {
     return fetchWithRefresh(
         `${API_URL}/auth/user`,
         {
@@ -107,7 +106,7 @@ export const getUserData = async ({ rejectWithValue }: IRejected) => {
     )
 }
 
-export const updateUserData = async (data: IUpdateUserData, { rejectWithValue }: IRejected) => {
+export const updateUserData = async (data: IUpdateUserData, { rejectWithValue }: IRejectedWithValueObj) => {
     if (Object.keys(data).length === 0) return rejectWithValue({ message: 'Nothing to change' })
 
     return fetchWithRefresh(
@@ -124,7 +123,7 @@ export const updateUserData = async (data: IUpdateUserData, { rejectWithValue }:
     )
 }
 
-export const forgetPassword = async (data: IForgotPassword, { rejectWithValue }: IRejected) => {
+export const forgetPassword = async (data: IForgotPassword, { rejectWithValue }: IRejectedWithValueObj) => {
     if (data.email === '') return rejectWithValue({ message: 'Please enter your email' })
 
     const res = await fetch(`${API_URL}/password-reset`, {
@@ -138,7 +137,7 @@ export const forgetPassword = async (data: IForgotPassword, { rejectWithValue }:
     return await checkResponse(res, rejectWithValue)
 }
 
-export const resetPassword = async (data: IResetPassword, { rejectWithValue }: IRejected) => {
+export const resetPassword = async (data: IResetPassword, { rejectWithValue }: IRejectedWithValueObj) => {
     const res = await fetch(`${API_URL}/password-reset/reset`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -170,7 +169,7 @@ interface IFetchOptions {
     }
 }
 
-async function fetchWithRefresh(url: string, options: IFetchOptions, rejectWithValue: IRejected) {
+const fetchWithRefresh = async (url: string, options: IFetchOptions, rejectWithValue: TRejectedWithValue) => {
     try {
         const res = await fetch(url, options)
         return await checkResponse(res)
