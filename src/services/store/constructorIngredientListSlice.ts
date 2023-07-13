@@ -13,8 +13,8 @@ export interface IConstructorList {
 
 interface IChangeOrderPayload {
     ingredientList: Ingredient[],
-    key: string,
-    side: -1 | 1
+    readonly key: string,
+    readonly side: -1 | 1
 }
 
 const initialState: IConstructorList = {

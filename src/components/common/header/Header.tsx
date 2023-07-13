@@ -11,10 +11,10 @@ import {
 
 import styles from './Header.module.css'
 
-interface HeaderNavigation {
-    link: string
-    title: string
-    Icon: ({ type }: TIconProps) => ReactElement
+interface IHeaderNavigation {
+    readonly link: string
+    readonly title: string
+    readonly Icon: ({ type }: TIconProps) => ReactElement
 }
 
 const Header: FC = () => {
@@ -36,7 +36,7 @@ const Header: FC = () => {
     )
 }
 
-const HeaderNavLink: FC<HeaderNavigation> = ({ link, title, Icon }) => {
+const HeaderNavLink: FC<IHeaderNavigation> = ({ link, title, Icon }) => {
     const location = useLocation()
 
     return (

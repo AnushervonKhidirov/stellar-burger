@@ -3,7 +3,7 @@ import { sendIngredientsId } from './action'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface OrderDetail {
+export interface IOrderDetailState {
     orderName: string | null
     orderNumber: number | null
     ingredientsId: string[] | void
@@ -11,13 +11,13 @@ export interface OrderDetail {
     rejected: boolean
 }
 
-interface OrderResult {
-    name: string
-    order: { number: number }
+interface IOrderPayload {
+    readonly name: string
+    readonly order: { number: number }
     success: boolean
 }
 
-const initialState: OrderDetail = {
+const initialState: IOrderDetailState = {
     orderName: null,
     orderNumber: null,
     ingredientsId: [],
@@ -29,7 +29,7 @@ export const orderDetailSlice = createSlice({
     name: 'orderDetail',
     initialState,
     reducers: {
-        clearOrder: (): OrderDetail => initialState,
+        clearOrder: (): IOrderDetailState => initialState,
     },
     extraReducers: builder => {
         builder
@@ -38,7 +38,7 @@ export const orderDetailSlice = createSlice({
                 state.isLoading = true
                 state.rejected = false
             })
-            .addCase(sendIngredientsId.fulfilled, (state, { payload }: PayloadAction<OrderResult>) => {
+            .addCase(sendIngredientsId.fulfilled, (state, { payload }: PayloadAction<IOrderPayload>) => {
                 state.orderNumber = payload.order.number
                 state.orderName = payload.name
                 state.isLoading = false

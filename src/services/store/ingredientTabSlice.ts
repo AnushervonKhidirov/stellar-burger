@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { TypesPositionPayload, IngredientTypes } from '../../utils/interfaces'
+import type { ICategoriesPosition, IngredientCategories } from '../../utils/interfaces'
 
 export interface Tabs {
-    currentTab: IngredientTypes
+    currentTab: IngredientCategories
     scrollPosition: number
     isAutoScroll: boolean
     ingredientsTypePosition: {
@@ -42,9 +42,9 @@ export const ingredientTabSlice = createSlice({
     name: 'ingredientTab',
     initialState,
     reducers: {
-        setTypesPosition: (state, action: PayloadAction<TypesPositionPayload>) => {
-            state.ingredientsTypePosition[action.payload.type].top = action.payload.top
-            state.ingredientsTypePosition[action.payload.type].bottom = action.payload.bottom
+        setTypesPosition: (state, action: PayloadAction<ICategoriesPosition>) => {
+            state.ingredientsTypePosition[action.payload.category].top = action.payload.top
+            state.ingredientsTypePosition[action.payload.category].bottom = action.payload.bottom
         },
         setScrollPosition: (state, action) => {
             state.scrollPosition = action.payload

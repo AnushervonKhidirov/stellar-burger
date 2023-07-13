@@ -7,13 +7,13 @@ import { NavLink, useLocation } from 'react-router-dom'
 import styles from './ProfileNavigation.module.css'
 
 interface IProfileNavigation {
-    navigationData: IProfileMessage[]
+    readonly navigationData: IProfileMessage[]
 }
 
 interface IProfileMessage {
-    title: string
-    href: string
-    message: string
+    readonly title: string
+    readonly href: string
+    readonly message: string
 }
 
 type TProfileMessage = IProfileMessage | undefined

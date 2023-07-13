@@ -5,12 +5,12 @@ import { useAppSelector } from '../../../utils/hooks'
 import { Navigate, useLocation } from 'react-router-dom'
 import Loader from '../loader/Loader'
 
-interface ProtectedProps {
-    onlyUnAuth?: boolean
-    component: ReactElement
+interface IProtectedProps {
+    readonly onlyUnAuth?: boolean
+    readonly component: ReactElement
 }
 
-const Protected: FC<ProtectedProps> = ({ onlyUnAuth = false, component }) => {
+const Protected: FC<IProtectedProps> = ({ onlyUnAuth = false, component }) => {
     const isAuthChecked = useAppSelector<boolean>(store => store.profile.isAuthChecked)
     const user = useAppSelector<IUserInfo | null>(store => store.profile.userInfo)
     const location = useLocation()

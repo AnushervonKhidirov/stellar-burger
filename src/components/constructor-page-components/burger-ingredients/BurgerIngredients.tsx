@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { IngredientTypes } from '../../../utils/interfaces'
+import type { IngredientCategories } from '../../../utils/interfaces'
 
 import { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
@@ -19,7 +19,7 @@ const BurgerIngredients: FC = () => {
 
     useEffect(() => {
         if (isAutoScroll) return
-        let key: IngredientTypes
+        let key: IngredientCategories
 
         for (key in ingredientsTypePosition) {
             const middleOfType = Math.round(

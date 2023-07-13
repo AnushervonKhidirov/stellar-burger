@@ -22,15 +22,15 @@ const OrderBlock: FC = () => {
 
         const isBun = constructorBun?._id
         const isMain =
-            constructorList.findIndex((ing: Ingredient) => ing.type === 'main') !== -1
+            constructorList.findIndex((ingredient: Ingredient) => ingredient.type === 'main') !== -1
         const isSauce =
-            constructorList.findIndex((ing: Ingredient) => ing.type === 'sauce') !== -1
+            constructorList.findIndex((ingredient: Ingredient) => ingredient.type === 'sauce') !== -1
         const isAvailableToOrder = isBun && isMain
 
         if (isAvailableToOrder) {
             dispatch(
                 sendIngredientsId([
-                    ...constructorList.map((ing: Ingredient) => ing._id),
+                    ...constructorList.map((ingredient: Ingredient) => ingredient._id),
                     constructorBun._id,
                 ])
             )

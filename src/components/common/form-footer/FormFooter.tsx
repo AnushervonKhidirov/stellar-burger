@@ -1,10 +1,10 @@
 import type { FC } from 'react'
-import type { FooterText } from '../../../utils/interfaces'
+import type { IFooterText } from '../../../utils/interfaces'
 import { Link, useLocation } from 'react-router-dom'
 
 import styles from './FormFooter.module.css'
 
-const FormFooter: FC<{ data: FooterText[] }> = ({ data }) => {
+const FormFooter: FC<{ data: IFooterText[] }> = ({ data }) => {
     return (
         data && (
             <div className={`${styles.form_footer} mt-20`}>
@@ -16,7 +16,7 @@ const FormFooter: FC<{ data: FooterText[] }> = ({ data }) => {
     )
 }
 
-const FormFooterItem: FC<FooterText> = ({ text, link }) => {
+const FormFooterItem: FC<IFooterText> = ({ text, link }) => {
     const location = useLocation()
 
     return (

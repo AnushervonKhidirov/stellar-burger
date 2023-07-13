@@ -6,15 +6,15 @@ import { useAppSelector } from '../../../utils/hooks'
 import styles from './IngredientDetails.module.css'
 
 interface IngredientPropertiesType {
-    calories: number
-    proteins: number
-    fat: number
-    carbohydrates: number
+    readonly calories: number
+    readonly proteins: number
+    readonly fat: number
+    readonly carbohydrates: number
 }
 
 interface IngredientPropertyItemType {
-    name: string
-    value: number
+    readonly name: string
+    readonly value: number
 }
 
 const IngredientDetails: FC = () => {

@@ -1,17 +1,17 @@
 import type { FC } from 'react'
-import type { Ingredient, IngredientTypes } from '../../../utils/interfaces'
+import type { Ingredient, IngredientCategories } from '../../../utils/interfaces'
 
 import { useEffect, useRef, useMemo } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { setScrollPosition } from '../../../services/store/ingredientTabSlice'
 import Loader from '../../common/loader/Loader'
 import Rejected from '../../common/rejected/Rejected'
-import IngredientTypeList from '../ingredient-type-list/IngredientTypeList'
+import IngredientCategoryList from '../ingredient-category-list/IngredientCategoryList'
 
 import styles from './BurgerIngredientList.module.css'
 
-interface SeparateTypes {
-    type: IngredientTypes
+interface ISeparatedCategories {
+    type: IngredientCategories
     list: Ingredient[]
 }
 
@@ -52,8 +52,8 @@ const BurgerIngredientList: FC = () => {
                 <Rejected />
             ) : (
                 separatedList.map(item => (
-                    <IngredientTypeList
-                        type={item.type}
+                    <IngredientCategoryList
+                        category={item.type}
                         parentTopPosition={
                             scrollRef.current ? scrollRef.current.getBoundingClientRect().top : 0
                         }
@@ -66,8 +66,8 @@ const BurgerIngredientList: FC = () => {
     )
 }
 
-function separateByTypes(ingredients: Ingredient[]): SeparateTypes[] {
-    const separatedIngredients: SeparateTypes[] = [
+function separateByTypes(ingredients: Ingredient[]): ISeparatedCategories[] {
+    const separatedIngredients: ISeparatedCategories[] = [
         {
             type: 'bun',
             list: [],
@@ -83,7 +83,7 @@ function separateByTypes(ingredients: Ingredient[]): SeparateTypes[] {
     ]
 
     ingredients.forEach((item: Ingredient) => {
-        separatedIngredients.find((elem: SeparateTypes) => elem.type === item.type)?.list.push(item)
+        separatedIngredients.find((elem: ISeparatedCategories) => elem.type === item.type)?.list.push(item)
     })
 
     return separatedIngredients

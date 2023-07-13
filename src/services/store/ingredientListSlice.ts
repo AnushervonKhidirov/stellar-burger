@@ -8,13 +8,13 @@ export const loadIngredient: any = createAsyncThunk('ingredientList/loadIngredie
     fetchIngredients()
 )
 
-interface IngredientList {
+interface IngredientListState {
     ingredients: Ingredient[]
     isLoading: boolean
     rejected: boolean
 }
 
-const initialState: IngredientList = {
+const initialState: IngredientListState = {
     ingredients: [],
     isLoading: false,
     rejected: false,

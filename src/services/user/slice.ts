@@ -1,21 +1,16 @@
-import type { IProfileState, IUserInfo } from '../../utils/interfaces'
+import type { IProfileState, IUserInfo, IToken } from '../../utils/interfaces'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
 
 import { registerUser, loginUser, logoutUser, getUser, updateUser } from './action'
 
-interface IFulfilledPayload {
-    success: boolean
-    user: IUserInfo
-    accessToken: string
-    refreshToken: string
+interface IUserResponse {
+    readonly success: boolean
+    readonly user: IUserInfo
 }
 
-interface IUserResponse {
-    success: boolean
-    user: IUserInfo
-}
+type IFulfilledPayload = IUserResponse & IToken
 
 const initialState: IProfileState = {
     isAuthChecked: false,

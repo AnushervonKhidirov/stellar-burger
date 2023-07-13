@@ -1,7 +1,7 @@
 export interface Ingredient {
     readonly _id: string
     readonly name: string
-    readonly type: IngredientTypes
+    readonly type: IngredientCategories
     readonly proteins: number
     readonly fat: number
     readonly carbohydrates: number
@@ -23,11 +23,11 @@ export interface IProfileState {
 }
 
 export interface IUserInfo {
-    name: string
-    email: string
+    readonly name: string
+    readonly email: string
 }
 
-export interface FooterText {
+export interface IFooterText {
     readonly text: string
     readonly link: {
         readonly title: string
@@ -35,20 +35,20 @@ export interface FooterText {
     }
 }
 
-export interface FormInput {
+export interface IFormInput {
     readonly type: 'text' | 'email' | 'password'
-    name: string
-    placeholder: string
+    readonly name: string
+    readonly placeholder: string
 }
 
-export interface TypesPositionPayload {
-    readonly type: IngredientTypes
+export interface ICategoriesPosition {
+    readonly category: IngredientCategories
     top: number
     bottom: number
 }
 
-export type IngredientTypes = Readonly<'bun' | 'sauce' | 'main'>
-export type CloseModal = () => void
+export type IngredientCategories = Readonly<'bun' | 'sauce' | 'main'>
+export type TCloseModal = () => void
 
 // api
 export interface IToken {
@@ -86,6 +86,14 @@ export interface IError {
     lineNumber?: string
     options?: {
         cause: string
+    }
+}
+
+export interface IFetchOptions {
+    method: 'GET' | 'POST' | 'PATCH'
+    body?: string
+    headers: {
+        [key: string]: string
     }
 }
 

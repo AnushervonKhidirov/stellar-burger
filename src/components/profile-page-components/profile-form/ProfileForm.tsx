@@ -9,14 +9,14 @@ import { updateUser } from '../../../services/user/action'
 import styles from './ProfileForm.module.css'
 
 interface IProfileInputData {
-    title: string
-    name: inputNames
-    type: 'text' | 'email' | 'password'
+    readonly title: string
+    readonly name: inputNames
+    readonly type: 'text' | 'email' | 'password'
     value: string
 }
 
 interface IProfileInput {
-    name: inputNames
+    readonly name: inputNames
     profileForm: IProfileInputData[]
     setProfileForm: Dispatch<SetStateAction<IProfileInputData[]>>
 }
@@ -25,7 +25,7 @@ interface ISendData {
     [key: string]: string
 }
 
-type inputNames = 'name' | 'email' | 'password'
+type inputNames = Readonly<'name' | 'email' | 'password'>
 
 const ProfileForm: FC = () => {
     const dispatch = useAppDispatch()

@@ -4,14 +4,14 @@ import ModalOverlay from '../modal-overlay/ModalOverlay'
 import styles from './Modal.module.css'
 
 import type { FC, ReactElement } from 'react'
-import type { CloseModal } from '../../../utils/interfaces'
+import type { TCloseModal } from '../../../utils/interfaces'
 
-interface ModalProps {
-    children: ReactElement
-    onClose: CloseModal
+interface IModalProps {
+    readonly children: ReactElement
+    readonly onClose: TCloseModal
 }
 
-const Modal: FC<ModalProps> = ({ children, onClose }) => {
+const Modal: FC<IModalProps> = ({ children, onClose }) => {
     useEffect(() => {
         function modalCloseHandler(e: KeyboardEvent) {
             if (e.key === 'Escape') onClose()
@@ -32,7 +32,7 @@ const Modal: FC<ModalProps> = ({ children, onClose }) => {
     )
 }
 
-const ModalContainer: FC<ModalProps> = ({ children, onClose }) => {
+const ModalContainer: FC<IModalProps> = ({ children, onClose }) => {
     return (
         <div className={styles.modal_container}>
             <CloseButton onClose={onClose} />
@@ -41,7 +41,7 @@ const ModalContainer: FC<ModalProps> = ({ children, onClose }) => {
     )
 }
 
-const CloseButton: FC<{ onClose: CloseModal }> = ({ onClose }) => {
+const CloseButton: FC<{ onClose: TCloseModal }> = ({ onClose }) => {
     return (
         <div className={styles.close_button}>
             <CloseIcon type='primary' onClick={onClose} />

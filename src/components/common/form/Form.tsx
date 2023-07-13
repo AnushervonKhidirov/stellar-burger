@@ -1,5 +1,5 @@
 import type { FC, ReactElement, FormEvent } from 'react'
-import type { FormInput, TSubmitFormFunc } from '../../../utils/interfaces'
+import type { IFormInput, TSubmitFormFunc } from '../../../utils/interfaces'
 
 import { useAppDispatch } from '../../../utils/hooks'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -7,19 +7,19 @@ import InputForm from '../input-form/InputForm'
 
 import styles from './Form.module.css'
 
-interface FormData {
-    headline: string
-    inputs: FormInput[]
-    buttonText: string
-    submitFunc: TSubmitFormFunc
+interface IFormData {
+    readonly headline: string
+    readonly inputs: IFormInput[]
+    readonly buttonText: string
+    readonly submitFunc: TSubmitFormFunc
     isDispatch?: boolean
 }
 
-interface SendData {
+interface ISendData {
     [key: string]: string
 }
 
-const Form: FC<FormData> = ({
+const Form: FC<IFormData> = ({
     headline,
     inputs,
     buttonText,
@@ -32,7 +32,7 @@ const Form: FC<FormData> = ({
     function submitForm(e: FormEvent) {
         e.preventDefault()
 
-        const dataToSend: SendData = {}
+        const dataToSend: ISendData = {}
 
         new FormData(e.target as HTMLFormElement).forEach((value, property) => {
             dataToSend[property] = value.toString()

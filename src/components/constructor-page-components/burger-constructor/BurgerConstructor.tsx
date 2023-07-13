@@ -19,7 +19,7 @@ const BurgerConstructor: FC = () => {
     const dispatch = useAppDispatch()
     const orderNumber = useAppSelector<number | null>(store => store.orderDetails.orderNumber)
 
-    function closeModalHandler(): void {
+    function TCloseModalHandler(): void {
         dispatch(clearOrder())
     }
 
@@ -30,7 +30,7 @@ const BurgerConstructor: FC = () => {
                 <OrderBlock />
             </div>
             {orderNumber && (
-                <Modal onClose={closeModalHandler}>
+                <Modal onClose={TCloseModalHandler}>
                     <OrderDetails />
                 </Modal>
             )}

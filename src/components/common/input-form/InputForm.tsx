@@ -1,16 +1,16 @@
 import type { FC, ChangeEvent } from 'react'
-import type { FormInput } from '../../../utils/interfaces'
+import type { IFormInput } from '../../../utils/interfaces'
 
 import { useState } from 'react'
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 
-interface PasswordInputType {
+interface IPasswordInput {
     value: string
-    name: string
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    readonly name: string
+    readonly onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputForm: FC<FormInput> = ({ name, type, placeholder }) => {
+const InputForm: FC<IFormInput> = ({ name, type, placeholder }) => {
     const [value, setValue] = useState('')
 
     return type === 'password' ? (
@@ -26,7 +26,7 @@ const InputForm: FC<FormInput> = ({ name, type, placeholder }) => {
     )
 }
 
-const PasswordInput: FC<PasswordInputType> = ({ name, value, onChange }) => {
+const PasswordInput: FC<IPasswordInput> = ({ name, value, onChange }) => {
     const [show, setShow] = useState(false)
 
     function handlePasswordInput() {

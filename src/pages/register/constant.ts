@@ -1,6 +1,6 @@
-import type { FormInput } from "../../utils/interfaces"
+import type { IFormInput } from "../../utils/interfaces"
 
-const inputs: FormInput[] = [
+const inputs: IFormInput[] = [
     {
         type: 'text',
         name: 'name',

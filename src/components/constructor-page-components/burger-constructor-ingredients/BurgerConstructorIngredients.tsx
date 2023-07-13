@@ -10,8 +10,8 @@ import BurgerConstructorIngredientItem from '../burger-constructor-ingredient-it
 import styles from './BurgerConstructorIngredients.module.css'
 
 export interface IConstructorIngDrag {
-    ingredient: Ingredient
-    iconRef: RefObject<HTMLDivElement>
+    readonly ingredient: Ingredient
+    readonly iconRef: RefObject<HTMLDivElement>
 }
 
 const BurgerConstructorIngredients: FC = () => {

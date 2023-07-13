@@ -1,3 +1,4 @@
+import type { FC } from 'react'
 import { useLayoutEffect } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from './utils/hooks'
@@ -22,7 +23,7 @@ import {
     ErrorPage,
 } from './pages'
 
-function App() {
+const App: FC = () => {
     const dispatch = useAppDispatch()
     const location = useLocation()
     const navigate = useNavigate()
@@ -33,7 +34,7 @@ function App() {
         dispatch(loadIngredient())
     }, [dispatch])
 
-    function closeModalHandler(): void {
+    function TCloseModalHandler(): void {
         navigate(-1)
     }
 
@@ -66,7 +67,7 @@ function App() {
                     <Route
                         path='/ingredients/:ingredientId'
                         element={
-                            <Modal onClose={closeModalHandler}>
+                            <Modal onClose={TCloseModalHandler}>
                                 <IngredientDetails />
                             </Modal>
                         }

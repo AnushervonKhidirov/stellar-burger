@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Ingredient } from '../../utils/interfaces'
 
-interface IngredientDetail {
+interface IngredientDetailState {
     ingredient: Ingredient | null
 }
 
-const initialState: IngredientDetail = {
+const initialState: IngredientDetailState = {
     ingredient: null
 }
 

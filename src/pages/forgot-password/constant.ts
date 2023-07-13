@@ -1,6 +1,6 @@
-import type { FormInput } from '../../utils/interfaces'
+import type { IFormInput } from '../../utils/interfaces'
 
-export const inputs: FormInput[] = [
+export const inputs: IFormInput[] = [
     {
         type: 'email',
         name: 'email',

@@ -8,11 +8,11 @@ import { positionText } from './constant'
 
 import styles from './BurgerConstructorBun.module.css'
 
-interface BunPosition {
-    position: 'top' | 'bottom'
+interface IBunPosition {
+    readonly position: 'top' | 'bottom'
 }
 
-const BurgerConstructorBun: FC<BunPosition> = ({ position }) => {
+const BurgerConstructorBun: FC<IBunPosition> = ({ position }) => {
     const bun = useAppSelector<Ingredient | null>(store => store.constructorIngredientList.bun)
 
     const classForEmpty = `constructor-element constructor-element_pos_${position}

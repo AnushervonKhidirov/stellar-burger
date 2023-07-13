@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { IngredientTypes } from '../../../utils/interfaces'
+import type { IngredientCategories } from '../../../utils/interfaces'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { setCurrentTab, setAutoScroll } from '../../../services/store/ingredientTabSlice'
@@ -11,7 +11,7 @@ import styles from './BurgerNavigation.module.css'
 
 const BurgerNavigation: FC = () => {
     const dispatch = useAppDispatch()
-    const currentTab = useAppSelector<IngredientTypes>(store => store.ingredientTab.currentTab)
+    const currentTab = useAppSelector<IngredientCategories>(store => store.ingredientTab.currentTab)
 
     function tabHandler(value: string): void {
         dispatch(setCurrentTab(value))
