@@ -20,10 +20,10 @@ const OrderBlock: FC = () => {
         const isSauce = constructorList.findIndex(ingredient => ingredient.type === 'sauce') !== -1
         const isAvailableToOrder = isBun && isMain
 
-        if (!isAvailableToOrder) return alert('Your attempt to order nothing is failed!')
         if (!isBun && isMain) return alert("You can't eat burger without buns. Peak a bun)")
         if (!isMain && isBun) return alert("You can't eat only bun, it isn't tasty(")
         if (isSauce && !isAvailableToOrder) return alert("We think you don't want to order only sauce)")
+        if (!isAvailableToOrder) return alert('Your attempt to order nothing is failed!')
 
         dispatch(
             sendIngredientsId([
