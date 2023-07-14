@@ -5,15 +5,14 @@ import { v4 as uuidv4 } from 'uuid'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Ingredient } from '../../utils/interfaces'
 
-
-export interface IConstructorList {
+interface IConstructorList {
     bun: Ingredient | null
     ingredients: Ingredient[]
 }
 
 interface IChangeOrderPayload {
-    ingredientList: Ingredient[],
-    readonly key: string,
+    ingredientList: Ingredient[]
+    readonly key: string
     readonly side: -1 | 1
 }
 

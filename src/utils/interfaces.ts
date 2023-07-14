@@ -14,19 +14,6 @@ export interface Ingredient {
     readonly key?: string
 }
 
-export interface IProfileState {
-    isAuthChecked: boolean
-    isAuthorized: boolean
-    isLoading: boolean
-    rejected: boolean
-    userInfo: IUserInfo | null
-}
-
-export interface IUserInfo {
-    readonly name: string
-    readonly email: string
-}
-
 export interface IFooterText {
     readonly text: string
     readonly link: {
@@ -106,7 +93,6 @@ export type TSubmitFormFunc =
 
 export type TForgotPasswordSubmit = (data: IForgotPassword) => void
 export type TResetPasswordSubmit = (data: IResetPassword) => void
-
 
 // Redux actions type
 export interface IRejectedWithValueObj {

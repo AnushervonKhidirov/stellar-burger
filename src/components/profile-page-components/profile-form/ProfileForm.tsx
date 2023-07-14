@@ -1,5 +1,4 @@
 import type { FC, ChangeEvent, FormEvent, SetStateAction, Dispatch } from 'react'
-import type { IProfileState } from '../../../utils/interfaces'
 
 import { useCallback, useLayoutEffect, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
@@ -29,7 +28,7 @@ type inputNames = Readonly<'name' | 'email' | 'password'>
 
 const ProfileForm: FC = () => {
     const dispatch = useAppDispatch()
-    const user = useAppSelector<IProfileState>(store => store.profile)
+    const user = useAppSelector(store => store.profile)
     const [profileForm, setProfileForm] = useState<IProfileInputData[]>([])
 
     const setInitialData = useCallback(() => {
@@ -98,11 +97,11 @@ const ProfileForm: FC = () => {
 }
 
 const ProfileInput: FC<IProfileInput> = ({ name, profileForm, setProfileForm }) => {
-    const [isDisabled, setDisabled] = useState<boolean>(true)
-    const item = profileForm.filter((item: IProfileInputData) => item.name === name)[0]
+    const [isDisabled, setDisabled] = useState(true)
+    const item = profileForm.filter((item) => item.name === name)[0]
 
-    function inputValueHandler(e: ChangeEvent<HTMLInputElement>): void {
-        setProfileForm((prevState: IProfileInputData[]) =>
+    function inputValueHandler(e: ChangeEvent<HTMLInputElement>) {
+        setProfileForm((prevState) =>
             prevState.map(item => {
                 if (item.name === name) {
                     item.value = e.target.value
@@ -112,7 +111,7 @@ const ProfileInput: FC<IProfileInput> = ({ name, profileForm, setProfileForm }) 
         )
     }
 
-    function inputDisableHandler(): void {
+    function inputDisableHandler() {
         setDisabled(!isDisabled)
     }
 

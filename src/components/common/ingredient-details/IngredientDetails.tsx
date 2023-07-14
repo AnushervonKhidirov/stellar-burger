@@ -1,5 +1,4 @@
 import type { FC } from 'react'
-import type { Ingredient } from '../../../utils/interfaces'
 
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from '../../../utils/hooks'
@@ -18,12 +17,12 @@ interface IngredientPropertyItemType {
 }
 
 const IngredientDetails: FC = () => {
-    const ingredientId: string | undefined = useParams().ingredientId
-    const findIng = (ing: Ingredient): boolean => ing._id === ingredientId
-    const ingredient = useAppSelector(store => store.ingredientList.ingredients).filter(findIng)[0]
+    const ingredientId = useParams().ingredientId
+    const ingredients = useAppSelector(store => store.ingredientList.ingredients)
+    const ingredient = ingredients.find(ing => ing._id === ingredientId)
 
     return (
-        ingredient && (
+        ingredient ? (
             <div className={styles.ingredient_details}>
                 <h1 className={`${styles.ingredient_headline} text text_type_main-large`}>
                     Детали ингредиента
@@ -37,7 +36,7 @@ const IngredientDetails: FC = () => {
                     carbohydrates={ingredient.carbohydrates}
                 />
             </div>
-        )
+        ) : null
     )
 }
 

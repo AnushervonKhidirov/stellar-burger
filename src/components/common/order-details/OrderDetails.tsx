@@ -1,5 +1,4 @@
 import type { FC } from 'react'
-import type { IOrderDetailSlice } from '../../../services/orders/slice'
 
 import { useAppSelector } from '../../../utils/hooks'
 import Rejected from '../rejected/Rejected'
@@ -7,10 +6,9 @@ import doneImage from '../../../images/order_done.png'
 
 import styles from './OrderDetails.module.css'
 
-type TOrderDetail = Omit<IOrderDetailSlice, 'orderName' | 'ingredientsId' | 'isLoading'>
 
 const OrderDetails: FC = () => {
-    const { rejected, orderNumber } = useAppSelector<TOrderDetail>(store => store.orderDetails)
+    const { rejected, orderNumber } = useAppSelector(store => store.orderDetails)
 
     return rejected ? (
         <Rejected />

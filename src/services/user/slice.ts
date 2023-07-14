@@ -1,9 +1,22 @@
-import type { IProfileState, IUserInfo, IToken } from '../../utils/interfaces'
+import type { IToken } from '../../utils/interfaces'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
 
 import { registerUser, loginUser, logoutUser, getUser, updateUser } from './action'
+
+interface IUserInfo {
+    readonly name: string
+    readonly email: string
+}
+
+interface IProfileState {
+    isAuthChecked: boolean
+    isAuthorized: boolean
+    isLoading: boolean
+    rejected: boolean
+    userInfo: IUserInfo | null
+}
 
 interface IUserResponse {
     readonly success: boolean

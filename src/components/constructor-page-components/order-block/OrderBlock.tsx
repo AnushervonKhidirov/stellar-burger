@@ -1,5 +1,4 @@
 import type { FC, FormEvent } from 'react'
-import type { Ingredient } from '../../../utils/interfaces'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { sendIngredientsId } from '../../../services/orders/action'
@@ -10,27 +9,21 @@ import styles from './OrderBlock.module.css'
 
 const OrderBlock: FC = () => {
     const dispatch = useAppDispatch()
-    const constructorBun = useAppSelector<Ingredient | null>(
-        store => store.constructorIngredientList.bun
-    )
-    const constructorList = useAppSelector<Ingredient[]>(
-        store => store.constructorIngredientList.ingredients
-    )
+    const constructorBun = useAppSelector(store => store.constructorIngredientList.bun)
+    const constructorList = useAppSelector(store => store.constructorIngredientList.ingredients)
 
     function getOrder(e: FormEvent) {
         e.preventDefault()
 
         const isBun = constructorBun?._id
-        const isMain =
-            constructorList.findIndex((ingredient: Ingredient) => ingredient.type === 'main') !== -1
-        const isSauce =
-            constructorList.findIndex((ingredient: Ingredient) => ingredient.type === 'sauce') !== -1
+        const isMain = constructorList.findIndex(ingredient => ingredient.type === 'main') !== -1
+        const isSauce = constructorList.findIndex(ingredient => ingredient.type === 'sauce') !== -1
         const isAvailableToOrder = isBun && isMain
 
         if (isAvailableToOrder) {
             dispatch(
                 sendIngredientsId([
-                    ...constructorList.map((ingredient: Ingredient) => ingredient._id),
+                    ...constructorList.map(ingredient => ingredient._id),
                     constructorBun._id,
                 ])
             )

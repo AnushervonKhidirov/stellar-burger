@@ -1,5 +1,4 @@
 import type { FC } from 'react'
-import type { Ingredient } from '../../../utils/interfaces'
 
 import { useAppSelector } from '../../../utils/hooks'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -13,7 +12,7 @@ interface IBunPosition {
 }
 
 const BurgerConstructorBun: FC<IBunPosition> = ({ position }) => {
-    const bun = useAppSelector<Ingredient | null>(store => store.constructorIngredientList.bun)
+    const bun = useAppSelector(store => store.constructorIngredientList.bun)
 
     const classForEmpty = `constructor-element constructor-element_pos_${position}
         ${styles[`bun_${position}`]}

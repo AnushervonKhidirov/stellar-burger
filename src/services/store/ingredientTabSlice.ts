@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { ICategoriesPosition, IngredientCategories } from '../../utils/interfaces'
 
-export interface Tabs {
+interface Tabs {
     currentTab: IngredientCategories
     scrollPosition: number
     isAutoScroll: boolean

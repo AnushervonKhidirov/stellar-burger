@@ -11,7 +11,7 @@ import IngredientCategoryList from '../ingredient-category-list/IngredientCatego
 import styles from './BurgerIngredientList.module.css'
 
 interface ISeparatedCategories {
-    type: IngredientCategories
+    category: IngredientCategories
     list: Ingredient[]
 }
 
@@ -53,12 +53,12 @@ const BurgerIngredientList: FC = () => {
             ) : (
                 separatedList.map(item => (
                     <IngredientCategoryList
-                        category={item.type}
+                        category={item.category}
                         parentTopPosition={
                             scrollRef.current ? scrollRef.current.getBoundingClientRect().top : 0
                         }
                         list={item.list}
-                        key={item.type}
+                        key={item.category}
                     />
                 ))
             )}
@@ -69,21 +69,21 @@ const BurgerIngredientList: FC = () => {
 function separateByTypes(ingredients: Ingredient[]): ISeparatedCategories[] {
     const separatedIngredients: ISeparatedCategories[] = [
         {
-            type: 'bun',
+            category: 'bun',
             list: [],
         },
         {
-            type: 'sauce',
+            category: 'sauce',
             list: [],
         },
         {
-            type: 'main',
+            category: 'main',
             list: [],
         },
     ]
 
     ingredients.forEach((item: Ingredient) => {
-        separatedIngredients.find((elem: ISeparatedCategories) => elem.type === item.type)?.list.push(item)
+        separatedIngredients.find((elem: ISeparatedCategories) => elem.category === item.type)?.list.push(item)
     })
 
     return separatedIngredients

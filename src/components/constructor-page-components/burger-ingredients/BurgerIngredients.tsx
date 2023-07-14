@@ -7,15 +7,15 @@ import { setAutoScroll, setCurrentTab } from '../../../services/store/ingredient
 import BurgerNavigation from '../burger-navigation/BurgerNavigation'
 import BurgerIngredientList from '../burger-ingredient-list/BurgerIngredientList'
 
-import type { Tabs } from '../../../services/store/ingredientTabSlice'
 
 import styles from './BurgerIngredients.module.css'
 
 const BurgerIngredients: FC = () => {
     const dispatch = useAppDispatch()
 
-    const { isAutoScroll, ingredientsTypePosition, scrollPosition, currentTab } =
-        useAppSelector<Tabs>(store => store.ingredientTab)
+    const { isAutoScroll, ingredientsTypePosition, scrollPosition, currentTab } = useAppSelector(
+        store => store.ingredientTab
+    )
 
     useEffect(() => {
         if (isAutoScroll) return

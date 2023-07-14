@@ -35,7 +35,7 @@ const BurgerConstructorIngredients: FC = () => {
                 dispatch(
                     changeIngredientOrder({
                         ingredientList,
-                        key: ingredient.key ? ingredient.key : '',
+                        key: ingredient.key || '',
                         side: -1,
                     })
                 )
@@ -46,7 +46,7 @@ const BurgerConstructorIngredients: FC = () => {
                 dispatch(
                     changeIngredientOrder({
                         ingredientList,
-                        key: ingredient.key ? ingredient.key : '',
+                        key: ingredient.key || '',
                         side: 1,
                     })
                 )

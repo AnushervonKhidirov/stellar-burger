@@ -1,5 +1,4 @@
 import type { FC, ReactElement } from 'react'
-import type { IUserInfo } from '../../../utils/interfaces'
 
 import { useAppSelector } from '../../../utils/hooks'
 import { Navigate, useLocation } from 'react-router-dom'
@@ -11,8 +10,8 @@ interface IProtectedProps {
 }
 
 const Protected: FC<IProtectedProps> = ({ onlyUnAuth = false, component }) => {
-    const isAuthChecked = useAppSelector<boolean>(store => store.profile.isAuthChecked)
-    const user = useAppSelector<IUserInfo | null>(store => store.profile.userInfo)
+    const isAuthChecked = useAppSelector(store => store.profile.isAuthChecked)
+    const user = useAppSelector(store => store.profile.userInfo)
     const location = useLocation()
 
     if (!isAuthChecked) {

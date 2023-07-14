@@ -17,9 +17,9 @@ import styles from './BurgerConstructor.module.css'
 
 const BurgerConstructor: FC = () => {
     const dispatch = useAppDispatch()
-    const orderNumber = useAppSelector<number | null>(store => store.orderDetails.orderNumber)
+    const orderNumber = useAppSelector(store => store.orderDetails.orderNumber)
 
-    function TCloseModalHandler(): void {
+    function closeModalHandler() {
         dispatch(clearOrder())
     }
 
@@ -30,7 +30,7 @@ const BurgerConstructor: FC = () => {
                 <OrderBlock />
             </div>
             {orderNumber && (
-                <Modal onClose={TCloseModalHandler}>
+                <Modal onClose={closeModalHandler}>
                     <OrderDetails />
                 </Modal>
             )}
@@ -40,9 +40,9 @@ const BurgerConstructor: FC = () => {
 
 const BurgerConstructorBlock: FC = () => {
     const dispatch = useAppDispatch()
-    const isOrderLoading = useAppSelector<boolean>(store => store.orderDetails.isLoading)
-    
-    const constructorClassName: string = isOrderLoading
+    const isOrderLoading = useAppSelector(store => store.orderDetails.isLoading)
+
+    const constructorClassName = isOrderLoading
         ? styles.constructor_loading
         : styles.constructor_inner
 

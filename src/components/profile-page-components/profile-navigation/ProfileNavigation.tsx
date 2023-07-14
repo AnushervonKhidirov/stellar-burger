@@ -22,7 +22,7 @@ const ProfileNavigation: FC<IProfileNavigation> = ({ navigationData }) => {
     const location = useLocation()
 
     const profileMessage: TProfileMessage = navigationData.find(
-        (data: IProfileMessage): boolean => data.href === location.pathname
+        data => data.href === location.pathname
     )
 
     function setActive(isActive: boolean): string {

@@ -34,7 +34,7 @@ const App: FC = () => {
         dispatch(loadIngredient())
     }, [dispatch])
 
-    function TCloseModalHandler(): void {
+    function closeModalHandler() {
         navigate(-1)
     }
 
@@ -67,7 +67,7 @@ const App: FC = () => {
                     <Route
                         path='/ingredients/:ingredientId'
                         element={
-                            <Modal onClose={TCloseModalHandler}>
+                            <Modal onClose={closeModalHandler}>
                                 <IngredientDetails />
                             </Modal>
                         }
