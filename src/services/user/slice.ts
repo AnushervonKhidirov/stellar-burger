@@ -5,7 +5,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { registerUser, loginUser, logoutUser, getUser, updateUser } from './action'
 
-interface IUserInfo {
+export interface IUserInfo {
     readonly name: string
     readonly email: string
 }
@@ -46,7 +46,7 @@ export const profileSlice = createSlice({
             })
             .addCase(
                 registerUser.fulfilled,
-                (state, { payload }: PayloadAction<IFulfilledPayload>) => {
+                (state, { payload }) => {
                     state.isLoading = false
                     state.userInfo = { ...payload.user }
                     state.isAuthorized = true

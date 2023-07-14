@@ -5,7 +5,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
 
-import { API_URL, checkResponse } from '../../utils/burger-api'
+import { API_URL, checkResponse, TServerResponse, TServerResponseMessage } from '../../utils/burger-api'
 
 import { inputs, footerData } from './constant'
 
@@ -22,7 +22,7 @@ const ResetPassword: FC = () => {
             },
         })
 
-        const result = await checkResponse(res)
+        const result = await checkResponse<TServerResponse<TServerResponseMessage>>(res)
 
         if (result.success) {
             alert(result.message)
