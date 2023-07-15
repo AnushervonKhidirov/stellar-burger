@@ -3,7 +3,7 @@
     position: relative;
 }
 
-.constructor {
+.constructor_inner {
     position: absolute;
     top: 100px;
     display: flex;
@@ -15,7 +15,7 @@
 }
 
 .constructor_loading {
-    composes: constructor;
+    composes: constructor_inner;
 }
 
 .constructor_loading > * {
