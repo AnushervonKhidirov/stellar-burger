@@ -14,7 +14,7 @@ const OrderDetails: FC = () => {
         <Rejected />
     ) : (
         <>
-            <p className={`${styles.order_number} text text_type_digits-large mb-8 mt-15`}>
+            <p className={'text text_type_digits-large mb-8 mt-15 text-shadow'}>
                 {orderNumber}
             </p>
             <h2 className='text text_type_main-medium mt-4'>Идентификатор заказа</h2>

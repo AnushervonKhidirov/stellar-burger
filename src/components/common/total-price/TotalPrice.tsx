@@ -2,6 +2,7 @@ import type { FC } from 'react'
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useAppSelector } from '../../../utils/hooks'
+import ConvertedNumber from '../converted-number/ConvertedNumber'
 
 import styles from './TotalPrice.module.css'
 
@@ -14,7 +15,9 @@ const TotalPrice: FC = () => {
 
     return (
         <div className={styles.total_price}>
-            <span className='text text_type_digits-medium'>{totalPrice ? totalPrice : 0}</span>
+            <span className='text text_type_digits-medium'>
+                <ConvertedNumber number={totalPrice ? totalPrice : 0} />
+            </span>
             <CurrencyIcon type='primary' />
         </div>
     )

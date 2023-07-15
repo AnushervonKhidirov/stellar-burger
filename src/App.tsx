@@ -15,6 +15,7 @@ import IngredientDetails from './components/common/ingredient-details/Ingredient
 
 import {
     Constructor,
+    Feed,
     Login,
     Register,
     ForgotPassword,
@@ -45,6 +46,9 @@ const App: FC = () => {
                 <Routes location={background || location}>
                     <Route path='/' element={<Constructor />} />
                     <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
+                    <Route path='/feed'>
+                        <Route index element={<Feed />} />
+                    </Route>
                     <Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
                         <Route index element={<OnlyAuth component={<ProfileForm />} />} />
                     </Route>

@@ -1,0 +1,17 @@
+.feed_page {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.orders_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-self: flex-start;
+    gap: 60px 36px;
+}
+
+.done_order {
+    grid-column: 1/3;
+}
