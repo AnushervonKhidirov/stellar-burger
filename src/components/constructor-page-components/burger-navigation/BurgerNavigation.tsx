@@ -18,8 +18,7 @@ const BurgerNavigation: FC = () => {
 
     return (
         <div>
-            <h1 className='text text_type_main-large'>Соберите бургер</h1>
-            <nav className={`${styles.navigation} mt-5`}>
+            <nav className={styles.navigation}>
                 {tabList.map(tab => (
                     <Tab
                         value={tab.value}

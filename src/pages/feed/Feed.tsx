@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import OrderList from '../../components/orders-components/order-list/OrderList'
 import IdList from '../../components/feed-page-components/id-list/IdList'
 import DoneOrders from '../../components/feed-page-components/done-orders/DoneOrders'
+import PageTitle from '../../components/common/page-title/PageTitle'
 
 import img from '../../images/order_done.png'
 
@@ -11,7 +12,7 @@ import styles from './Feed.module.css'
 const Feed: FC = () => {
     const orderList = [
         {
-            id: 1,
+            orderNumber: 1,
             date: new Date(),
             title: 'title',
             price: 5102,
@@ -19,28 +20,28 @@ const Feed: FC = () => {
             images: [img, img, img, img, img, img, img, img, img],
         },
         {
-            id: 2,
+            orderNumber: 2,
             date: new Date(),
             title: 'title',
             price: 512,
             images: [img, img, img],
         },
         {
-            id: 3,
+            orderNumber: 3,
             date: new Date(),
             title: 'title',
             price: 512,
             images: [img, img, img, img, img, img, img],
         },
         {
-            id: 4,
+            orderNumber: 4,
             date: new Date(),
             title: 'title',
             price: 512,
             images: [img, img, img],
         },
         {
-            id: 5,
+            orderNumber: 5,
             date: new Date(),
             title: 'title',
             price: 512,
@@ -52,7 +53,8 @@ const Feed: FC = () => {
 
     return (
         <div className={styles.feed_page}>
-            <OrderList headline='Лента заказов' orders={orderList} />
+            <PageTitle title='Лента заказов' />
+            <OrderList orders={orderList} />
 
             <div className={styles.orders_wrapper}>
                 <IdList title='Готовы' list={idList} ready />
