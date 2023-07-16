@@ -1,6 +1,7 @@
 .profile {
     display: grid;
-    grid-template-columns: 320px min-content;
+    height: 100%;
+    grid-template-columns: 320px 1fr;
     gap: 60px;
 }
 

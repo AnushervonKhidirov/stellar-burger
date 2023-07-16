@@ -1,6 +1,7 @@
 .profile_form {
     display: flex;
     flex-direction: column;
+    justify-self: flex-start;
     gap: 24px;
 }
 
