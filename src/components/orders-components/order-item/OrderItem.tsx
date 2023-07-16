@@ -66,7 +66,11 @@ const OrderTitle: FC<IOrderTitle> = ({ title, status }) => {
     return (
         <div className='text text_type_main-default'>
             <div className='text_type_main-medium'>{title}</div>
-            {status && <div className='mt-2'>{status}</div>}
+            {status && (
+                <div className={`${status === 'Выполнен' ? styles.order_done : ''} mt-2`}>
+                    {status}
+                </div>
+            )}
         </div>
     )
 }
