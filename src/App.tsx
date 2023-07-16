@@ -10,6 +10,7 @@ import { OnlyAuth, OnlyUnAuth } from './components/common/protected-route/Protec
 import Header from './components/common/header/Header'
 import Modal from './components/common/modal/Modal'
 import ProfileForm from './components/profile-page-components/profile-form/ProfileForm'
+import ProfileOrders from './components/profile-page-components/profile-orders/ProfileOrders'
 
 import IngredientDetails from './components/common/ingredient-details/IngredientDetails'
 
@@ -51,6 +52,7 @@ const App: FC = () => {
                     </Route>
                     <Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
                         <Route index element={<OnlyAuth component={<ProfileForm />} />} />
+                        <Route path='orders' element={<OnlyAuth component={<ProfileOrders />} />} />
                     </Route>
                     <Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
                     <Route path='/register' element={<OnlyUnAuth component={<Register />} />} />

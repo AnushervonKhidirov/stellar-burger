@@ -16,7 +16,6 @@ const Feed: FC = () => {
             date: new Date(),
             title: 'title',
             price: 5102,
-            status: 'ready',
             images: [img, img, img, img, img, img, img, img, img],
         },
         {
