@@ -2,7 +2,6 @@
     display: grid;
     gap: 24px;
     overflow: hidden;
-    /* grid-template-rows: min-content 1fr; */
 }
 
 .order_list {
@@ -10,5 +9,4 @@
     flex-direction: column;
     gap: 16px;
     overflow-y: auto;
-    /* max-height: calc(96vh - 120px); */
 }

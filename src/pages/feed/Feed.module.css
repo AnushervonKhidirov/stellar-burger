@@ -2,6 +2,7 @@
     display: grid;
     height: 100%;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: min-content;
     gap: 40px 60px;
 }
 
