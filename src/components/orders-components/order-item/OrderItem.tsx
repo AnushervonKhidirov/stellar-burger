@@ -7,11 +7,7 @@ import Price from '../../common/price/Price'
 
 import styles from './OrderItem.module.css'
 
-type IOrderItem = IOrderHeader &
-    IOrderHMain & {
-        title: string
-        status?: string
-    }
+type IOrderItem = IOrderHeader & IOrderHMain & IOrderTitle
 
 type IOrderHMain = IImages & {
     readonly price: number
@@ -22,30 +18,42 @@ interface IImages {
 }
 
 interface IOrderHeader {
-    readonly id: string | number
+    readonly orderNumber: string | number
     readonly date: Date
 }
 
-interface IMoreIng {
-    length: number
-    limit: number
-    index: number
+interface IOrderTitle {
+    readonly title: string
+    readonly status?: string
 }
 
-const OrderItem: FC<IOrderItem> = ({ id, date, title, price, ingredientImages, status }) => {
+interface IMoreIng {
+    readonly length: number
+    readonly limit: number
+    readonly index: number
+}
+
+const OrderItem: FC<IOrderItem> = ({
+    orderNumber,
+    date,
+    title,
+    price,
+    ingredientImages,
+    status,
+}) => {
     return (
         <div className={styles.order_item}>
-            <OrderHeader id={id} date={date} />
+            <OrderHeader orderNumber={orderNumber} date={date} />
             <OrderTitle title={title} status={status} />
             <OrderMain ingredientImages={ingredientImages} price={price} />
         </div>
     )
 }
 
-const OrderHeader: FC<IOrderHeader> = ({ id, date }) => {
+const OrderHeader: FC<IOrderHeader> = ({ orderNumber, date }) => {
     return (
         <div className={styles.order_header}>
-            <div className='text text_type_digits-default'>#{id}</div>
+            <div className='text text_type_digits-default'>#{orderNumber}</div>
             <FormattedDate
                 date={date}
                 className='text text_type_main-default text_color_inactive'
@@ -54,7 +62,7 @@ const OrderHeader: FC<IOrderHeader> = ({ id, date }) => {
     )
 }
 
-const OrderTitle: FC<any> = ({ title, status }) => {
+const OrderTitle: FC<IOrderTitle> = ({ title, status }) => {
     return (
         <div className='text text_type_main-default'>
             <div className='text_type_main-medium'>{title}</div>
