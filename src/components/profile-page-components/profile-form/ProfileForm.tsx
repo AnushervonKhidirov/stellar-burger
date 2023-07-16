@@ -114,7 +114,7 @@ const ProfileInput: FC<IProfileInput> = ({ name, profileForm, setProfileForm }) 
 
     useEffect(() => {
         !isDisabled ? inputRef.current?.focus() : inputRef.current?.blur()
-    })
+    }, [isDisabled])
 
     return (
         <Input
