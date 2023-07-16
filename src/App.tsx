@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { useLayoutEffect } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from './utils/hooks'
-import { loadIngredient } from './services/store/ingredientListSlice'
+import { loadIngredient } from './services/ingredients/action'
 import { getUser } from './services/user/action'
 
 import { OnlyAuth, OnlyUnAuth } from './components/common/protected-route/ProtectedRoute'

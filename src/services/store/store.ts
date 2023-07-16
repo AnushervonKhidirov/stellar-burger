@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
-import ingredientListSlice from './ingredientListSlice'
+import ingredientListSlice from '../ingredients/slice'
 import ingredientTabSlice from './ingredientTabSlice'
 import constructorIngredientListSlice from './constructorIngredientListSlice'
 import orderDetailSlice from '../orders/slice'

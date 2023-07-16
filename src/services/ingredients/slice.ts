@@ -1,12 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { fetchIngredients } from '../../utils/burger-api'
-
 import type { Ingredient } from '../../utils/interfaces'
 
-export const loadIngredient: any = createAsyncThunk('ingredientList/loadIngredient', async () =>
-    fetchIngredients()
-)
+import { createSlice } from '@reduxjs/toolkit'
+import { loadIngredient } from './action'
 
 interface IngredientListState {
     ingredients: Ingredient[]
