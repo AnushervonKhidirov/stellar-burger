@@ -1,5 +1,7 @@
 import type { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils'
-import type { FC, ReactElement } from 'react'
+import type { FC, ReactElement, ReactNode } from 'react'
+
+import { useAppSelector } from '../../../utils/hooks'
 
 import { NavLink, useLocation } from 'react-router-dom'
 import {
@@ -15,9 +17,12 @@ interface IHeaderNavigation {
     readonly link: string
     readonly title: string
     readonly Icon: ({ type }: TIconProps) => ReactElement
+    readonly children?: ReactNode
 }
 
 const Header: FC = () => {
+    const userName = useAppSelector(store => store.profile.userInfo?.name)
+
     return (
         <header>
             <div className='header_inner'>
@@ -29,14 +34,16 @@ const Header: FC = () => {
                     <Logo />
                 </div>
                 <div className={styles.header_side_right}>
-                    <HeaderNavLink link='/profile' title='Личный кабинет' Icon={ProfileIcon} />
+                    <HeaderNavLink link='/profile' title='Личный кабинет' Icon={ProfileIcon}>
+                        {userName && userName}
+                    </HeaderNavLink>
                 </div>
             </div>
         </header>
     )
 }
 
-const HeaderNavLink: FC<IHeaderNavigation> = ({ link, title, Icon }) => {
+const HeaderNavLink: FC<IHeaderNavigation> = ({ link, title, Icon, children }) => {
     const location = useLocation()
 
     return (
@@ -54,7 +61,10 @@ const HeaderNavLink: FC<IHeaderNavigation> = ({ link, title, Icon }) => {
                     <div className={styles.icon}>
                         <Icon type={isActive ? 'primary' : 'secondary'} />
                     </div>
-                    <div className='text text_type_main-default'>{title}</div>
+                    <div className='text text_type_main-default'>
+                        {title}
+                        {children && <div className={styles.user_name}>{children}</div>}
+                    </div>
                 </>
             )}
         </NavLink>
