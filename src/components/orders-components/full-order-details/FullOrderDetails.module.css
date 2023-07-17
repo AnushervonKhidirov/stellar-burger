@@ -1,0 +1,43 @@
+
+.details_wrapper {
+    width: 640px;
+    margin: 100px auto;
+}
+
+.order_number {
+    text-align: center;
+}
+
+.done_status {
+    color: var(--colors-interface-success);
+}
+
+.ingredient_list {
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredient_item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* .ingredient_name {
+    flex-grow: 1;
+} */
+
+.price_block {
+    margin-left: auto;
+}
+
+.order_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

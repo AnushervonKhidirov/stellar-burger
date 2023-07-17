@@ -11,7 +11,7 @@ import Header from './components/common/header/Header'
 import Modal from './components/common/modal/Modal'
 import ProfileForm from './components/profile-page-components/profile-form/ProfileForm'
 import ProfileOrders from './components/profile-page-components/profile-orders/ProfileOrders'
-
+import FullOrderDetails from './components/orders-components/full-order-details/FullOrderDetails'
 import IngredientDetails from './components/common/ingredient-details/IngredientDetails'
 
 import {
@@ -47,13 +47,22 @@ const App: FC = () => {
                 <Routes location={background || location}>
                     <Route path='/' element={<Constructor />} />
                     <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
+
                     <Route path='/feed'>
                         <Route index element={<Feed />} />
+                        <Route path=':id' element={<FullOrderDetails />} />
                     </Route>
+
                     <Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
                         <Route index element={<OnlyAuth component={<ProfileForm />} />} />
                         <Route path='orders' element={<OnlyAuth component={<ProfileOrders />} />} />
                     </Route>
+                    
+                    <Route
+                        path='/profile/orders/:id'
+                        element={<OnlyAuth component={<FullOrderDetails />} />}
+                    />
+
                     <Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
                     <Route path='/register' element={<OnlyUnAuth component={<Register />} />} />
                     <Route
