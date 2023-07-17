@@ -42,6 +42,8 @@
             "background-position",
             "background-origin",
             "background-clip",
+            "object-fit",
+            "object-position",
             "stroke",
             "stroke-width",
             "color",
