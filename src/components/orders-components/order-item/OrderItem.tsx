@@ -4,6 +4,7 @@ import { v4 as uuid_v4 } from 'uuid'
 
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import Price from '../../common/price/Price'
+import ImageInBorder from '../../common/image-in-border/ImageInBorder'
 
 import styles from './OrderItem.module.css'
 
@@ -91,17 +92,16 @@ const IngredientImages: FC<IImages> = ({ ingredientImages }) => {
         <div className={styles.order_images}>
             {ingredientImages.map((image, index, allIng) =>
                 index <= limit - 1 ? (
-                    <div
-                        className={styles.img_wrapper}
+                    <ImageInBorder
                         style={{
                             transform: `translateX(${-20 * index}px)`,
                             zIndex: limit - index,
                         }}
+                        image={image}
                         key={uuid_v4()}
                     >
-                        <img className={styles.img} src={image} alt='ingredient' />
                         <MoreIngredients length={allIng.length} limit={limit} index={index} />
-                    </div>
+                    </ImageInBorder>
                 ) : null
             )}
         </div>
