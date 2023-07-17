@@ -6,10 +6,10 @@ import styles from './Price.module.css'
 
 const Price: FC<{ price: number }> = ({ price }) => {
     return (
-        <div className={`${styles.price} text text_type_digits-default`}>
+        <span className={`${styles.price} text text_type_digits-default`}>
             <span><ConvertedNumber number={price} /></span>
             <CurrencyIcon type='primary' />
-        </div>
+        </span>
     )
 }
 

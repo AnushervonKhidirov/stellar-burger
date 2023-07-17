@@ -1,5 +1,5 @@
 .price {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
