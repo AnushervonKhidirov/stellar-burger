@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-import thunk from 'redux-thunk'
 import ingredientListSlice from '../ingredients/slice'
 import ingredientTabSlice from './ingredientTabSlice'
 import constructorIngredientListSlice from './constructorIngredientListSlice'
@@ -14,7 +13,6 @@ export const store = configureStore({
         orderDetails: orderDetailSlice,
         profile: profileSlice,
     },
-    middleware: [thunk],
 })
 
 export type RootState = ReturnType<typeof store.getState>
