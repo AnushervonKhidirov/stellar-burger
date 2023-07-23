@@ -1,7 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchOrder } from '../../utils/burger-api'
 
-export const sendIngredientsId: any = createAsyncThunk(
+import type { IOrderPayload } from './slice'
+import type { TRejectedWithValue } from '../../utils/interfaces'
+
+export const sendIngredientsId = createAsyncThunk<IOrderPayload, string[], { rejectValue: TRejectedWithValue }> (
     'orderDetail/sendIngredientsId',
-    async (data: string[], rejectWithValue) => fetchOrder(data, rejectWithValue)
+    async (data, { rejectWithValue }) => fetchOrder(data, rejectWithValue)
 )
+
+// export const sendIngredientsId: any = createAsyncThunk (
+//     'orderDetail/sendIngredientsId',
+//     async (data: string[], rejectWithValue) => fetchOrder(data, rejectWithValue)
+// )

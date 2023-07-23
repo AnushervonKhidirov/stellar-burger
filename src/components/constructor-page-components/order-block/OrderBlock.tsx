@@ -25,12 +25,12 @@ const OrderBlock: FC = () => {
         if (isSauce && !isAvailableToOrder) return alert("We think you don't want to order only sauce)")
         if (!isAvailableToOrder) return alert('Your attempt to order nothing is failed!')
 
-        dispatch(
-            sendIngredientsId([
-                ...constructorList.map(ingredient => ingredient._id),
-                constructorBun._id,
-            ])
-        )
+        const ingredientIDs = [
+            ...constructorList.map(ingredient => ingredient._id),
+            constructorBun._id,
+        ]
+
+        dispatch(sendIngredientsId(ingredientIDs))
     }
 
     return (

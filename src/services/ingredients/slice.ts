@@ -1,4 +1,3 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Ingredient } from '../../utils/interfaces'
 
 import { createSlice } from '@reduxjs/toolkit'
@@ -25,8 +24,8 @@ export const ingredientListSlice = createSlice({
             .addCase(loadIngredient.pending, state => {
                 state.isLoading = true
             })
-            .addCase(loadIngredient.fulfilled, (state, action: PayloadAction<Ingredient[]>) => {
-                state.ingredients = action.payload
+            .addCase(loadIngredient.fulfilled, (state, { payload }) => {
+                state.ingredients = payload
                 state.isLoading = false
             })
             .addCase(loadIngredient.rejected, state => {

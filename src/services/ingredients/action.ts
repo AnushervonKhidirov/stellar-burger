@@ -1,6 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
-import { fetchIngredients } from "../../utils/burger-api"
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { fetchIngredients } from '../../utils/burger-api'
 
-export const loadIngredient: any = createAsyncThunk('ingredientList/loadIngredient', async () =>
-    fetchIngredients()
+import type { Ingredient } from '../../utils/interfaces'
+
+export const loadIngredient = createAsyncThunk<Ingredient[], void>(
+    'ingredientList/loadIngredient',
+    async () => fetchIngredients()
 )

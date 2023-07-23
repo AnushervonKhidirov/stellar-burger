@@ -95,6 +95,8 @@ export type TForgotPasswordSubmit = (data: IForgotPassword) => void
 export type TResetPasswordSubmit = (data: IResetPassword) => void
 
 // Redux actions type
+
+// TODO: remove interface
 export interface IRejectedWithValueObj {
     rejectWithValue: TRejectedWithValue
 }

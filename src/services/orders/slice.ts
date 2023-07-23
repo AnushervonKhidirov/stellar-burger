@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { sendIngredientsId } from './action'
 
-import type { PayloadAction } from '@reduxjs/toolkit'
-
 interface IOrderDetailState {
     orderName: string | null
     orderNumber: number | null
@@ -11,7 +9,7 @@ interface IOrderDetailState {
     rejected: boolean
 }
 
-interface IOrderPayload {
+export interface IOrderPayload {
     readonly name: string
     readonly order: { number: number }
     success: boolean
@@ -38,7 +36,7 @@ export const orderDetailSlice = createSlice({
                 state.isLoading = true
                 state.rejected = false
             })
-            .addCase(sendIngredientsId.fulfilled, (state, { payload }: PayloadAction<IOrderPayload>) => {
+            .addCase(sendIngredientsId.fulfilled, (state, { payload }) => {
                 state.orderNumber = payload.order.number
                 state.orderName = payload.name
                 state.isLoading = false

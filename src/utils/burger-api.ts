@@ -30,7 +30,7 @@ export type TServerResponse<T> = { success: boolean } & T
 export type TServerResponseMessage = { message: string }
 
 type TIngredientsResponse = TServerResponse<{ data: Ingredient[] }>
-type TOrderResponse = TServerResponse<{ name: string; order: { number: number } }>
+export type TOrderResponse = TServerResponse<{ name: string; order: { number: number } }>
 type TUserInfoResponse = TServerResponse<{ user: IUserInfo }>
 type TLoginResponse = TServerResponse<TUserInfoResponse & IToken>
 type TLogoutResponse = TServerResponse<TServerResponseMessage>
@@ -44,7 +44,7 @@ export const fetchIngredients = async () => {
 
 export const fetchOrder = async (
     ingredientsID: string[],
-    { rejectWithValue }: IRejectedWithValueObj
+    rejectWithValue: TRejectedWithValue
 ) => {
     const res = await fetch(`${API_URL}/orders`, {
         method: 'POST',
