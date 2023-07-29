@@ -1,24 +1,35 @@
-import type { IRegisterData, ILoginData, IUpdateUserData } from '../../utils/interfaces'
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import type {
+    IRegisterData,
+    ILoginData,
+    IUpdateUserData,
+    IRejectedValueThunk,
+} from '../../utils/interfaces'
+import type { TLoginResponse, TLogoutResponse, TUserInfoResponse } from '../../utils/burger-api'
 
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import { register, logIn, logOut, getUserData, updateUserData } from '../../utils/burger-api'
 
-export const registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk<TLoginResponse, IRegisterData, IRejectedValueThunk>(
     'profile/register',
-    async (data: IRegisterData, rejectWithValue) => register(data, rejectWithValue)
+    async (data, { rejectWithValue }) => register(data, rejectWithValue)
 )
-export const loginUser = createAsyncThunk(
+
+export const loginUser = createAsyncThunk<TLoginResponse, ILoginData, IRejectedValueThunk>(
     'profile/login',
-    async (data: ILoginData, rejectWithValue) => logIn(data, rejectWithValue)
+    async (data, { rejectWithValue }) => logIn(data, rejectWithValue)
 )
-export const logoutUser: any = createAsyncThunk(
+
+export const logoutUser = createAsyncThunk<TLogoutResponse, void, IRejectedValueThunk>(
     'profile/logout',
-    async (data: unknown, rejectWithValue) => logOut(rejectWithValue)
+    async (data, { rejectWithValue }) => logOut(rejectWithValue)
 )
-export const getUser: any = createAsyncThunk('profile/getUser', async (data: unknown, rejectWithValue) =>
-    getUserData(rejectWithValue)
+
+export const getUser = createAsyncThunk<TUserInfoResponse, void, IRejectedValueThunk>(
+    'profile/getUser',
+    async (data, { rejectWithValue }) => getUserData(rejectWithValue)
 )
-export const updateUser: any = createAsyncThunk(
+
+export const updateUser = createAsyncThunk<TUserInfoResponse, IUpdateUserData, IRejectedValueThunk>(
     'profile/updateUser',
-    async (data: IUpdateUserData, rejectWithValue) => updateUserData(data, rejectWithValue)
+    async (data, { rejectWithValue }) => updateUserData(data, rejectWithValue)
 )
