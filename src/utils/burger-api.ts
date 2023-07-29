@@ -1,7 +1,6 @@
 import type {
     IToken,
     TRejectedWithValue,
-    IRejectedWithValueObj,
     ILoginData,
     IRegisterData,
     IUpdateUserData,
@@ -29,12 +28,12 @@ export const checkResponse = <T>(res: Response, rejectWithValue?: TRejectedWithV
 export type TServerResponse<T> = { success: boolean } & T
 export type TServerResponseMessage = { message: string }
 
-type TIngredientsResponse = TServerResponse<{ data: Ingredient[] }>
+export type TIngredientsResponse = TServerResponse<{ data: Ingredient[] }>
 export type TOrderResponse = TServerResponse<{ name: string; order: { number: number } }>
-type TUserInfoResponse = TServerResponse<{ user: IUserInfo }>
-type TLoginResponse = TServerResponse<TUserInfoResponse & IToken>
-type TLogoutResponse = TServerResponse<TServerResponseMessage>
-type TUpdateToken = TServerResponse<IToken>
+export type TUserInfoResponse = TServerResponse<{ user: IUserInfo }>
+export type TLoginResponse = TServerResponse<TUserInfoResponse & IToken>
+export type TLogoutResponse = TServerResponse<TServerResponseMessage>
+export type TUpdateToken = TServerResponse<IToken>
 
 export const fetchIngredients = async () => {
     const res = await fetch(`${API_URL}/ingredients`)
@@ -42,10 +41,7 @@ export const fetchIngredients = async () => {
     return result.data
 }
 
-export const fetchOrder = async (
-    ingredientsID: string[],
-    rejectWithValue: TRejectedWithValue
-) => {
+export const fetchOrder = async (ingredientsID: string[], rejectWithValue: TRejectedWithValue) => {
     const res = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         body: JSON.stringify({ ingredients: ingredientsID }),
@@ -62,7 +58,7 @@ export const fetchOrderDetail = async (orderID: string) => {
     return await checkResponse<Ingredient>(res)
 }
 
-export const register = async (data: IRegisterData, { rejectWithValue }: IRejectedWithValueObj) => {
+export const register = async (data: IRegisterData, rejectWithValue: TRejectedWithValue) => {
     const res = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -77,7 +73,7 @@ export const register = async (data: IRegisterData, { rejectWithValue }: IReject
     return result
 }
 
-export const logIn = async (data: ILoginData, { rejectWithValue }: IRejectedWithValueObj) => {
+export const logIn = async (data: ILoginData, rejectWithValue: TRejectedWithValue) => {
     const res = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -92,7 +88,7 @@ export const logIn = async (data: ILoginData, { rejectWithValue }: IRejectedWith
     return result
 }
 
-export const logOut = async ({ rejectWithValue }: IRejectedWithValueObj) => {
+export const logOut = async (rejectWithValue: TRejectedWithValue) => {
     const res = await fetch(`${API_URL}/auth/logout`, {
         method: 'POST',
         body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
@@ -107,7 +103,7 @@ export const logOut = async ({ rejectWithValue }: IRejectedWithValueObj) => {
     return result
 }
 
-export const getUserData = async ({ rejectWithValue }: IRejectedWithValueObj) => {
+export const getUserData = async (rejectWithValue: TRejectedWithValue) => {
     return fetchWithRefresh<TUserInfoResponse>(
         `${API_URL}/auth/user`,
         {
@@ -123,7 +119,7 @@ export const getUserData = async ({ rejectWithValue }: IRejectedWithValueObj) =>
 
 export const updateUserData = async (
     data: IUpdateUserData,
-    { rejectWithValue }: IRejectedWithValueObj
+    rejectWithValue: TRejectedWithValue
 ) => {
     if (Object.keys(data).length === 0) return rejectWithValue({ message: 'Nothing to change' })
 
