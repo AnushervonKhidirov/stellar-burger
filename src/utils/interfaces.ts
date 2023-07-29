@@ -1,3 +1,6 @@
+import { loginUser, registerUser } from '../services/user/action'
+import type { TLoginResponse } from './burger-api'
+
 export interface Ingredient {
     readonly _id: string
     readonly name: string
@@ -94,14 +97,14 @@ export type TSubmitFormFunc =
 export type TForgotPasswordSubmit = (data: IForgotPassword) => void
 export type TResetPasswordSubmit = (data: IResetPassword) => void
 
-// Redux actions type
+// FIXME: find proper type
+// export type TLoginUser = ReturnType<typeof loginUser>
+// export type TLoginUser = (data: ILoginData) => TLoginResponse
+export type TLoginUser = (data: ILoginData) => ReturnType<typeof loginUser>
+export type TRegisterUser = (data: IRegisterData) => ReturnType<typeof registerUser>
 
-// TODO: remove interface
-export interface IRejectedWithValueObj {
-    rejectWithValue: TRejectedWithValue
+export interface IRejectedValueThunk {
+    rejectValue: TRejectedWithValue
 }
 
 export type TRejectedWithValue = any
-
-export type TLoginUser = any
-export type TRegisterUser = any
