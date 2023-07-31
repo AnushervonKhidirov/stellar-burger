@@ -47,6 +47,7 @@ export const fetchOrder = async (ingredientsID: string[], rejectWithValue: TReje
         body: JSON.stringify({ ingredients: ingredientsID }),
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
     })
 

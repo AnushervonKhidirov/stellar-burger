@@ -26,6 +26,7 @@ const OrderBlock: FC = () => {
         if (!isAvailableToOrder) return alert('Your attempt to order nothing is failed!')
 
         const ingredientIDs = [
+            constructorBun._id,
             ...constructorList.map(ingredient => ingredient._id),
             constructorBun._id,
         ]
