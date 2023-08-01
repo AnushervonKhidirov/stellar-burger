@@ -2,6 +2,11 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5em;
+    overflow-y: scroll;
+    max-height: 7em;
 }
 
 .id_list_ready li {
