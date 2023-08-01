@@ -5,7 +5,8 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
 
-import { API_URL, checkResponse, TServerResponse, TServerResponseMessage } from '../../utils/burger-api'
+import { checkResponse, TServerResponse, TServerResponseMessage } from '../../utils/burger-api'
+import { RESET_PASSWORD_URL } from '../../utils/constants'
 
 import { inputs, footerData } from './constant'
 
@@ -14,7 +15,7 @@ const ResetPassword: FC = () => {
     const navigate = useNavigate()
 
     const resetPassword: TResetPasswordSubmit = async data => {
-        const res = await fetch(`${API_URL}/password-reset/reset`, {
+        const res = await fetch(RESET_PASSWORD_URL, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

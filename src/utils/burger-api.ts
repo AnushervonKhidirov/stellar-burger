@@ -11,12 +11,21 @@ import type {
 
 import { IUserInfo } from '../services/user/slice'
 
+import {
+    INGREDIENTS_URL,
+    ORDERS_URL,
+    REGISTER_URL,
+    LOGIN_URL,
+    LOGOUT_URL,
+    USER_URL,
+    UPDATE_TOKEN_URL,
+    JWT_EXPIRED_MESSAGE,
+} from './constants'
+
 const setToken = (result: IToken) => {
     localStorage.setItem('accessToken', result.accessToken.replace('Bearer ', ''))
     localStorage.setItem('refreshToken', result.refreshToken)
 }
-
-export const API_URL = 'https://norma.nomoreparties.space/api'
 
 export const checkResponse = <T>(res: Response, rejectWithValue?: TRejectedWithValue): Promise<T> =>
     res.ok
@@ -36,13 +45,13 @@ export type TLogoutResponse = TServerResponse<TServerResponseMessage>
 export type TUpdateToken = TServerResponse<IToken>
 
 export const fetchIngredients = async () => {
-    const res = await fetch(`${API_URL}/ingredients`)
+    const res = await fetch(INGREDIENTS_URL)
     const result = await checkResponse<TIngredientsResponse>(res)
     return result.data
 }
 
 export const fetchOrder = async (ingredientsID: string[], rejectWithValue: TRejectedWithValue) => {
-    const res = await fetch(`${API_URL}/orders`, {
+    const res = await fetch(ORDERS_URL, {
         method: 'POST',
         body: JSON.stringify({ ingredients: ingredientsID }),
         headers: {
@@ -55,12 +64,12 @@ export const fetchOrder = async (ingredientsID: string[], rejectWithValue: TReje
 }
 
 export const fetchOrderDetail = async (orderID: string) => {
-    const res = await fetch(`${API_URL}/orders/${orderID}`)
+    const res = await fetch(`${ORDERS_URL}/${orderID}`)
     return await checkResponse<Ingredient>(res)
 }
 
 export const register = async (data: IRegisterData, rejectWithValue: TRejectedWithValue) => {
-    const res = await fetch(`${API_URL}/auth/register`, {
+    const res = await fetch(REGISTER_URL, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -75,7 +84,7 @@ export const register = async (data: IRegisterData, rejectWithValue: TRejectedWi
 }
 
 export const logIn = async (data: ILoginData, rejectWithValue: TRejectedWithValue) => {
-    const res = await fetch(`${API_URL}/auth/login`, {
+    const res = await fetch(LOGIN_URL, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -90,7 +99,7 @@ export const logIn = async (data: ILoginData, rejectWithValue: TRejectedWithValu
 }
 
 export const logOut = async (rejectWithValue: TRejectedWithValue) => {
-    const res = await fetch(`${API_URL}/auth/logout`, {
+    const res = await fetch(LOGOUT_URL, {
         method: 'POST',
         body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
         headers: {
@@ -106,7 +115,7 @@ export const logOut = async (rejectWithValue: TRejectedWithValue) => {
 
 export const getUserData = async (rejectWithValue: TRejectedWithValue) => {
     return fetchWithRefresh<TUserInfoResponse>(
-        `${API_URL}/auth/user`,
+        USER_URL,
         {
             method: 'GET',
             headers: {
@@ -125,7 +134,7 @@ export const updateUserData = async (
     if (Object.keys(data).length === 0) return rejectWithValue({ message: 'Nothing to change' })
 
     return fetchWithRefresh<TUserInfoResponse>(
-        `${API_URL}/auth/user`,
+        USER_URL,
         {
             method: 'PATCH',
             body: JSON.stringify(data),
@@ -139,7 +148,7 @@ export const updateUserData = async (
 }
 
 const updateToken = async () => {
-    const res = await fetch(`${API_URL}/auth/token`, {
+    const res = await fetch(UPDATE_TOKEN_URL, {
         method: 'POST',
         body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
         headers: {
@@ -159,7 +168,7 @@ const fetchWithRefresh = async <T>(
         const res = await fetch(url, options)
         return await checkResponse<T>(res)
     } catch (err: any) {
-        if (err.message === 'jwt expired') {
+        if (err.message === JWT_EXPIRED_MESSAGE) {
             const refreshData = await updateToken()
 
             if (!refreshData.success) return Promise.reject(refreshData)
