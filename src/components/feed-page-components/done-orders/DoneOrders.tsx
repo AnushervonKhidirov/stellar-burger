@@ -5,9 +5,9 @@ import ConvertedNumber from '../../common/converted-number/ConvertedNumber'
 import styles from './DoneOrders.module.css'
 
 interface IDoneOrders {
-    title: string
-    amount: number
-    extraClass?: string
+    readonly title: string
+    readonly amount: number
+    readonly extraClass?: string
 }
 
 const DoneOrders: FC<IDoneOrders> = ({ title, amount, extraClass }) => {

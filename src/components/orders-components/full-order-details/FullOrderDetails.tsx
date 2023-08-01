@@ -11,19 +11,19 @@ import ImageInBorder from '../../common/image-in-border/ImageInBorder'
 import styles from './FullOrderDetails.module.css'
 
 interface IFullOrderDetails extends IOrderHeader {
-    number: number
-    ingredients: string[]
-    createdAt: string
+    readonly number: number
+    readonly ingredients: string[]
+    readonly createdAt: string
 }
 
 interface IOrderHeader {
-    name: string
-    status: string
+    readonly name: string
+    readonly status: string
 }
 
 interface IOrderFooter {
-    date: Date
-    price: number
+    readonly date: Date
+    readonly price: number
 }
 
 interface IngredientAmount extends Ingredient {
@@ -101,7 +101,6 @@ const OrderHeader: FC<IOrderHeader> = ({ name, status }) => {
 }
 
 const OrderIngredients: FC<{ ingredients: IngredientAmount[] }> = ({ ingredients }) => {
-    console.log(ingredients)
     return (
         <div className='mt-15'>
             <h2 className='text text_type_main-medium mb-6'>Состав:</h2>

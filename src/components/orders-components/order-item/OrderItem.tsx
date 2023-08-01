@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { TOrderStatuses } from '../../../services/orders-list/types'
+import type { TOrderStatuses } from '../../../utils/interfaces'
 
 import { useAppSelector } from '../../../utils/hooks'
 import { v4 as uuidV4 } from 'uuid'
@@ -20,6 +20,7 @@ interface IOrderHeader {
 interface IOrderTitle {
     readonly title: string
     readonly status?: TOrderStatuses
+    readonly showStatus?: boolean
 }
 
 interface IMoreIng {
@@ -29,14 +30,14 @@ interface IMoreIng {
 }
 
 interface IListIng {
-    ingredients: string[]
+    readonly ingredients: string[]
 }
 
-const OrderItem: FC<IOrderItem> = ({ orderNumber, date, title, ingredients, status }) => {
+const OrderItem: FC<IOrderItem> = ({ orderNumber, date, title, ingredients, status, showStatus }) => {
     return (
         <div className={styles.order_item}>
             <OrderHeader orderNumber={orderNumber} date={date} />
-            <OrderTitle title={title} status={status} />
+            <OrderTitle title={title} status={status} showStatus={showStatus} />
             <OrderMain ingredients={ingredients} />
         </div>
     )
@@ -54,7 +55,7 @@ const OrderHeader: FC<IOrderHeader> = ({ orderNumber, date }) => {
     )
 }
 
-const OrderTitle: FC<IOrderTitle> = ({ title, status }) => {
+const OrderTitle: FC<IOrderTitle> = ({ title, status, showStatus }) => {
     const statusTranslate = {
         created: 'Создан',
         pending: 'Готовится',
@@ -64,7 +65,7 @@ const OrderTitle: FC<IOrderTitle> = ({ title, status }) => {
     return (
         <div className='text text_type_main-default'>
             <div className='text_type_main-medium'>{title}</div>
-            {status && (
+            {status && showStatus && (
                 <div className={`${status === 'done' ? styles.order_done : ''} mt-2`}>
                     {statusTranslate[status]}
                 </div>

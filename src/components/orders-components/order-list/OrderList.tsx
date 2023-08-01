@@ -1,15 +1,16 @@
 import type { FC } from 'react'
-import type { IOrderItem } from '../../../services/orders-list/types'
+import type { IOrderItem } from '../../../utils/interfaces'
 
 import OrderItem from '../order-item/OrderItem'
 
 import styles from './OrderList.module.css'
 
 interface IOrderList {
-    orders: IOrderItem[]
+    readonly orders: IOrderItem[]
+    readonly showStatus?: boolean
 }
 
-const OrderList: FC<IOrderList> = ({ orders }) => {
+const OrderList: FC<IOrderList> = ({ orders, showStatus }) => {
     return (
         <div className={`${styles.order_list} custom-scroll pr-2`}>
             {orders.map(order => (
@@ -19,6 +20,7 @@ const OrderList: FC<IOrderList> = ({ orders }) => {
                     ingredients={order.ingredients}
                     title={order.name}
                     status={order.status}
+                    showStatus={showStatus}
                     key={order.number}
                 />
             ))}

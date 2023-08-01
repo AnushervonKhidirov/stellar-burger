@@ -16,8 +16,8 @@ interface IProfileInputData {
 
 interface IProfileInput {
     readonly name: inputNames
-    profileForm: IProfileInputData[]
-    setProfileForm: Dispatch<SetStateAction<IProfileInputData[]>>
+    readonly profileForm: IProfileInputData[]
+    readonly setProfileForm: Dispatch<SetStateAction<IProfileInputData[]>>
 }
 
 interface ISendData {
