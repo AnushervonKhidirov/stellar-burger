@@ -1,5 +1,7 @@
 import type { FC } from 'react'
 
+import { v4 as uuidV4 } from 'uuid'
+
 import styles from './IdList.module.css'
 
 interface IIdList {
@@ -12,8 +14,8 @@ const IdList: FC<IIdList> = ({ title, list, ready }) => {
     return (
         <div className={styles.id_list_wrapper}>
             <h3 className='text text_type_main-medium mb-6'>{title}:</h3>
-            <ul className={`${styles.id_list} ${ready ? styles.id_list_ready : ''} text text_type_digits-default`}>
-                {list.map(orderId => <li key={orderId}>{orderId}</li>)}
+            <ul className={`${styles.id_list} ${ready ? styles.id_list_ready : ''} text text_type_digits-default custom-scroll`}>
+                {list.map(orderId => <li key={uuidV4()}>{orderId}</li>)}
             </ul>
         </div>
     )

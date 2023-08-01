@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { sendIngredientsId } from '../orders/action'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidV4 } from 'uuid'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Ingredient } from '../../utils/interfaces'
@@ -28,7 +28,7 @@ export const constructorIngredientListSlice = createSlice({
         addIngredientToConstructor: (state, { payload }: PayloadAction<Ingredient>) => {
             payload.type === 'bun'
                 ? (state.bun = payload)
-                : state.ingredients.push({ ...payload, key: uuidv4() })
+                : state.ingredients.push({ ...payload, key: uuidV4() })
         },
         removeIngredientFromConstructor: (state, { payload }: PayloadAction<Ingredient>) => {
             state.ingredients = state.ingredients.filter(
