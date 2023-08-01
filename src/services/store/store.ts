@@ -4,28 +4,49 @@ import ingredientTabSlice from './ingredientTabSlice'
 import constructorIngredientListSlice from './constructorIngredientListSlice'
 import orderDetailSlice from '../orders/slice'
 import profileSlice from '../user/slice'
-import { ordersListReducers } from '../orders-list/reducers'
+import { feedOrdersListReducers } from '../feed-orders/reducers'
+import { profileOrdersListReducers } from '../profile-orders/reducers'
 
-import { wsMiddleware } from '../orders-list/middleware'
+import { wsMiddleware } from '../../middlewars/wsMiddleware'
 
 import {
-    connectAction,
-    connectingAction,
-    disconnectAction,
-    openAction,
-    closeAction,
-    errorAction,
-    messageAction,
-} from '../orders-list/actions'
+    wsFeedConnectAction,
+    wsFeedConnectingAction,
+    wsFeedDisconnectAction,
+    wsFeedOpenAction,
+    wsFeedCloseAction,
+    wsFeedErrorAction,
+    wsFeedMessageAction,
+} from '../feed-orders/actions'
 
-const ordersMiddleware = wsMiddleware({
-    wsConnect: connectAction,
-    wsConnecting: connectingAction,
-    wsDisconnecting: disconnectAction,
-    wsOpen: openAction,
-    wsClose: closeAction,
-    wsError: errorAction,
-    wsMessage: messageAction,
+import {
+    wsProfileConnectAction,
+    wsProfileConnectingAction,
+    wsProfileDisconnectAction,
+    wsProfileOpenAction,
+    wsProfileCloseAction,
+    wsProfileErrorAction,
+    wsProfileMessageAction,
+} from '../profile-orders/actions'
+
+const feedOrdersMiddleware = wsMiddleware({
+    wsConnect: wsFeedConnectAction,
+    wsConnecting: wsFeedConnectingAction,
+    wsDisconnecting: wsFeedDisconnectAction,
+    wsOpen: wsFeedOpenAction,
+    wsClose: wsFeedCloseAction,
+    wsError: wsFeedErrorAction,
+    wsMessage: wsFeedMessageAction,
+})
+
+const profileOrdersMiddleware = wsMiddleware({
+    wsConnect: wsProfileConnectAction,
+    wsConnecting: wsProfileConnectingAction,
+    wsDisconnecting: wsProfileDisconnectAction,
+    wsOpen: wsProfileOpenAction,
+    wsClose: wsProfileCloseAction,
+    wsError: wsProfileErrorAction,
+    wsMessage: wsProfileMessageAction,
 })
 
 export const store = configureStore({
@@ -34,10 +55,11 @@ export const store = configureStore({
         ingredientList: ingredientListSlice,
         ingredientTab: ingredientTabSlice,
         orderDetails: orderDetailSlice,
-        orderList: ordersListReducers,
+        feedOrderList: feedOrdersListReducers,
+        profileOrderList: profileOrdersListReducers,
         profile: profileSlice,
     },
-    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(ordersMiddleware),
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(feedOrdersMiddleware, profileOrdersMiddleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>
