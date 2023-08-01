@@ -17,5 +17,6 @@ export const FORGET_PASSWORD_URL = `${API_URL}/password-reset`
 export const RESET_PASSWORD_URL = `${API_URL}/password-reset/reset`
 
 // WebSocket URLs
-export const WS_ORDERS_URL = 'wss://norma.nomoreparties.space/orders/all'
+export const WS_ORDERS_URL = 'wss://norma.nomoreparties.space/orders'
+export const WS_ORDERS_FEED_URL = `${WS_ORDERS_URL}/all`
 export const WS_ORDERS_PROFILE_URL = `${WS_ORDERS_URL}?token=${accessToken}`

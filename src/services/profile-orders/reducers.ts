@@ -41,6 +41,8 @@ export const profileOrdersListReducers = createReducer(initialState, builder => 
             state.connectingError = payload
         })
         .addCase(wsProfileMessageAction, (state, { payload }) => {
+            console.log(payload);
+            
             state.list = payload
         })
 })

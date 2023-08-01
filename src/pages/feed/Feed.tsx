@@ -9,7 +9,7 @@ import IdList from '../../components/feed-page-components/id-list/IdList'
 import DoneOrders from '../../components/feed-page-components/done-orders/DoneOrders'
 import PageTitle from '../../components/common/page-title/PageTitle'
 
-import { WS_ORDERS_URL } from '../../utils/constants'
+import { WS_ORDERS_FEED_URL } from '../../utils/constants'
 
 import styles from './Feed.module.css'
 
@@ -18,7 +18,7 @@ const Feed: FC = () => {
     const orders = useAppSelector(store => store.feedOrderList)
 
     useLayoutEffect(() => {
-        dispatch(wsFeedConnectAction(WS_ORDERS_URL))
+        dispatch(wsFeedConnectAction(WS_ORDERS_FEED_URL))
 
         return () => {
             dispatch(wsFeedDisconnectAction())
