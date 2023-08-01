@@ -110,3 +110,29 @@ export interface IRejectedValueThunk {
 }
 
 export type TRejectedWithValue = any
+
+// WebSocket
+export enum WebSocketStatus {
+    CONNECTING = 'CONNECTING',
+    ONLINE = 'ONLINE',
+    OFFLINE = 'OFFLINE',
+}
+
+export type TOrderStatuses = 'created' | 'pending' | 'done'
+
+export interface IOrderDataReceived {
+    readonly orders: IOrderItem[]
+    readonly success: boolean
+    readonly total: number
+    readonly totalToday: number
+}
+
+export interface IOrderItem {
+    readonly _id: string
+    readonly ingredients: string[]
+    readonly name: string
+    readonly number: number
+    readonly status: TOrderStatuses
+    readonly createdAt: Date
+    readonly updatedAt: Date
+}
