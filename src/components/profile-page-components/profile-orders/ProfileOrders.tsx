@@ -1,52 +1,25 @@
 import type { FC } from 'react'
+
+import { useLayoutEffect } from 'react'
+import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
+import { wsProfileConnectAction, wsProfileDisconnectAction } from '../../../services/profile-orders/actions'
+
 import OrderList from '../../orders-components/order-list/OrderList'
-import img from '../../../images/order_done.png'
+
+import { WS_ORDERS_PROFILE_URL } from '../../../utils/constants'
 
 const ProfileOrders: FC = () => {
-    const orderList = [
-        {
-            orderNumber: 1,
-            date: new Date(),
-            title: 'title',
-            price: 5102,
-            status: 'Создан',
-            images: [img, img, img, img, img, img, img, img, img],
-        },
-        {
-            orderNumber: 2,
-            date: new Date(),
-            title: 'title',
-            price: 512,
-            status: 'Готовится',
-            images: [img, img, img],
-        },
-        {
-            orderNumber: 3,
-            date: new Date(),
-            title: 'title',
-            price: 512,
-            status: 'Готовится',
-            images: [img, img, img, img, img, img, img],
-        },
-        {
-            orderNumber: 4,
-            date: new Date(),
-            title: 'title',
-            price: 512,
-            status: 'Выполнен',
-            images: [img, img, img],
-        },
-        {
-            orderNumber: 5,
-            date: new Date(),
-            title: 'title',
-            price: 512,
-            status: 'Выполнен',
-            images: [img, img, img, img],
-        },
-    ]
+    const dispatch = useAppDispatch()
+    const orders = useAppSelector(store => store.profileOrderList)
 
-    return <OrderList orders={orderList} />
+    useLayoutEffect(() => {
+        dispatch(wsProfileConnectAction(WS_ORDERS_PROFILE_URL))
+
+        return () => {
+            dispatch(wsProfileDisconnectAction())
+        }
+    }, [dispatch])
+    return <OrderList orders={orders.list.orders} showStatus />
 }
 
 export default ProfileOrders

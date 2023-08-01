@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { useLayoutEffect } from 'react'
 
 import { useAppSelector, useAppDispatch } from '../../utils/hooks'
-import { connectAction, disconnectAction } from '../../services/orders-list/actions'
+import { wsFeedConnectAction, wsFeedDisconnectAction } from '../../services/feed-orders/actions'
 
 import OrderList from '../../components/orders-components/order-list/OrderList'
 import IdList from '../../components/feed-page-components/id-list/IdList'
@@ -15,13 +15,13 @@ import styles from './Feed.module.css'
 
 const Feed: FC = () => {
     const dispatch = useAppDispatch()
-    const orders = useAppSelector(store => store.orderList)
+    const orders = useAppSelector(store => store.feedOrderList)
 
     useLayoutEffect(() => {
-        dispatch(connectAction(WS_ORDERS_URL))
+        dispatch(wsFeedConnectAction(WS_ORDERS_URL))
 
         return () => {
-            dispatch(disconnectAction())
+            dispatch(wsFeedDisconnectAction())
         }
     }, [dispatch])
 
