@@ -3,6 +3,7 @@
 }
 
 .constructor_inner {
+    position: relative;
     display: flex;
     width: calc(100% - 20px);
     max-height: 560px;
