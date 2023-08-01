@@ -1,5 +1,5 @@
-import { loginUser, registerUser } from '../services/user/action'
-import type { TLoginResponse } from './burger-api'
+// import { loginUser, registerUser } from '../services/user/action'
+// import type { TLoginResponse } from './burger-api'
 
 export interface Ingredient {
     readonly _id: string
@@ -100,8 +100,10 @@ export type TResetPasswordSubmit = (data: IResetPassword) => void
 // FIXME: find proper type
 // export type TLoginUser = ReturnType<typeof loginUser>
 // export type TLoginUser = (data: ILoginData) => TLoginResponse
-export type TLoginUser = (data: ILoginData) => ReturnType<typeof loginUser>
-export type TRegisterUser = (data: IRegisterData) => ReturnType<typeof registerUser>
+// export type TLoginUser = (data: ILoginData) => ReturnType<typeof loginUser>
+// export type TRegisterUser = (data: IRegisterData) => ReturnType<typeof registerUser>
+export type TLoginUser = any
+export type TRegisterUser = any
 
 export interface IRejectedValueThunk {
     rejectValue: TRejectedWithValue
