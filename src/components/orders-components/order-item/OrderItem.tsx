@@ -4,6 +4,7 @@ import type { TOrderStatuses } from '../../../utils/interfaces'
 import { useAppSelector } from '../../../utils/hooks'
 import { v4 as uuidV4 } from 'uuid'
 
+import { Link } from 'react-router-dom'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import Price from '../../common/price/Price'
 import ImageInBorder from '../../common/image-in-border/ImageInBorder'
@@ -35,11 +36,11 @@ interface IListIng {
 
 const OrderItem: FC<IOrderItem> = ({ orderNumber, date, title, ingredients, status, showStatus }) => {
     return (
-        <div className={styles.order_item}>
+        <Link to={orderNumber.toString()} className={styles.order_item}>
             <OrderHeader orderNumber={orderNumber} date={date} />
             <OrderTitle title={title} status={status} showStatus={showStatus} />
             <OrderMain ingredients={ingredients} />
-        </div>
+        </Link>
     )
 }
 
