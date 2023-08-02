@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import type { TOrderStatuses } from '../../../utils/interfaces'
 
+import { useLocation } from 'react-router-dom'
 import { useAppSelector } from '../../../utils/hooks'
 import { v4 as uuidV4 } from 'uuid'
 
@@ -35,8 +36,10 @@ interface IListIng {
 }
 
 const OrderItem: FC<IOrderItem> = ({ orderNumber, date, title, ingredients, status, showStatus }) => {
+    const location = useLocation()
+    
     return (
-        <Link to={orderNumber.toString()} className={styles.order_item}>
+        <Link to={orderNumber.toString()} state={{ background: location }} className={styles.order_item}>
             <OrderHeader orderNumber={orderNumber} date={date} />
             <OrderTitle title={title} status={status} showStatus={showStatus} />
             <OrderMain ingredients={ingredients} />

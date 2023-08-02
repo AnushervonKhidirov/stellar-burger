@@ -57,7 +57,7 @@ const App: FC = () => {
                         <Route index element={<OnlyAuth component={<ProfileForm />} />} />
                         <Route path='orders' element={<OnlyAuth component={<ProfileOrders />} />} />
                     </Route>
-                    
+
                     <Route
                         path='/profile/orders/:orderNumber'
                         element={<OnlyAuth component={<FullOrderDetails />} />}
@@ -84,6 +84,14 @@ const App: FC = () => {
                         element={
                             <Modal onClose={closeModalHandler}>
                                 <IngredientDetails />
+                            </Modal>
+                        }
+                    />
+                    <Route
+                        path='/feed/:orderNumber'
+                        element={
+                            <Modal onClose={closeModalHandler}>
+                                <FullOrderDetails />
                             </Modal>
                         }
                     />

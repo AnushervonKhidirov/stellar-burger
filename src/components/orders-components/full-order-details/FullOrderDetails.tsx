@@ -103,7 +103,10 @@ const FullOrderDetails: FC = () => {
             </div>
             <OrderHeader name={details.name} status={details.status} />
             <OrderIngredients ingredients={orderIngredient} />
-            <OrderFooter date={new Date(details.createdAt)} price={getPrice(details.ingredientsId)} />
+            <OrderFooter
+                date={new Date(details.createdAt)}
+                price={getPrice(details.ingredientsId)}
+            />
         </div>
     )
 }
