@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useAppSelector, useAppDispatch } from '../../utils/hooks'
 import { wsFeedConnectAction, wsFeedDisconnectAction } from '../../services/feed-orders/actions'
@@ -17,7 +17,7 @@ const Feed: FC = () => {
     const dispatch = useAppDispatch()
     const orders = useAppSelector(store => store.feedOrderList)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         dispatch(wsFeedConnectAction(WS_ORDERS_FEED_URL))
 
         return () => {

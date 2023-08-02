@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { wsProfileConnectAction, wsProfileDisconnectAction } from '../../../services/profile-orders/actions'
 
@@ -12,7 +12,7 @@ const ProfileOrders: FC = () => {
     const dispatch = useAppDispatch()
     const orders = useAppSelector(store => store.profileOrderList)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         dispatch(wsProfileConnectAction(WS_ORDERS_PROFILE_URL))
 
         return () => {
