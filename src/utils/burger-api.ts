@@ -7,7 +7,6 @@ import type {
     IError,
     IFetchOptions,
     Ingredient,
-    // IOrderDetailsResponse
 } from './interfaces'
 
 import type { IOrderPayload, IGetOrderPayload } from '../services/orders/slice'
@@ -57,25 +56,18 @@ export const fetchIngredients = async () => {
 }
 
 export const fetchOrder = async (ingredientsID: string[], rejectWithValue: TRejectedWithValue) => {
-    return fetchWithRefresh<TOrderResponse>(ORDERS_URL, {
-        method: 'POST',
-        body: JSON.stringify({ ingredients: ingredientsID }),
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            authorization: `Bearer ${accessToken}`,
+    return fetchWithRefresh<TOrderResponse>(
+        ORDERS_URL,
+        {
+            method: 'POST',
+            body: JSON.stringify({ ingredients: ingredientsID }),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                authorization: `Bearer ${accessToken}`,
+            },
         },
-    }, rejectWithValue)
-
-    // const res = await fetch(ORDERS_URL, {
-    //     method: 'POST',
-    //     body: JSON.stringify({ ingredients: ingredientsID }),
-    //     headers: {
-    //         'Content-Type': 'application/json;charset=utf-8',
-    //         authorization: `Bearer ${accessToken}`,
-    //     },
-    // })
-
-    // return await checkResponse<TOrderResponse>(res, rejectWithValue)
+        rejectWithValue
+    )
 }
 
 export const fetchOrderDetail = async (orderID: string, rejectWithValue: TRejectedWithValue) => {
