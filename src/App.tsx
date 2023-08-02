@@ -50,7 +50,7 @@ const App: FC = () => {
 
                     <Route path='/feed'>
                         <Route index element={<Feed />} />
-                        <Route path=':id' element={<FullOrderDetails />} />
+                        <Route path=':orderNumber' element={<FullOrderDetails />} />
                     </Route>
 
                     <Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
@@ -59,7 +59,7 @@ const App: FC = () => {
                     </Route>
                     
                     <Route
-                        path='/profile/orders/:id'
+                        path='/profile/orders/:orderNumber'
                         element={<OnlyAuth component={<FullOrderDetails />} />}
                     />
 

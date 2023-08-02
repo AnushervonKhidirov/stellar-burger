@@ -7,9 +7,10 @@ import type {
     IError,
     IFetchOptions,
     Ingredient,
+    // IOrderDetailsResponse
 } from './interfaces'
 
-import { IUserInfo } from '../services/user/slice'
+import type { IOrderPayload, IGetOrderPayload } from '../services/orders/slice'
 
 import {
     INGREDIENTS_URL,
@@ -23,6 +24,8 @@ import {
     accessToken,
     refreshToken,
 } from './constants'
+
+import { IUserInfo } from '../services/user/slice'
 
 const setToken = (result: IToken) => {
     localStorage.setItem('accessToken', result.accessToken.replace('Bearer ', ''))
@@ -40,7 +43,8 @@ export type TServerResponse<T> = { success: boolean } & T
 export type TServerResponseMessage = { message: string }
 
 export type TIngredientsResponse = TServerResponse<{ data: Ingredient[] }>
-export type TOrderResponse = TServerResponse<{ name: string; order: { number: number } }>
+export type TOrderResponse = TServerResponse<IOrderPayload>
+export type TGetOrderResponse = TServerResponse<IGetOrderPayload>
 export type TUserInfoResponse = TServerResponse<{ user: IUserInfo }>
 export type TLoginResponse = TServerResponse<TUserInfoResponse & IToken>
 export type TLogoutResponse = TServerResponse<TServerResponseMessage>
@@ -53,21 +57,30 @@ export const fetchIngredients = async () => {
 }
 
 export const fetchOrder = async (ingredientsID: string[], rejectWithValue: TRejectedWithValue) => {
-    const res = await fetch(ORDERS_URL, {
+    return fetchWithRefresh<TOrderResponse>(ORDERS_URL, {
         method: 'POST',
         body: JSON.stringify({ ingredients: ingredientsID }),
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
             authorization: `Bearer ${accessToken}`,
         },
-    })
+    }, rejectWithValue)
 
-    return await checkResponse<TOrderResponse>(res, rejectWithValue)
+    // const res = await fetch(ORDERS_URL, {
+    //     method: 'POST',
+    //     body: JSON.stringify({ ingredients: ingredientsID }),
+    //     headers: {
+    //         'Content-Type': 'application/json;charset=utf-8',
+    //         authorization: `Bearer ${accessToken}`,
+    //     },
+    // })
+
+    // return await checkResponse<TOrderResponse>(res, rejectWithValue)
 }
 
-export const fetchOrderDetail = async (orderID: string) => {
+export const fetchOrderDetail = async (orderID: string, rejectWithValue: TRejectedWithValue) => {
     const res = await fetch(`${ORDERS_URL}/${orderID}`)
-    return await checkResponse<Ingredient>(res)
+    return await checkResponse<TGetOrderResponse>(res, rejectWithValue)
 }
 
 export const register = async (data: IRegisterData, rejectWithValue: TRejectedWithValue) => {

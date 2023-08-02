@@ -17,7 +17,7 @@ import styles from './BurgerConstructor.module.css'
 
 const BurgerConstructor: FC = () => {
     const dispatch = useAppDispatch()
-    const orderNumber = useAppSelector(store => store.orderDetails.orderNumber)
+    const orderNumber = useAppSelector(store => store.orderDetails.number)
 
     function closeModalHandler() {
         dispatch(clearOrder())

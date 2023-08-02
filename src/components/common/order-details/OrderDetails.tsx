@@ -8,14 +8,14 @@ import styles from './OrderDetails.module.css'
 
 
 const OrderDetails: FC = () => {
-    const { rejected, orderNumber } = useAppSelector(store => store.orderDetails)
+    const { rejected, number } = useAppSelector(store => store.orderDetails)
 
     return rejected ? (
         <Rejected />
     ) : (
         <>
             <p className={'text text_type_digits-large mb-8 mt-15 text-shadow'}>
-                {orderNumber}
+                {number}
             </p>
             <h2 className='text text_type_main-medium mt-4'>Идентификатор заказа</h2>
             <img src={doneImage} alt='Done' className={`${styles.done_image} mt-15 mb-15`} />

@@ -1,7 +1,7 @@
 import type { FC, FormEvent } from 'react'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { sendIngredientsId } from '../../../services/orders/action'
+import { sendOrder } from '../../../services/orders/action'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import TotalPrice from '../../common/total-price/TotalPrice'
 
@@ -31,7 +31,7 @@ const OrderBlock: FC = () => {
             constructorBun._id,
         ]
 
-        dispatch(sendIngredientsId(ingredientIDs))
+        dispatch(sendOrder(ingredientIDs))
     }
 
     return (

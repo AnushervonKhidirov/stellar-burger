@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { sendIngredientsId } from '../orders/action'
+import { sendOrder } from '../orders/action'
 import { v4 as uuidV4 } from 'uuid'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
@@ -54,7 +54,7 @@ export const constructorIngredientListSlice = createSlice({
         },
     },
     extraReducers: builder => {
-        builder.addCase(sendIngredientsId.fulfilled, () => initialState)
+        builder.addCase(sendOrder.fulfilled, () => initialState)
     },
 })
 
