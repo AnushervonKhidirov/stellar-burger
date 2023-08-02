@@ -19,11 +19,16 @@
     max-height: 304px;
     flex-direction: column;
     gap: 16px;
-    overflow-y: auto;
     list-style-type: none;
     margin: 0;
-    padding: 0 1em 0 0;
+    padding: 0;
     box-sizing: border-box;
+}
+
+.ingredient_list_scroll {
+    composes: ingredient_list;
+    overflow-y: auto;
+    padding: 0 1em 0 0;
 }
 
 .ingredient_item {

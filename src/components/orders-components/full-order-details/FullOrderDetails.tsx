@@ -127,10 +127,12 @@ const OrderHeader: FC<IOrderHeader> = ({ name, status }) => {
 }
 
 const OrderIngredients: FC<{ ingredients: IngredientAmount[] }> = ({ ingredients }) => {
+    const ingredientListClass = ingredients.length > 4 ? styles.ingredient_list_scroll : styles.ingredient_list
+
     return (
         <div className='mt-15'>
             <h2 className='text text_type_main-medium mb-6'>Состав:</h2>
-            <ul className={`${styles.ingredient_list} custom-scroll`}>
+            <ul className={`${ingredientListClass} custom-scroll`}>
                 {ingredients.map(ingredient => (
                     <OrderIngredient ingredient={ingredient} key={ingredient._id} />
                 ))}
