@@ -1,19 +1,24 @@
 import type { FC, FormEvent } from 'react'
 
+import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { sendOrder } from '../../../services/orders/action'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import TotalPrice from '../../common/total-price/TotalPrice'
 
+import { getAccessToken } from '../../../utils/constants'
+
 import styles from './OrderBlock.module.css'
 
 const OrderBlock: FC = () => {
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const constructorBun = useAppSelector(store => store.constructorIngredientList.bun)
     const constructorList = useAppSelector(store => store.constructorIngredientList.ingredients)
 
     function getOrder(e: FormEvent) {
         e.preventDefault()
+        const accessToken = getAccessToken()
 
         const isBun = constructorBun?._id
         const isMain = constructorList.findIndex(ingredient => ingredient.type === 'main') !== -1
@@ -31,7 +36,7 @@ const OrderBlock: FC = () => {
             constructorBun._id,
         ]
 
-        dispatch(sendOrder(ingredientIDs))
+        accessToken ? dispatch(sendOrder(ingredientIDs)) : navigate('/login')
     }
 
     return (
