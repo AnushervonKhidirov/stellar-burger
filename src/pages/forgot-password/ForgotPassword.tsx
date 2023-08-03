@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { TForgotPasswordSubmit } from '../../utils/interfaces'
+import type { IForgotPassword } from '../../utils/interfaces'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Form from '../../components/common/form/Form'
@@ -14,7 +14,7 @@ const ForgotPassword: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const forgetPassword: TForgotPasswordSubmit = async data => {
+    const forgetPassword: (data: IForgotPassword) => void = async data => {
         if (data.email === '') {
             alert('Please enter your email')
         } else {

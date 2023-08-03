@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { TResetPasswordSubmit } from '../../utils/interfaces'
+import type { IResetPassword } from '../../utils/interfaces'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import Form from '../../components/common/form/Form'
@@ -14,7 +14,7 @@ const ResetPassword: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const resetPassword: TResetPasswordSubmit = async data => {
+    const resetPassword: (data: IResetPassword) => void = async data => {
         const res = await fetch(RESET_PASSWORD_URL, {
             method: 'POST',
             body: JSON.stringify(data),

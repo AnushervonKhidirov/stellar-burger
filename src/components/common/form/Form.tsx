@@ -1,17 +1,16 @@
-import type { FC, ReactElement, FormEvent } from 'react'
+import type { ReactElement, FormEvent } from 'react'
 import type { IFormInput, TSubmitFormFunc } from '../../../utils/interfaces'
 
-import { useAppDispatch } from '../../../utils/hooks'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import InputForm from '../input-form/InputForm'
 
 import styles from './Form.module.css'
 
-interface IFormData {
+interface IFormData<T> {
     readonly headline: string
     readonly inputs: IFormInput[]
     readonly buttonText: string
-    readonly submitFunc: TSubmitFormFunc
+    readonly submitFunc: TSubmitFormFunc<T>
     isDispatch?: boolean
 }
 
@@ -19,14 +18,12 @@ interface ISendData {
     [key: string]: string
 }
 
-const Form: FC<IFormData> = ({
+const Form = <T,>({
     headline,
     inputs,
     buttonText,
     submitFunc,
-    isDispatch = true,
-}): ReactElement | null => {
-    const dispatch = useAppDispatch()
+}: IFormData<T>): ReactElement | null => {
     const isAllProps = headline && inputs && buttonText
 
     function submitForm(e: FormEvent) {
@@ -38,7 +35,7 @@ const Form: FC<IFormData> = ({
             dataToSend[property] = value.toString()
         })
 
-        isDispatch ? dispatch(submitFunc(dataToSend)) : submitFunc(dataToSend)
+        submitFunc(dataToSend as T)
     }
 
     return isAllProps ? (
