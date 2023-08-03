@@ -4,6 +4,8 @@ import { useAppSelector } from '../../../utils/hooks'
 import { Navigate, useLocation } from 'react-router-dom'
 import Loader from '../loader/Loader'
 
+import { LOGIN_PAGE } from '../../../utils/constants'
+
 interface IProtectedProps {
     readonly onlyUnAuth?: boolean
     readonly component: ReactElement
@@ -24,7 +26,7 @@ const Protected: FC<IProtectedProps> = ({ onlyUnAuth = false, component }) => {
     }
 
     if (!onlyUnAuth && !user) {
-        return <Navigate to='/login' state={{ from: location }} />
+        return <Navigate to={LOGIN_PAGE} state={{ from: location }} />
     }
 
     return component

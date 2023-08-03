@@ -6,7 +6,7 @@ import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
 
 import { checkResponse, TServerResponse, TServerResponseMessage } from '../../utils/burger-api'
-import { RESET_PASSWORD_URL } from '../../utils/constants'
+import { RESET_PASSWORD_URL, CONSTRUCTOR_PAGE } from '../../utils/constants'
 
 import { inputs, footerData } from './constant'
 
@@ -44,7 +44,7 @@ const ResetPassword: FC = () => {
             <FormFooter data={footerData} />
         </>
     ) : (
-        <Navigate to='/' />
+        <Navigate to={CONSTRUCTOR_PAGE} />
     )
 }
 

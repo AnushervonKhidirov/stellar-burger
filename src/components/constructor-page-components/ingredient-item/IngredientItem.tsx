@@ -9,6 +9,8 @@ import { setDetail } from '../../../services/store/ingredientDetailSlice'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Price from '../../common/price/Price'
 
+import { INGREDIENTS_PAGE } from '../../../utils/constants'
+
 import styles from './IngredientItem.module.css'
 
 const IngredientItem: FC<{ data: Ingredient }> = ({ data }) => {
@@ -32,7 +34,7 @@ const IngredientItem: FC<{ data: Ingredient }> = ({ data }) => {
     })
 
     return (
-        <Link to={`/ingredients/${data._id}`} state={{ background: location }}>
+        <Link to={`${INGREDIENTS_PAGE}/${data._id}`} state={{ background: location }}>
             <li
                 className={styles.ingredient_item}
                 onClick={() => dispatch(setDetail(data))}

@@ -11,6 +11,12 @@ import {
     Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components'
 
+import {
+    CONSTRUCTOR_PAGE,
+    FEED_PAGE,
+    PROFILE_PAGE,
+} from '../../../utils/constants'
+
 import styles from './Header.module.css'
 
 interface IHeaderNavigation {
@@ -27,14 +33,14 @@ const Header: FC = () => {
         <header>
             <div className='header_inner'>
                 <div className={styles.header_side_left}>
-                    <HeaderNavLink link='/' title='Конструктор' Icon={BurgerIcon} />
-                    <HeaderNavLink link='/feed' title='Лента заказов' Icon={ListIcon} />
+                    <HeaderNavLink link={CONSTRUCTOR_PAGE} title='Конструктор' Icon={BurgerIcon} />
+                    <HeaderNavLink link={FEED_PAGE} title='Лента заказов' Icon={ListIcon} />
                 </div>
                 <div className={styles.header_side_center}>
                     <Logo />
                 </div>
                 <div className={styles.header_side_right}>
-                    <HeaderNavLink link='/profile' title='Личный кабинет' Icon={ProfileIcon}>
+                    <HeaderNavLink link={PROFILE_PAGE} title='Личный кабинет' Icon={ProfileIcon}>
                         {userName && userName}
                     </HeaderNavLink>
                 </div>

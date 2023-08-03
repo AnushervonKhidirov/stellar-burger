@@ -25,6 +25,21 @@ import {
     ErrorPage,
 } from './pages'
 
+import {
+    CONSTRUCTOR_PAGE,
+    INGREDIENTS_PARAMS_PAGE,
+    FEED_PAGE,
+    FEED_ORDERS_PAGE,
+    PROFILE_PAGE,
+    PROFILE_ORDERS_NESTED_PAGE,
+    PROFILE_ORDERS_PAGE,
+    LOGIN_PAGE,
+    REGISTER_PAGE,
+    FORGET_PASSWORD_PAGE,
+    RESET_PASSWORD_PAGE,
+    ORDER_PARAM,
+} from './utils/constants'
+
 const App: FC = () => {
     const dispatch = useAppDispatch()
     const location = useLocation()
@@ -45,32 +60,35 @@ const App: FC = () => {
             <Header />
             <main>
                 <Routes location={background || location}>
-                    <Route path='/' element={<Constructor />} />
-                    <Route path='/ingredients/:ingredientId' element={<IngredientDetails />} />
+                    <Route path={CONSTRUCTOR_PAGE} element={<Constructor />} />
+                    <Route
+                        path={INGREDIENTS_PARAMS_PAGE}
+                        element={<IngredientDetails />}
+                    />
 
-                    <Route path='/feed'>
+                    <Route path={FEED_PAGE}>
                         <Route index element={<Feed />} />
-                        <Route path=':orderNumber' element={<FullOrderDetails />} />
+                        <Route path={`:${ORDER_PARAM}`} element={<FullOrderDetails />} />
                     </Route>
 
-                    <Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
+                    <Route path={PROFILE_PAGE} element={<OnlyAuth component={<Profile />} />}>
                         <Route index element={<OnlyAuth component={<ProfileForm />} />} />
-                        <Route path='orders' element={<OnlyAuth component={<ProfileOrders />} />} />
+                        <Route path={PROFILE_ORDERS_NESTED_PAGE} element={<OnlyAuth component={<ProfileOrders />} />} />
                     </Route>
 
                     <Route
-                        path='/profile/orders/:orderNumber'
+                        path={PROFILE_ORDERS_PAGE}
                         element={<OnlyAuth component={<FullOrderDetails />} />}
                     />
 
-                    <Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
-                    <Route path='/register' element={<OnlyUnAuth component={<Register />} />} />
+                    <Route path={LOGIN_PAGE} element={<OnlyUnAuth component={<Login />} />} />
+                    <Route path={REGISTER_PAGE} element={<OnlyUnAuth component={<Register />} />} />
                     <Route
-                        path='/forgot-password'
+                        path={FORGET_PASSWORD_PAGE}
                         element={<OnlyUnAuth component={<ForgotPassword />} />}
                     />
                     <Route
-                        path='/reset-password'
+                        path={RESET_PASSWORD_PAGE}
                         element={<OnlyUnAuth component={<ResetPassword />} />}
                     />
                     <Route path='*' element={<ErrorPage />} />
@@ -80,7 +98,7 @@ const App: FC = () => {
             {background && (
                 <Routes>
                     <Route
-                        path='/ingredients/:ingredientId'
+                        path={INGREDIENTS_PARAMS_PAGE}
                         element={
                             <Modal onClose={closeModalHandler}>
                                 <IngredientDetails />
@@ -88,7 +106,7 @@ const App: FC = () => {
                         }
                     />
                     <Route
-                        path='/feed/:orderNumber'
+                        path={FEED_ORDERS_PAGE}
                         element={
                             <Modal onClose={closeModalHandler}>
                                 <FullOrderDetails />
@@ -96,7 +114,7 @@ const App: FC = () => {
                         }
                     />
                     <Route
-                        path='/profile/orders/:orderNumber'
+                        path={PROFILE_ORDERS_PAGE}
                         element={
                             <Modal onClose={closeModalHandler}>
                                 <FullOrderDetails />

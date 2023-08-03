@@ -4,6 +4,24 @@ export const JWT_EXPIRED_MESSAGE = 'jwt expired'
 export const getAccessToken = () => localStorage.getItem('accessToken')
 export const getRefreshToken = () => localStorage.getItem('refreshToken')
 
+// Route params
+export const INGREDIENT_PARAM = 'ingredientId'
+export const ORDER_PARAM = 'orderNumber'
+
+// Routes
+export const CONSTRUCTOR_PAGE = '/'
+export const INGREDIENTS_PAGE = '/ingredients'
+export const INGREDIENTS_PARAMS_PAGE = `/ingredients/:${INGREDIENT_PARAM}`
+export const FEED_PAGE = '/feed'
+export const FEED_ORDERS_PAGE = `/feed/:${ORDER_PARAM}`
+export const PROFILE_PAGE = '/profile'
+export const PROFILE_ORDERS_NESTED_PAGE = 'orders'
+export const PROFILE_ORDERS_PAGE = `/profile/orders/:${ORDER_PARAM}`
+export const LOGIN_PAGE = '/login'
+export const REGISTER_PAGE = '/register'
+export const FORGET_PASSWORD_PAGE = '/forgot-password'
+export const RESET_PASSWORD_PAGE = '/reset-password'
+
 // URLs
 export const API_URL = 'https://norma.nomoreparties.space/api'
 export const INGREDIENTS_URL = `${API_URL}/ingredients`
