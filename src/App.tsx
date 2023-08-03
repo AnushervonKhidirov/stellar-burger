@@ -95,6 +95,14 @@ const App: FC = () => {
                             </Modal>
                         }
                     />
+                    <Route
+                        path='/profile/orders/:orderNumber'
+                        element={
+                            <Modal onClose={closeModalHandler}>
+                                <FullOrderDetails />
+                            </Modal>
+                        }
+                    />
                 </Routes>
             )}
         </>
