@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import type { IFooterText } from '../../../utils/interfaces'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import styles from './FormFooter.module.css'
 
@@ -17,12 +17,10 @@ const FormFooter: FC<{ data: IFooterText[] }> = ({ data }) => {
 }
 
 const FormFooterItem: FC<IFooterText> = ({ text, link }) => {
-    const location = useLocation()
-
     return (
         <p className='text text_type_main-default text_color_inactive m-0'>
             {text}{' '}
-            <Link to={link.href} state={{ from: location }} className={styles.footer_link}>
+            <Link to={link.href} className={styles.footer_link}>
                 {link.title}
             </Link>
         </p>

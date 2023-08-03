@@ -3,7 +3,7 @@ import type { FC, ReactElement, ReactNode } from 'react'
 
 import { useAppSelector } from '../../../utils/hooks'
 
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import {
     BurgerIcon,
     ListIcon,
@@ -44,12 +44,9 @@ const Header: FC = () => {
 }
 
 const HeaderNavLink: FC<IHeaderNavigation> = ({ link, title, Icon, children }) => {
-    const location = useLocation()
-
     return (
         <NavLink
             to={link}
-            state={{ from: location }}
             className={({ isActive }) => {
                 return `${
                     isActive ? styles.header_button_active : styles.header_button
