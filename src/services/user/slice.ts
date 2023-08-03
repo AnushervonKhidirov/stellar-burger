@@ -1,4 +1,4 @@
-import type { IToken, ILoginData } from '../../utils/interfaces'
+import type { IToken } from '../../utils/interfaces'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
