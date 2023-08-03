@@ -6,7 +6,7 @@ import { sendOrder } from '../../../services/orders/action'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import TotalPrice from '../../common/total-price/TotalPrice'
 
-import { getAccessToken } from '../../../utils/constants'
+import { getAccessToken, LOGIN_PAGE } from '../../../utils/constants'
 
 import styles from './OrderBlock.module.css'
 
@@ -21,13 +21,11 @@ const OrderBlock: FC = () => {
         const accessToken = getAccessToken()
 
         const isBun = constructorBun?._id
-        const isMain = constructorList.findIndex(ingredient => ingredient.type === 'main') !== -1
-        const isSauce = constructorList.findIndex(ingredient => ingredient.type === 'sauce') !== -1
-        const isAvailableToOrder = isBun && isMain
+        const isBurgerInner = constructorList.length > 0
+        const isAvailableToOrder = isBun && isBurgerInner
 
-        if (!isBun && isMain) return alert("You can't eat burger without buns. Peak a bun)")
-        if (!isMain && isBun) return alert("You can't eat only bun, it isn't tasty(")
-        if (isSauce && !isAvailableToOrder) return alert("We think you don't want to order only sauce)")
+        if (!isBun && isBurgerInner) return alert("You can't eat burger without buns. Peak a bun)")
+        if (!isBurgerInner && isBun) return alert("You can't eat only bun, it isn't tasty(")
         if (!isAvailableToOrder) return alert('Your attempt to order nothing is failed!')
 
         const ingredientIDs = [
@@ -36,7 +34,7 @@ const OrderBlock: FC = () => {
             constructorBun._id,
         ]
 
-        accessToken ? dispatch(sendOrder(ingredientIDs)) : navigate('/login')
+        accessToken ? dispatch(sendOrder(ingredientIDs)) : navigate(LOGIN_PAGE)
     }
 
     return (
