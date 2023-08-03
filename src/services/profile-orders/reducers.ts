@@ -42,6 +42,6 @@ export const profileOrdersListReducers = createReducer(initialState, builder => 
         })
         .addCase(wsProfileMessageAction, (state, { payload }) => {
             state.list = payload
-            state.list.orders.reverse()
+            state.list.orders?.reverse()
         })
 })
