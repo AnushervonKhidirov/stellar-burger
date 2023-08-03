@@ -1,4 +1,4 @@
-import type { IToken } from '../../utils/interfaces'
+import type { IToken, ILoginData } from '../../utils/interfaces'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
@@ -53,11 +53,11 @@ export const profileSlice = createSlice({
                     state.isAuthChecked = true
                 }
             )
-            .addCase(registerUser.rejected, (state, { payload }: PayloadAction<any>) => {
+            .addCase(registerUser.rejected, (state, { payload }: PayloadAction<Error>) => {
                 state.isLoading = false
                 state.rejected = true
-                alert(payload.message)
                 state.isAuthChecked = true
+                alert(payload.message)
             })
 
         builder
@@ -72,7 +72,7 @@ export const profileSlice = createSlice({
                 state.isAuthorized = true
                 state.isAuthChecked = true
             })
-            .addCase(loginUser.rejected, (state, { payload }: PayloadAction<any>) => {
+            .addCase(loginUser.rejected, (state, { payload }: PayloadAction<Error>) => {
                 state.isLoading = false
                 state.rejected = true
                 state.isAuthChecked = true
@@ -89,7 +89,7 @@ export const profileSlice = createSlice({
                 state.userInfo = null
                 state.isAuthorized = false
             })
-            .addCase(logoutUser.rejected, (state, { payload }: PayloadAction<any>) => {
+            .addCase(logoutUser.rejected, (state, { payload }: PayloadAction<Error>) => {
                 state.isLoading = false
                 state.rejected = true
                 alert(payload.message)
@@ -125,7 +125,7 @@ export const profileSlice = createSlice({
                 state.isLoading = false
                 state.isAuthChecked = true
             })
-            .addCase(updateUser.rejected, (state, { payload }: PayloadAction<any>) => {
+            .addCase(updateUser.rejected, (state, { payload }: PayloadAction<Error>) => {
                 state.isLoading = false
                 state.rejected = true
                 state.isAuthChecked = true
