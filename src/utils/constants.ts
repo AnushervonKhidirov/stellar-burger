@@ -1,8 +1,8 @@
 export const JWT_EXPIRED_MESSAGE = 'jwt expired'
 
 // Tokens
-export const accessToken = localStorage.getItem('accessToken')
-export const refreshToken = localStorage.getItem('refreshToken')
+export const getAccessToken = () => localStorage.getItem('accessToken')
+export const getRefreshToken = () => localStorage.getItem('refreshToken')
 
 // URLs
 export const API_URL = 'https://norma.nomoreparties.space/api'
@@ -19,4 +19,4 @@ export const RESET_PASSWORD_URL = `${API_URL}/password-reset/reset`
 // WebSocket URLs
 export const WS_ORDERS_URL = 'wss://norma.nomoreparties.space/orders'
 export const WS_ORDERS_FEED_URL = `${WS_ORDERS_URL}/all`
-export const WS_ORDERS_PROFILE_URL = `${WS_ORDERS_URL}?token=${accessToken}`
+export const WS_ORDERS_PROFILE_URL = `${WS_ORDERS_URL}?token=${getAccessToken()}`
