@@ -1,6 +1,3 @@
-import { loginUser, registerUser } from '../services/user/action'
-// import type { TLoginResponse } from './burger-api'
-
 export interface Ingredient {
     readonly _id: string
     readonly name: string
