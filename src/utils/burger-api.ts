@@ -20,8 +20,8 @@ import {
     USER_URL,
     UPDATE_TOKEN_URL,
     JWT_EXPIRED_MESSAGE,
-    accessToken,
-    refreshToken,
+    getAccessToken,
+    getRefreshToken,
 } from './constants'
 
 import { IUserInfo } from '../services/user/slice'
@@ -63,7 +63,7 @@ export const fetchOrder = async (ingredientsID: string[], rejectWithValue: TReje
             body: JSON.stringify({ ingredients: ingredientsID }),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                authorization: `Bearer ${accessToken}`,
+                authorization: `Bearer ${getAccessToken()}`,
             },
         },
         rejectWithValue
@@ -108,7 +108,7 @@ export const logIn = async (data: ILoginData, rejectWithValue: TRejectedWithValu
 export const logOut = async (rejectWithValue: TRejectedWithValue) => {
     const res = await fetch(LOGOUT_URL, {
         method: 'POST',
-        body: JSON.stringify({ token: refreshToken }),
+        body: JSON.stringify({ token: getRefreshToken() }),
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
@@ -127,7 +127,7 @@ export const getUserData = async (rejectWithValue: TRejectedWithValue) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                authorization: `Bearer ${accessToken}`,
+                authorization: `Bearer ${getAccessToken()}`,
             },
         },
         rejectWithValue
@@ -147,7 +147,7 @@ export const updateUserData = async (
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                authorization: `Bearer ${accessToken}`,
+                authorization: `Bearer ${getAccessToken()}`,
             },
         },
         rejectWithValue
@@ -157,7 +157,7 @@ export const updateUserData = async (
 const updateToken = async () => {
     const res = await fetch(UPDATE_TOKEN_URL, {
         method: 'POST',
-        body: JSON.stringify({ token: refreshToken }),
+        body: JSON.stringify({ token: getRefreshToken() }),
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
