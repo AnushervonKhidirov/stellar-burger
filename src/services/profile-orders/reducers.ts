@@ -41,6 +41,9 @@ export const profileOrdersListReducers = createReducer(initialState, builder => 
             state.connectingError = payload
         })
         .addCase(wsProfileMessageAction, (state, { payload }) => {
-            state.list = payload
+            state.list.orders = payload.orders.reverse()
+            state.list.success = payload.success
+            state.list.total = payload.total
+            state.list.totalToday = payload.totalToday
         })
 })
