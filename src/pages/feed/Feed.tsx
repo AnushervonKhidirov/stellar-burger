@@ -10,12 +10,13 @@ import DoneOrders from '../../components/feed-page-components/done-orders/DoneOr
 import PageTitle from '../../components/common/page-title/PageTitle'
 
 import { WS_ORDERS_FEED_URL } from '../../utils/constants'
+import { feedOrderSelector } from '../../utils/selectors'
 
 import styles from './Feed.module.css'
 
 const Feed: FC = () => {
     const dispatch = useAppDispatch()
-    const orders = useAppSelector(store => store.feedOrderList)
+    const orders = useAppSelector(feedOrderSelector)
 
     useEffect(() => {
         dispatch(wsFeedConnectAction(WS_ORDERS_FEED_URL))

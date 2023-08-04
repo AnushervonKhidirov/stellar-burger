@@ -12,12 +12,13 @@ import OrderBlock from '../order-block/OrderBlock'
 import OrderDetails from '../../common/order-details/OrderDetails'
 import Modal from '../../common/modal/Modal'
 import Loader from '../../common/loader/Loader'
+import { orderDetailSelector } from '../../../utils/selectors'
 
 import styles from './BurgerConstructor.module.css'
 
 const BurgerConstructor: FC = () => {
     const dispatch = useAppDispatch()
-    const orderNumber = useAppSelector(store => store.orderDetails.number)
+    const { number } = useAppSelector(orderDetailSelector)
 
     function closeModalHandler() {
         dispatch(clearOrder())
@@ -29,7 +30,7 @@ const BurgerConstructor: FC = () => {
                 <BurgerConstructorBlock />
                 <OrderBlock />
             </div>
-            {orderNumber && (
+            {number && (
                 <Modal onClose={closeModalHandler}>
                     <OrderDetails />
                 </Modal>
@@ -40,9 +41,9 @@ const BurgerConstructor: FC = () => {
 
 const BurgerConstructorBlock: FC = () => {
     const dispatch = useAppDispatch()
-    const isOrderLoading = useAppSelector(store => store.orderDetails.isLoading)
+    const { isLoading } = useAppSelector(orderDetailSelector)
 
-    const constructorClassName = isOrderLoading
+    const constructorClassName = isLoading
         ? styles.constructor_loading
         : styles.constructor_inner
 
@@ -58,7 +59,7 @@ const BurgerConstructorBlock: FC = () => {
             <BurgerConstructorBun position='top' />
             <BurgerConstructorIngredients />
             <BurgerConstructorBun position='bottom' />
-            {isOrderLoading && <Loader />}
+            {isLoading && <Loader />}
         </div>
     )
 }

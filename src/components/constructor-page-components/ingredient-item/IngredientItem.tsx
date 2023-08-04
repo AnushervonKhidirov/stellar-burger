@@ -10,13 +10,14 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Price from '../../common/price/Price'
 
 import { INGREDIENTS_PAGE } from '../../../utils/constants'
+import { constructorIngredientSelector } from '../../../utils/selectors'
 
 import styles from './IngredientItem.module.css'
 
 const IngredientItem: FC<{ data: Ingredient }> = ({ data }) => {
     const dispatch = useAppDispatch()
     const location = useLocation()
-    const allIngredients = useAppSelector(store => store.constructorIngredientList)
+    const allIngredients = useAppSelector(constructorIngredientSelector)
     const getAmount = useMemo(() => {
         if (data.type === 'bun') {
             return allIngredients.bun?._id === data._id ? 1 : 0

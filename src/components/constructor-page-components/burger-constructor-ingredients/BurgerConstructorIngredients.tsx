@@ -6,6 +6,7 @@ import { useDrop } from 'react-dnd'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { changeIngredientOrder } from '../../../services/store/constructorIngredientListSlice'
 import BurgerConstructorIngredientItem from '../burger-constructor-ingredient-item/BurgerConstructorIngredientItem'
+import { constructorIngredientSelector } from '../../../utils/selectors'
 
 import styles from './BurgerConstructorIngredients.module.css'
 
@@ -16,7 +17,7 @@ export interface IConstructorIngDrag {
 
 const BurgerConstructorIngredients: FC = () => {
     const dispatch = useAppDispatch()
-    const ingredientList = useAppSelector(store => store.constructorIngredientList.ingredients)
+    const { ingredients } = useAppSelector(constructorIngredientSelector)
 
     const [, dropRef] = useDrop<IConstructorIngDrag>({
         accept: 'ingredient_position',
@@ -34,7 +35,7 @@ const BurgerConstructorIngredients: FC = () => {
             if (hoverClientY + hoverMiddleY < hoverMiddleY - 10) {
                 dispatch(
                     changeIngredientOrder({
-                        ingredientList,
+                        ingredients,
                         key: ingredient.key || '',
                         side: -1,
                     })
@@ -45,7 +46,7 @@ const BurgerConstructorIngredients: FC = () => {
             if (hoverClientY > hoverMiddleY * 2 + 10) {
                 dispatch(
                     changeIngredientOrder({
-                        ingredientList,
+                        ingredients,
                         key: ingredient.key || '',
                         side: 1,
                     })
@@ -54,9 +55,9 @@ const BurgerConstructorIngredients: FC = () => {
         },
     })
 
-    return ingredientList.length !== 0 ? (
+    return ingredients.length !== 0 ? (
         <ul className={`${styles.ingredient_list} custom-scroll`} ref={dropRef}>
-            {ingredientList?.map(ingredient => (
+            {ingredients?.map(ingredient => (
                 <BurgerConstructorIngredientItem ingredient={ingredient} key={ingredient.key} />
             ))}
         </ul>

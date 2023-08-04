@@ -3,15 +3,14 @@ import type { FC } from 'react'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useAppSelector } from '../../../utils/hooks'
 import ConvertedNumber from '../converted-number/ConvertedNumber'
+import { constructorIngredientSelector } from '../../../utils/selectors'
 
 import styles from './TotalPrice.module.css'
 
 const TotalPrice: FC = () => {
-    const constructorBun = useAppSelector(store => store.constructorIngredientList.bun)
-    const constructorList = useAppSelector(store => store.constructorIngredientList.ingredients)
+    const { bun, ingredients } = useAppSelector(constructorIngredientSelector)
     const totalPrice =
-        constructorList?.reduce((acc, item) => acc + item.price, 0) +
-        (constructorBun?.price ? constructorBun.price * 2 : 0)
+        ingredients?.reduce((acc, item) => acc + item.price, 0) + (bun?.price ? bun.price * 2 : 0)
 
     return (
         <div className={styles.total_price}>

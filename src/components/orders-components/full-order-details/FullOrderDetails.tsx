@@ -14,6 +14,8 @@ import Price from '../../common/price/Price'
 import ImageInBorder from '../../common/image-in-border/ImageInBorder'
 import Loader from '../../common/loader/Loader'
 
+import { ingredientSelector, orderDetailSelector } from '../../../utils/selectors'
+
 import styles from './FullOrderDetails.module.css'
 
 export interface IFullOrderDetails extends IOrderHeader {
@@ -38,8 +40,8 @@ interface IngredientAmount extends Ingredient {
 
 const FullOrderDetails: FC = () => {
     const dispatch = useAppDispatch()
-    const ingredients = useAppSelector(store => store.ingredientList.ingredients)
-    const details = useAppSelector(store => store.orderDetails)
+    const { ingredients } = useAppSelector(ingredientSelector)
+    const details = useAppSelector(orderDetailSelector)
     const [orderIngredient, setOrderIngredients] = useState<IngredientAmount[]>([])
     const { orderNumber } = useParams()
 

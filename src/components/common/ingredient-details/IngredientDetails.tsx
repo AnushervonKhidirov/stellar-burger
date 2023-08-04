@@ -2,6 +2,8 @@ import type { FC } from 'react'
 
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from '../../../utils/hooks'
+import { ingredientSelector } from '../../../utils/selectors'
+
 import styles from './IngredientDetails.module.css'
 
 interface IngredientPropertiesType {
@@ -18,7 +20,7 @@ interface IngredientPropertyItemType {
 
 const IngredientDetails: FC = () => {
     const ingredientId = useParams().ingredientId
-    const ingredients = useAppSelector(store => store.ingredientList.ingredients)
+    const { ingredients } = useAppSelector(ingredientSelector)
     const ingredient = ingredients.find(ing => ing._id === ingredientId)
 
     return (

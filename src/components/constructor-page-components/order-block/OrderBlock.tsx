@@ -7,21 +7,21 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import TotalPrice from '../../common/total-price/TotalPrice'
 
 import { getAccessToken, LOGIN_PAGE } from '../../../utils/constants'
+import { constructorIngredientSelector } from '../../../utils/selectors'
 
 import styles from './OrderBlock.module.css'
 
 const OrderBlock: FC = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const constructorBun = useAppSelector(store => store.constructorIngredientList.bun)
-    const constructorList = useAppSelector(store => store.constructorIngredientList.ingredients)
+    const { bun, ingredients } = useAppSelector(constructorIngredientSelector)
 
     function getOrder(e: FormEvent) {
         e.preventDefault()
         const accessToken = getAccessToken()
 
-        const isBun = constructorBun?._id
-        const isBurgerInner = constructorList.length > 0
+        const isBun = bun?._id
+        const isBurgerInner = ingredients.length > 0
         const isAvailableToOrder = isBun && isBurgerInner
 
         if (!isBun && isBurgerInner) return alert("You can't eat burger without buns. Peak a bun)")
@@ -29,9 +29,9 @@ const OrderBlock: FC = () => {
         if (!isAvailableToOrder) return alert('Your attempt to order nothing is failed!')
 
         const ingredientIDs = [
-            constructorBun._id,
-            ...constructorList.map(ingredient => ingredient._id),
-            constructorBun._id,
+            bun._id,
+            ...ingredients.map(ingredient => ingredient._id),
+            bun._id,
         ]
 
         accessToken ? dispatch(sendOrder(ingredientIDs)) : navigate(LOGIN_PAGE)

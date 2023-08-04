@@ -4,11 +4,13 @@ import { useAppSelector } from '../../../utils/hooks'
 import Rejected from '../rejected/Rejected'
 import doneImage from '../../../images/order_done.png'
 
+import { orderDetailSelector } from '../../../utils/selectors'
+
 import styles from './OrderDetails.module.css'
 
 
 const OrderDetails: FC = () => {
-    const { rejected, number } = useAppSelector(store => store.orderDetails)
+    const { rejected, number } = useAppSelector(orderDetailSelector)
 
     return rejected ? (
         <Rejected />

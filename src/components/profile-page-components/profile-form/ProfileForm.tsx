@@ -4,6 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { updateUser } from '../../../services/user/action'
+import { profileSelector } from '../../../utils/selectors'
 
 import styles from './ProfileForm.module.css'
 
@@ -28,7 +29,7 @@ type inputNames = Readonly<'name' | 'email' | 'password'>
 
 const ProfileForm: FC = () => {
     const dispatch = useAppDispatch()
-    const user = useAppSelector(store => store.profile)
+    const user = useAppSelector(profileSelector)
     const [profileForm, setProfileForm] = useState<IProfileInputData[]>([])
 
     const setInitialData = useCallback(() => {

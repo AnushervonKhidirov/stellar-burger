@@ -2,6 +2,7 @@ import type { TIconProps } from '@ya.praktikum/react-developer-burger-ui-compone
 import type { FC, ReactElement, ReactNode } from 'react'
 
 import { useAppSelector } from '../../../utils/hooks'
+import { profileSelector } from '../../../utils/selectors'
 
 import { NavLink } from 'react-router-dom'
 import {
@@ -27,7 +28,7 @@ interface IHeaderNavigation {
 }
 
 const Header: FC = () => {
-    const userName = useAppSelector(store => store.profile.userInfo?.name)
+    const {userInfo} = useAppSelector(profileSelector)
 
     return (
         <header>
@@ -41,7 +42,7 @@ const Header: FC = () => {
                 </div>
                 <div className={styles.header_side_right}>
                     <HeaderNavLink link={PROFILE_PAGE} title='Личный кабинет' Icon={ProfileIcon}>
-                        {userName && userName}
+                        {userInfo?.name && userInfo.name}
                     </HeaderNavLink>
                 </div>
             </div>

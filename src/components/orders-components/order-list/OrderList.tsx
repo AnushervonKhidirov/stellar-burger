@@ -17,7 +17,7 @@ const OrderList: FC<IOrderList> = ({ orders, showStatus }) => {
                 <OrderItem
                     orderNumber={order.number}
                     date={order.createdAt}
-                    ingredients={order.ingredients}
+                    ingredientsId={order.ingredients}
                     title={order.name}
                     status={order.status}
                     showStatus={showStatus}

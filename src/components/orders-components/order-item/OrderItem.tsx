@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import Price from '../../common/price/Price'
 import ImageInBorder from '../../common/image-in-border/ImageInBorder'
+import { ingredientSelector } from '../../../utils/selectors'
 
 import styles from './OrderItem.module.css'
 
@@ -32,17 +33,17 @@ interface IMoreIng {
 }
 
 interface IListIng {
-    readonly ingredients: string[]
+    readonly ingredientsId: string[]
 }
 
-const OrderItem: FC<IOrderItem> = ({ orderNumber, date, title, ingredients, status, showStatus }) => {
+const OrderItem: FC<IOrderItem> = ({ orderNumber, date, title, ingredientsId, status, showStatus }) => {
     const location = useLocation()
     
     return (
         <Link to={orderNumber.toString()} state={{ background: location }} className={styles.order_item}>
             <OrderHeader orderNumber={orderNumber} date={date} />
             <OrderTitle title={title} status={status} showStatus={showStatus} />
-            <OrderMain ingredients={ingredients} />
+            <OrderMain ingredientsId={ingredientsId} />
         </Link>
     )
 }
@@ -78,13 +79,13 @@ const OrderTitle: FC<IOrderTitle> = ({ title, status, showStatus }) => {
     )
 }
 
-const OrderMain: FC<IListIng> = ({ ingredients }) => {
-    const allIngredients = useAppSelector(store => store.ingredientList.ingredients)
+const OrderMain: FC<IListIng> = ({ ingredientsId }) => {
+    const { ingredients } = useAppSelector(ingredientSelector)
     const ingredientList: string[] = []
     let price: number = 0
 
-    ingredients.forEach(ingId => {
-        allIngredients.forEach(ingredient => {
+    ingredientsId.forEach(ingId => {
+        ingredients.forEach(ingredient => {
             if (ingredient._id === ingId) {
                 ingredientList.push(ingredient.image)
                 price += ingredient.price
