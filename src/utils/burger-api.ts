@@ -26,7 +26,7 @@ import {
 
 import { IUserInfo } from '../services/user/slice'
 
-const setToken = (result: IToken) => {
+export const setToken = (result: IToken) => {
     localStorage.setItem('accessToken', result.accessToken.replace('Bearer ', ''))
     localStorage.setItem('refreshToken', result.refreshToken)
 }
@@ -154,7 +154,7 @@ export const updateUserData = async (
     )
 }
 
-const updateToken = async () => {
+export const updateToken = async () => {
     const res = await fetch(UPDATE_TOKEN_URL, {
         method: 'POST',
         body: JSON.stringify({ token: getRefreshToken() }),
@@ -166,7 +166,7 @@ const updateToken = async () => {
     return await checkResponse<TUpdateToken>(res)
 }
 
-const fetchWithRefresh = async <T>(
+export const fetchWithRefresh = async <T>(
     url: string,
     options: IFetchOptions,
     rejectWithValue: TRejectedWithValue
