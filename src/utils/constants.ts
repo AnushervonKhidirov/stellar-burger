@@ -1,4 +1,5 @@
 export const JWT_EXPIRED_MESSAGE = 'jwt expired'
+export const JWT_EXPIRED_MESSAGE_WS = 'Invalid or missing token'
 
 // Tokens
 export const getAccessToken = () => localStorage.getItem('accessToken')
