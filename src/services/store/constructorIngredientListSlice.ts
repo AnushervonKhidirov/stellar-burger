@@ -6,12 +6,12 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Ingredient } from '../../utils/interfaces'
 
 interface IConstructorList {
-    bun: Ingredient | null
-    ingredients: Ingredient[]
+    readonly bun: Ingredient | null
+    readonly ingredients: Ingredient[]
 }
 
 interface IChangeOrderPayload {
-    ingredientList: Ingredient[]
+    readonly ingredients: Ingredient[]
     readonly key: string
     readonly side: -1 | 1
 }
@@ -36,7 +36,7 @@ export const constructorIngredientListSlice = createSlice({
             )
         },
         changeIngredientOrder: (state, { payload }: PayloadAction<IChangeOrderPayload>) => {
-            const ingredientList = payload.ingredientList
+            const ingredientList = payload.ingredients
             let currentIndex = ingredientList.findIndex(
                 (item: Ingredient) => item.key === payload.key
             )
