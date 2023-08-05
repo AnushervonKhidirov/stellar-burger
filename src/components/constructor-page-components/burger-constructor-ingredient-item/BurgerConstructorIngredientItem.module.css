@@ -1,9 +1,9 @@
 .constructor_item {
-    margin-right: 8px;
-    flex-flow: unset;
     display: flex;
     align-items: center;
     gap: 7px;
+    margin-right: 8px;
+    flex-flow: unset;
 }
 
 .drag_icon {

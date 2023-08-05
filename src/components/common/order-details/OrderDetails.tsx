@@ -4,18 +4,20 @@ import { useAppSelector } from '../../../utils/hooks'
 import Rejected from '../rejected/Rejected'
 import doneImage from '../../../images/order_done.png'
 
+import { orderDetailSelector } from '../../../utils/selectors'
+
 import styles from './OrderDetails.module.css'
 
 
 const OrderDetails: FC = () => {
-    const { rejected, orderNumber } = useAppSelector(store => store.orderDetails)
+    const { rejected, number } = useAppSelector(orderDetailSelector)
 
     return rejected ? (
         <Rejected />
     ) : (
         <>
-            <p className={`${styles.order_number} text text_type_digits-large mb-8 mt-15`}>
-                {orderNumber}
+            <p className={'text text_type_digits-large mb-8 mt-15 text-shadow'}>
+                {number}
             </p>
             <h2 className='text text_type_main-medium mt-4'>Идентификатор заказа</h2>
             <img src={doneImage} alt='Done' className={`${styles.done_image} mt-15 mb-15`} />

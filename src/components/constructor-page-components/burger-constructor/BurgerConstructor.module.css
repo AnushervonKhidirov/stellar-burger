@@ -1,11 +1,9 @@
-
 .constructor_wrapper {
     position: relative;
 }
 
 .constructor_inner {
-    position: absolute;
-    top: 100px;
+    position: relative;
     display: flex;
     width: calc(100% - 20px);
     max-height: 560px;

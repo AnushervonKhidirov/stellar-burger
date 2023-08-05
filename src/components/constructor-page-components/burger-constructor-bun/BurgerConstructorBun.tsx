@@ -4,6 +4,7 @@ import { useAppSelector } from '../../../utils/hooks'
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { positionText } from './constant'
+import { constructorIngredientSelector } from '../../../utils/selectors'
 
 import styles from './BurgerConstructorBun.module.css'
 
@@ -12,7 +13,7 @@ interface IBunPosition {
 }
 
 const BurgerConstructorBun: FC<IBunPosition> = ({ position }) => {
-    const bun = useAppSelector(store => store.constructorIngredientList.bun)
+    const { bun } = useAppSelector(constructorIngredientSelector)
 
     const classForEmpty = `constructor-element constructor-element_pos_${position}
         ${styles[`bun_${position}`]}

@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { sendIngredientsId } from '../orders/action'
-import { v4 as uuidv4 } from 'uuid'
+import { sendOrder } from '../orders/action'
+import { v4 as uuidV4 } from 'uuid'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { Ingredient } from '../../utils/interfaces'
 
 interface IConstructorList {
-    bun: Ingredient | null
-    ingredients: Ingredient[]
+    readonly bun: Ingredient | null
+    readonly ingredients: Ingredient[]
 }
 
 interface IChangeOrderPayload {
-    ingredientList: Ingredient[]
+    readonly ingredients: Ingredient[]
     readonly key: string
     readonly side: -1 | 1
 }
@@ -28,7 +28,7 @@ export const constructorIngredientListSlice = createSlice({
         addIngredientToConstructor: (state, { payload }: PayloadAction<Ingredient>) => {
             payload.type === 'bun'
                 ? (state.bun = payload)
-                : state.ingredients.push({ ...payload, key: uuidv4() })
+                : state.ingredients.push({ ...payload, key: uuidV4() })
         },
         removeIngredientFromConstructor: (state, { payload }: PayloadAction<Ingredient>) => {
             state.ingredients = state.ingredients.filter(
@@ -36,7 +36,7 @@ export const constructorIngredientListSlice = createSlice({
             )
         },
         changeIngredientOrder: (state, { payload }: PayloadAction<IChangeOrderPayload>) => {
-            const ingredientList = payload.ingredientList
+            const ingredientList = payload.ingredients
             let currentIndex = ingredientList.findIndex(
                 (item: Ingredient) => item.key === payload.key
             )
@@ -54,7 +54,7 @@ export const constructorIngredientListSlice = createSlice({
         },
     },
     extraReducers: builder => {
-        builder.addCase(sendIngredientsId.fulfilled, () => initialState)
+        builder.addCase(sendOrder.fulfilled, () => initialState)
     },
 })
 

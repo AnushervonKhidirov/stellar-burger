@@ -5,6 +5,7 @@ header {
 }
 
 .header_button {
+    position: relative;
     display: grid;
     grid-template-columns: min-content 1fr;
     align-items: center;
@@ -37,4 +38,10 @@ header {
 .header_side_right {
     composes: header_side;
     justify-content: flex-end;
+}
+
+.user_name {
+    position: absolute;
+    color: var(--colors-interface-success);
+    font-size: 0.7em;
 }

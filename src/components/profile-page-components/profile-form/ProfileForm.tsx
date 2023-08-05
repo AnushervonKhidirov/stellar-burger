@@ -1,9 +1,10 @@
 import type { FC, ChangeEvent, FormEvent, SetStateAction, Dispatch } from 'react'
 
-import { useCallback, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { updateUser } from '../../../services/user/action'
+import { profileSelector } from '../../../utils/selectors'
 
 import styles from './ProfileForm.module.css'
 
@@ -16,8 +17,8 @@ interface IProfileInputData {
 
 interface IProfileInput {
     readonly name: inputNames
-    profileForm: IProfileInputData[]
-    setProfileForm: Dispatch<SetStateAction<IProfileInputData[]>>
+    readonly profileForm: IProfileInputData[]
+    readonly setProfileForm: Dispatch<SetStateAction<IProfileInputData[]>>
 }
 
 interface ISendData {
@@ -28,7 +29,7 @@ type inputNames = Readonly<'name' | 'email' | 'password'>
 
 const ProfileForm: FC = () => {
     const dispatch = useAppDispatch()
-    const user = useAppSelector(store => store.profile)
+    const user = useAppSelector(profileSelector)
     const [profileForm, setProfileForm] = useState<IProfileInputData[]>([])
 
     const setInitialData = useCallback(() => {
@@ -98,10 +99,11 @@ const ProfileForm: FC = () => {
 
 const ProfileInput: FC<IProfileInput> = ({ name, profileForm, setProfileForm }) => {
     const [isDisabled, setDisabled] = useState(true)
-    const item = profileForm.filter((item) => item.name === name)[0]
+    const inputRef = useRef<HTMLInputElement>(null)
+    const item = profileForm.filter(item => item.name === name)[0]
 
     function inputValueHandler(e: ChangeEvent<HTMLInputElement>) {
-        setProfileForm((prevState) =>
+        setProfileForm(prevState =>
             prevState.map(item => {
                 if (item.name === name) {
                     item.value = e.target.value
@@ -111,20 +113,21 @@ const ProfileInput: FC<IProfileInput> = ({ name, profileForm, setProfileForm }) 
         )
     }
 
-    function inputDisableHandler() {
-        setDisabled(!isDisabled)
-    }
+    useEffect(() => {
+        !isDisabled ? inputRef.current?.focus() : inputRef.current?.blur()
+    }, [isDisabled])
 
     return (
         <Input
+            ref={inputRef}
             name={name}
             type={item.type}
             value={item.value}
             disabled={isDisabled}
             placeholder={item.title}
-            onIconClick={inputDisableHandler}
+            onIconClick={() => setDisabled(prev => !prev)}
             onChange={inputValueHandler}
-            icon='EditIcon'
+            icon={isDisabled ? 'EditIcon' : 'CloseIcon'}
         />
     )
 }

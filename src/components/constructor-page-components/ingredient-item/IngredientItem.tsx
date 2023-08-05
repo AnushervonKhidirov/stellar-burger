@@ -6,14 +6,18 @@ import { Link, useLocation } from 'react-router-dom'
 import { useDrag } from 'react-dnd'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
 import { setDetail } from '../../../services/store/ingredientDetailSlice'
-import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
+import Price from '../../common/price/Price'
+
+import { INGREDIENTS_PAGE } from '../../../utils/constants'
+import { constructorIngredientSelector } from '../../../utils/selectors'
 
 import styles from './IngredientItem.module.css'
 
 const IngredientItem: FC<{ data: Ingredient }> = ({ data }) => {
     const dispatch = useAppDispatch()
     const location = useLocation()
-    const allIngredients = useAppSelector(store => store.constructorIngredientList)
+    const allIngredients = useAppSelector(constructorIngredientSelector)
     const getAmount = useMemo(() => {
         if (data.type === 'bun') {
             return allIngredients.bun?._id === data._id ? 1 : 0
@@ -31,17 +35,14 @@ const IngredientItem: FC<{ data: Ingredient }> = ({ data }) => {
     })
 
     return (
-        <Link to={`/ingredients/${data._id}`} state={{ background: location }}>
+        <Link to={`${INGREDIENTS_PAGE}/${data._id}`} state={{ background: location }}>
             <li
                 className={styles.ingredient_item}
                 onClick={() => dispatch(setDetail(data))}
                 ref={dragRef}
             >
                 <img className={styles.image} src={data.image} alt={data.name} />
-                <div className={`${styles.price} text text_type_digits-default`}>
-                    <span>{data.price}</span>
-                    <CurrencyIcon type='primary' />
-                </div>
+                <Price price={data.price} />
                 <h3 className={`${styles.name} text text_type_main-default`}>{data.name}</h3>
                 {getAmount ? <Counter count={getAmount} size='default' /> : null}
             </li>

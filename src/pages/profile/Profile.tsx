@@ -10,10 +10,7 @@ const Profile: FC = () => {
     return (
         <div className={styles.profile}>
             <ProfileNavigation navigationData={profileNavigationData} />
-
-            <div className={styles.profile_content}>
-                <Outlet />
-            </div>
+            <Outlet />
         </div>
     )
 }

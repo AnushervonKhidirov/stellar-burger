@@ -1,11 +1,12 @@
 import type { FC } from 'react'
-import type { TResetPasswordSubmit } from '../../utils/interfaces'
+import type { IResetPassword } from '../../utils/interfaces'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
 
-import { API_URL, checkResponse, TServerResponse, TServerResponseMessage } from '../../utils/burger-api'
+import { checkResponse, TServerResponse, TServerResponseMessage } from '../../utils/burger-api'
+import { RESET_PASSWORD_URL, CONSTRUCTOR_PAGE } from '../../utils/constants'
 
 import { inputs, footerData } from './constant'
 
@@ -13,8 +14,8 @@ const ResetPassword: FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const resetPassword: TResetPasswordSubmit = async data => {
-        const res = await fetch(`${API_URL}/password-reset/reset`, {
+    const resetPassword: (data: IResetPassword) => void = async data => {
+        const res = await fetch(RESET_PASSWORD_URL, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -43,7 +44,7 @@ const ResetPassword: FC = () => {
             <FormFooter data={footerData} />
         </>
     ) : (
-        <Navigate to='/' />
+        <Navigate to={CONSTRUCTOR_PAGE} />
     )
 }
 

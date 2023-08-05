@@ -7,6 +7,7 @@ import { setScrollPosition } from '../../../services/store/ingredientTabSlice'
 import Loader from '../../common/loader/Loader'
 import Rejected from '../../common/rejected/Rejected'
 import IngredientCategoryList from '../ingredient-category-list/IngredientCategoryList'
+import { ingredientSelector } from '../../../utils/selectors'
 
 import styles from './BurgerIngredientList.module.css'
 
@@ -19,7 +20,7 @@ const BurgerIngredientList: FC = () => {
     const dispatch = useAppDispatch()
 
     const scrollRef = useRef<HTMLDivElement>(null)
-    const ingredientList = useAppSelector(store => store.ingredientList)
+    const ingredientList = useAppSelector(ingredientSelector)
     const { isAutoScroll, ingredientsTypePosition, currentTab } = useAppSelector(
         store => store.ingredientTab
     )

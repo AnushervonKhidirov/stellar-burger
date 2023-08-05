@@ -1,0 +1,12 @@
+.order_list_wrapper {
+    display: grid;
+    gap: 24px;
+    overflow: hidden;
+}
+
+.order_list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+}

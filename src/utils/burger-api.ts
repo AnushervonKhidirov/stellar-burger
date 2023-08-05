@@ -1,7 +1,6 @@
 import type {
     IToken,
     TRejectedWithValue,
-    IRejectedWithValueObj,
     ILoginData,
     IRegisterData,
     IUpdateUserData,
@@ -10,14 +9,27 @@ import type {
     Ingredient,
 } from './interfaces'
 
+import type { IOrderPayload, IGetOrderPayload } from '../services/orders/slice'
+
+import {
+    INGREDIENTS_URL,
+    ORDERS_URL,
+    REGISTER_URL,
+    LOGIN_URL,
+    LOGOUT_URL,
+    USER_URL,
+    UPDATE_TOKEN_URL,
+    JWT_EXPIRED_MESSAGE,
+    getAccessToken,
+    getRefreshToken,
+} from './constants'
+
 import { IUserInfo } from '../services/user/slice'
 
-const setToken = (result: IToken) => {
+export const setToken = (result: IToken) => {
     localStorage.setItem('accessToken', result.accessToken.replace('Bearer ', ''))
     localStorage.setItem('refreshToken', result.refreshToken)
 }
-
-export const API_URL = 'https://norma.nomoreparties.space/api'
 
 export const checkResponse = <T>(res: Response, rejectWithValue?: TRejectedWithValue): Promise<T> =>
     res.ok
@@ -29,41 +41,42 @@ export const checkResponse = <T>(res: Response, rejectWithValue?: TRejectedWithV
 export type TServerResponse<T> = { success: boolean } & T
 export type TServerResponseMessage = { message: string }
 
-type TIngredientsResponse = TServerResponse<{ data: Ingredient[] }>
-type TOrderResponse = TServerResponse<{ name: string; order: { number: number } }>
-type TUserInfoResponse = TServerResponse<{ user: IUserInfo }>
-type TLoginResponse = TServerResponse<TUserInfoResponse & IToken>
-type TLogoutResponse = TServerResponse<TServerResponseMessage>
-type TUpdateToken = TServerResponse<IToken>
+export type TIngredientsResponse = TServerResponse<{ data: Ingredient[] }>
+export type TOrderResponse = TServerResponse<IOrderPayload>
+export type TGetOrderResponse = TServerResponse<IGetOrderPayload>
+export type TUserInfoResponse = TServerResponse<{ user: IUserInfo }>
+export type TLoginResponse = TServerResponse<TUserInfoResponse & IToken>
+export type TLogoutResponse = TServerResponse<TServerResponseMessage>
+export type TUpdateToken = TServerResponse<IToken>
 
 export const fetchIngredients = async () => {
-    const res = await fetch(`${API_URL}/ingredients`)
+    const res = await fetch(INGREDIENTS_URL)
     const result = await checkResponse<TIngredientsResponse>(res)
     return result.data
 }
 
-export const fetchOrder = async (
-    ingredientsID: string[],
-    { rejectWithValue }: IRejectedWithValueObj
-) => {
-    const res = await fetch(`${API_URL}/orders`, {
-        method: 'POST',
-        body: JSON.stringify({ ingredients: ingredientsID }),
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
+export const fetchOrder = async (ingredientsID: string[], rejectWithValue: TRejectedWithValue) => {
+    return fetchWithRefresh<TOrderResponse>(
+        ORDERS_URL,
+        {
+            method: 'POST',
+            body: JSON.stringify({ ingredients: ingredientsID }),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                authorization: `Bearer ${getAccessToken()}`,
+            },
         },
-    })
-
-    return await checkResponse<TOrderResponse>(res, rejectWithValue)
+        rejectWithValue
+    )
 }
 
-export const fetchOrderDetail = async (orderID: string) => {
-    const res = await fetch(`${API_URL}/orders/${orderID}`)
-    return await checkResponse<Ingredient>(res)
+export const fetchOrderDetail = async (orderID: string, rejectWithValue: TRejectedWithValue) => {
+    const res = await fetch(`${ORDERS_URL}/${orderID}`)
+    return await checkResponse<TGetOrderResponse>(res, rejectWithValue)
 }
 
-export const register = async (data: IRegisterData, { rejectWithValue }: IRejectedWithValueObj) => {
-    const res = await fetch(`${API_URL}/auth/register`, {
+export const register = async (data: IRegisterData, rejectWithValue: TRejectedWithValue) => {
+    const res = await fetch(REGISTER_URL, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -77,8 +90,8 @@ export const register = async (data: IRegisterData, { rejectWithValue }: IReject
     return result
 }
 
-export const logIn = async (data: ILoginData, { rejectWithValue }: IRejectedWithValueObj) => {
-    const res = await fetch(`${API_URL}/auth/login`, {
+export const logIn = async (data: ILoginData, rejectWithValue: TRejectedWithValue) => {
+    const res = await fetch(LOGIN_URL, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -92,10 +105,10 @@ export const logIn = async (data: ILoginData, { rejectWithValue }: IRejectedWith
     return result
 }
 
-export const logOut = async ({ rejectWithValue }: IRejectedWithValueObj) => {
-    const res = await fetch(`${API_URL}/auth/logout`, {
+export const logOut = async (rejectWithValue: TRejectedWithValue) => {
+    const res = await fetch(LOGOUT_URL, {
         method: 'POST',
-        body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
+        body: JSON.stringify({ token: getRefreshToken() }),
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
@@ -107,14 +120,14 @@ export const logOut = async ({ rejectWithValue }: IRejectedWithValueObj) => {
     return result
 }
 
-export const getUserData = async ({ rejectWithValue }: IRejectedWithValueObj) => {
+export const getUserData = async (rejectWithValue: TRejectedWithValue) => {
     return fetchWithRefresh<TUserInfoResponse>(
-        `${API_URL}/auth/user`,
+        USER_URL,
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                authorization: `Bearer ${getAccessToken()}`,
             },
         },
         rejectWithValue
@@ -123,28 +136,28 @@ export const getUserData = async ({ rejectWithValue }: IRejectedWithValueObj) =>
 
 export const updateUserData = async (
     data: IUpdateUserData,
-    { rejectWithValue }: IRejectedWithValueObj
+    rejectWithValue: TRejectedWithValue
 ) => {
     if (Object.keys(data).length === 0) return rejectWithValue({ message: 'Nothing to change' })
 
     return fetchWithRefresh<TUserInfoResponse>(
-        `${API_URL}/auth/user`,
+        USER_URL,
         {
             method: 'PATCH',
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                authorization: `Bearer ${getAccessToken()}`,
             },
         },
         rejectWithValue
     )
 }
 
-const updateToken = async () => {
-    const res = await fetch(`${API_URL}/auth/token`, {
+export const updateToken = async () => {
+    const res = await fetch(UPDATE_TOKEN_URL, {
         method: 'POST',
-        body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
+        body: JSON.stringify({ token: getRefreshToken() }),
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
         },
@@ -153,7 +166,7 @@ const updateToken = async () => {
     return await checkResponse<TUpdateToken>(res)
 }
 
-const fetchWithRefresh = async <T>(
+export const fetchWithRefresh = async <T>(
     url: string,
     options: IFetchOptions,
     rejectWithValue: TRejectedWithValue
@@ -162,7 +175,7 @@ const fetchWithRefresh = async <T>(
         const res = await fetch(url, options)
         return await checkResponse<T>(res)
     } catch (err: any) {
-        if (err.message === 'jwt expired') {
+        if (err.message === JWT_EXPIRED_MESSAGE) {
             const refreshData = await updateToken()
 
             if (!refreshData.success) return Promise.reject(refreshData)

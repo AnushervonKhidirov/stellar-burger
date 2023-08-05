@@ -3,6 +3,9 @@ import type { FC, ReactElement } from 'react'
 import { useAppSelector } from '../../../utils/hooks'
 import { Navigate, useLocation } from 'react-router-dom'
 import Loader from '../loader/Loader'
+import { profileSelector } from '../../../utils/selectors'
+
+import { LOGIN_PAGE } from '../../../utils/constants'
 
 interface IProtectedProps {
     readonly onlyUnAuth?: boolean
@@ -10,21 +13,20 @@ interface IProtectedProps {
 }
 
 const Protected: FC<IProtectedProps> = ({ onlyUnAuth = false, component }) => {
-    const isAuthChecked = useAppSelector(store => store.profile.isAuthChecked)
-    const user = useAppSelector(store => store.profile.userInfo)
+    const { isAuthChecked, userInfo } = useAppSelector(profileSelector)
     const location = useLocation()
 
     if (!isAuthChecked) {
         return <Loader />
     }
 
-    if (onlyUnAuth && user) {
+    if (onlyUnAuth && userInfo) {
         const { from } = location.state || { from: { pathname: '/' } }
         return <Navigate to={from} />
     }
 
-    if (!onlyUnAuth && !user) {
-        return <Navigate to='/login' state={{ from: location }} />
+    if (!onlyUnAuth && !userInfo) {
+        return <Navigate to={LOGIN_PAGE} state={{ from: location }} />
     }
 
     return component

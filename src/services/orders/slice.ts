@@ -1,25 +1,33 @@
+import type { TOrderStatuses } from '../../utils/interfaces'
+import type { IFullOrderDetails } from '../../components/orders-components/full-order-details/FullOrderDetails'
+
 import { createSlice } from '@reduxjs/toolkit'
-import { sendIngredientsId } from './action'
+import { sendOrder, getOrder } from './action'
 
-import type { PayloadAction } from '@reduxjs/toolkit'
-
-interface IOrderDetailState {
-    orderName: string | null
-    orderNumber: number | null
-    ingredientsId: string[] | void
-    isLoading: boolean
-    rejected: boolean
+export interface IOrderDetailState {
+    readonly name: string
+    readonly number: number | null
+    readonly ingredientsId: string[]
+    readonly status: TOrderStatuses | null
+    readonly createdAt: string
+    readonly isLoading: boolean
+    readonly rejected: boolean
 }
 
-interface IOrderPayload {
+export interface IOrderPayload {
     readonly name: string
-    readonly order: { number: number }
-    success: boolean
+    readonly order: IFullOrderDetails
+}
+
+export interface IGetOrderPayload {
+    orders: IFullOrderDetails[]
 }
 
 const initialState: IOrderDetailState = {
-    orderName: null,
-    orderNumber: null,
+    name: '',
+    number: null,
+    status: null,
+    createdAt: '',
     ingredientsId: [],
     isLoading: false,
     rejected: false,
@@ -33,17 +41,37 @@ export const orderDetailSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase(sendIngredientsId.pending, (state, action) => {
+            .addCase(sendOrder.pending, (state, action) => {
                 state.ingredientsId = action.meta.arg
                 state.isLoading = true
                 state.rejected = false
             })
-            .addCase(sendIngredientsId.fulfilled, (state, { payload }: PayloadAction<IOrderPayload>) => {
-                state.orderNumber = payload.order.number
-                state.orderName = payload.name
+            .addCase(sendOrder.fulfilled, (state, { payload }) => {
+                state.number = payload.order.number
+                state.name = payload.order.name
+                state.status = payload.order.status
+                state.createdAt = payload.order.createdAt
                 state.isLoading = false
             })
-            .addCase(sendIngredientsId.rejected, state => {
+            .addCase(sendOrder.rejected, state => {
+                state.isLoading = false
+                state.rejected = true
+            })
+
+        builder
+            .addCase(getOrder.pending, state => {
+                state.isLoading = true
+                state.rejected = false
+            })
+            .addCase(getOrder.fulfilled, (state, { payload }) => {
+                state.number = payload.orders[0].number
+                state.name = payload.orders[0].name
+                state.ingredientsId = payload.orders[0].ingredients
+                state.status = payload.orders[0].status
+                state.createdAt = payload.orders[0].createdAt
+                state.isLoading = false
+            })
+            .addCase(getOrder.rejected, state => {
                 state.isLoading = false
                 state.rejected = true
             })

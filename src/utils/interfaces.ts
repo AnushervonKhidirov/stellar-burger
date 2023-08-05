@@ -85,21 +85,36 @@ export interface IFetchOptions {
 }
 
 // submit
-export type TSubmitFormFunc =
-    | TForgotPasswordSubmit
-    | TResetPasswordSubmit
-    | TLoginUser
-    | TRegisterUser
+export type TSubmitFormFunc<T> = (data: T) => void
 
-export type TForgotPasswordSubmit = (data: IForgotPassword) => void
-export type TResetPasswordSubmit = (data: IResetPassword) => void
-
-// Redux actions type
-export interface IRejectedWithValueObj {
-    rejectWithValue: TRejectedWithValue
+export interface IRejectedValueThunk {
+    rejectValue: TRejectedWithValue
 }
 
 export type TRejectedWithValue = any
 
-export type TLoginUser = any
-export type TRegisterUser = any
+// WebSocket
+export enum WebSocketStatus {
+    CONNECTING = 'CONNECTING',
+    ONLINE = 'ONLINE',
+    OFFLINE = 'OFFLINE',
+}
+
+export type TOrderStatuses = 'created' | 'pending' | 'done'
+
+export interface IOrderDataReceived {
+    readonly orders: IOrderItem[]
+    readonly success: boolean
+    readonly total: number
+    readonly totalToday: number
+}
+
+export interface IOrderItem {
+    readonly _id: string
+    readonly ingredients: string[]
+    readonly name: string
+    readonly number: number
+    readonly status: TOrderStatuses
+    readonly createdAt: Date
+    readonly updatedAt: Date
+}
