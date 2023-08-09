@@ -18,7 +18,6 @@ describe('Ingredient detail testing', () => {
     }
     
     test('setDetail test', () => {
-
         const action = { type: setDetail.type, payload: ingredient }
 
         expect(ingredientDetailSlice(initialState, action)).toEqual({ingredient: ingredient})
