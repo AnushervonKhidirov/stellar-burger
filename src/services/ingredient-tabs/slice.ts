@@ -18,7 +18,7 @@ interface TypesPosition {
     bottom: number
 }
 
-const initialState: Tabs = {
+export const initialState: Tabs = {
     currentTab: 'bun',
     scrollPosition: 0,
     isAutoScroll: false,
@@ -46,13 +46,13 @@ export const ingredientTabSlice = createSlice({
             state.ingredientsTypePosition[action.payload.category].top = action.payload.top
             state.ingredientsTypePosition[action.payload.category].bottom = action.payload.bottom
         },
-        setScrollPosition: (state, action) => {
+        setScrollPosition: (state, action: PayloadAction<number>) => {
             state.scrollPosition = action.payload
         },
         setCurrentTab: (state, action) => {
             state.currentTab = action.payload
         },
-        setAutoScroll: (state, action) => {
+        setAutoScroll: (state, action: PayloadAction<boolean>) => {
             state.isAutoScroll = action.payload
         },
     },

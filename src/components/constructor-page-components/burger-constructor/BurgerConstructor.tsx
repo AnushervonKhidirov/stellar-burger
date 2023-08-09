@@ -2,8 +2,9 @@ import type { FC } from 'react'
 import type { Ingredient } from '../../../utils/interfaces'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { addIngredientToConstructor } from '../../../services/store/constructorIngredientListSlice'
+import { addIngredientToConstructor } from '../../../services/constructor-ingredient-list/slice'
 import { useDrop } from 'react-dnd'
+import { v4 as uuidV4 } from 'uuid'
 import { clearOrder } from '../../../services/orders/slice'
 
 import BurgerConstructorBun from '../burger-constructor-bun/BurgerConstructorBun'
@@ -43,14 +44,12 @@ const BurgerConstructorBlock: FC = () => {
     const dispatch = useAppDispatch()
     const { isLoading } = useAppSelector(orderDetailSelector)
 
-    const constructorClassName = isLoading
-        ? styles.constructor_loading
-        : styles.constructor_inner
+    const constructorClassName = isLoading ? styles.constructor_loading : styles.constructor_inner
 
     const [, dropRef] = useDrop<Ingredient>({
         accept: 'ingredient',
         drop(ingredient) {
-            dispatch(addIngredientToConstructor(ingredient))
+            dispatch(addIngredientToConstructor({ ...ingredient, key: uuidV4() }))
         },
     })
 

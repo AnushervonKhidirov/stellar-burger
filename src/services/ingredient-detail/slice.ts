@@ -6,7 +6,7 @@ interface IngredientDetailState {
     ingredient: Ingredient | null
 }
 
-const initialState: IngredientDetailState = {
+export const initialState: IngredientDetailState = {
     ingredient: null
 }
 

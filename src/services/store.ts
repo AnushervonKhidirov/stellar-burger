@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import ingredientListSlice from '../ingredients/slice'
-import ingredientTabSlice from './ingredientTabSlice'
-import constructorIngredientListSlice from './constructorIngredientListSlice'
-import orderDetailSlice from '../orders/slice'
-import profileSlice from '../user/slice'
-import { feedOrdersListReducers } from '../feed-orders/reducers'
-import { profileOrdersListReducers } from '../profile-orders/reducers'
-import { wsMiddleware } from '../../middlewares/wsMiddleware'
+import ingredientListSlice from './ingredients/slice'
+import ingredientTabSlice from './ingredient-tabs/slice'
+import ingredientDetailSlice from './ingredient-detail/slice'
+import constructorIngredientListSlice from './constructor-ingredient-list/slice'
+import orderDetailSlice from './orders/slice'
+import profileSlice from './user/slice'
+import { feedOrdersListReducers } from './feed-orders/reducers'
+import { profileOrdersListReducers } from './profile-orders/reducers'
+import { wsMiddleware } from '../middlewares/wsMiddleware'
 
 import {
     wsFeedConnectAction,
@@ -16,7 +17,7 @@ import {
     wsFeedCloseAction,
     wsFeedErrorAction,
     wsFeedMessageAction,
-} from '../feed-orders/actions'
+} from './feed-orders/actions'
 
 import {
     wsProfileConnectAction,
@@ -26,7 +27,7 @@ import {
     wsProfileCloseAction,
     wsProfileErrorAction,
     wsProfileMessageAction,
-} from '../profile-orders/actions'
+} from './profile-orders/actions'
 
 const feedOrdersMiddleware = wsMiddleware({
     wsConnect: wsFeedConnectAction,
@@ -53,6 +54,7 @@ export const store = configureStore({
         constructorIngredientList: constructorIngredientListSlice,
         ingredientList: ingredientListSlice,
         ingredientTab: ingredientTabSlice,
+        ingredientDetail: ingredientDetailSlice,
         orderDetails: orderDetailSlice,
         feedOrderList: feedOrdersListReducers,
         profileOrderList: profileOrdersListReducers,

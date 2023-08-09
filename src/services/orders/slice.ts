@@ -23,7 +23,7 @@ export interface IGetOrderPayload {
     orders: IFullOrderDetails[]
 }
 
-const initialState: IOrderDetailState = {
+export const initialState: IOrderDetailState = {
     name: '',
     number: null,
     status: null,
