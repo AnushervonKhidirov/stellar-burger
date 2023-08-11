@@ -2,7 +2,7 @@ import type { FC } from 'react'
 
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
-import { loginUser } from '../../services/user/action'
+import { loginUser } from '../../services/store/user/action'
 
 import { inputs, footerData } from './constant'
 import { ILoginData } from '../../utils/interfaces'

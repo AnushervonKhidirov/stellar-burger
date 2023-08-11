@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { setCurrentTab, setAutoScroll } from '../../../services/ingredient-tabs/slice'
+import { setCurrentTab, setAutoScroll } from '../../../services/store/ingredient-tabs/slice'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { tabList } from './constant'

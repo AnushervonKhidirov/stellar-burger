@@ -2,10 +2,10 @@ import type { FC } from 'react'
 import type { Ingredient } from '../../../utils/interfaces'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { addIngredientToConstructor } from '../../../services/constructor-ingredient-list/slice'
+import { addIngredientToConstructor } from '../../../services/store/constructor-ingredient-list/slice'
 import { useDrop } from 'react-dnd'
 import { v4 as uuidV4 } from 'uuid'
-import { clearOrder } from '../../../services/orders/slice'
+import { clearOrder } from '../../../services/store/orders/slice'
 
 import BurgerConstructorBun from '../burger-constructor-bun/BurgerConstructorBun'
 import BurgerConstructorIngredients from '../burger-constructor-ingredients/BurgerConstructorIngredients'

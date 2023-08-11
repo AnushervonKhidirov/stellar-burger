@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useDrag } from 'react-dnd'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { setDetail } from '../../../services/ingredient-detail/slice'
+import { setDetail } from '../../../services/store/ingredient-detail/slice'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Price from '../../common/price/Price'
 

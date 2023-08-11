@@ -3,7 +3,7 @@ import type { Ingredient, IngredientCategories } from '../../../utils/interfaces
 
 import { useEffect, useRef, useMemo } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { setScrollPosition } from '../../../services/ingredient-tabs/slice'
+import { setScrollPosition } from '../../../services/store/ingredient-tabs/slice'
 import Loader from '../../common/loader/Loader'
 import Rejected from '../../common/rejected/Rejected'
 import IngredientCategoryList from '../ingredient-category-list/IngredientCategoryList'

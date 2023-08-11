@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { useEffect } from 'react'
 
 import { useAppSelector, useAppDispatch } from '../../utils/hooks'
-import { wsFeedConnectAction, wsFeedDisconnectAction } from '../../services/feed-orders/actions'
+import { wsFeedConnectAction, wsFeedDisconnectAction } from '../../services/store/feed-orders/actions'
 
 import OrderList from '../../components/orders-components/order-list/OrderList'
 import IdList from '../../components/feed-page-components/id-list/IdList'

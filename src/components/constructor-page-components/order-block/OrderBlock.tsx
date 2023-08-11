@@ -2,7 +2,7 @@ import type { FC, FormEvent } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { sendOrder } from '../../../services/orders/action'
+import { sendOrder } from '../../../services/store/orders/action'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import TotalPrice from '../../common/total-price/TotalPrice'
 

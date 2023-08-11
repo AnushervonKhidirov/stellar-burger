@@ -9,7 +9,7 @@ import type {
     Ingredient,
 } from './interfaces'
 
-import type { IOrderPayload, IGetOrderPayload } from '../services/orders/slice'
+import type { IOrderPayload, IGetOrderPayload } from '../services/store/orders/slice'
 
 import {
     INGREDIENTS_URL,
@@ -24,7 +24,7 @@ import {
     getRefreshToken,
 } from './constants'
 
-import { IUserInfo } from '../services/user/slice'
+import { IUserInfo } from '../services/store/user/slice'
 
 export const setToken = (result: IToken) => {
     localStorage.setItem('accessToken', result.accessToken.replace('Bearer ', ''))

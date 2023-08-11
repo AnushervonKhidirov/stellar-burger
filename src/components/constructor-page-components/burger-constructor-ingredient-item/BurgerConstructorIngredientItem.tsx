@@ -4,7 +4,7 @@ import type { IConstructorIngDrag } from '../burger-constructor-ingredients/Burg
 
 import { useRef } from 'react'
 import { useAppDispatch } from '../../../utils/hooks'
-import { removeIngredientFromConstructor } from '../../../services/constructor-ingredient-list/slice'
+import { removeIngredientFromConstructor } from '../../../services/store/constructor-ingredient-list/slice'
 import { useDrag } from 'react-dnd'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
