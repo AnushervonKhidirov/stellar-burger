@@ -1,4 +1,4 @@
-import type { Ingredient } from '../../utils/interfaces'
+import type { Ingredient } from '../../../utils/interfaces'
 import ingredientDetailSlice, { setDetail, clearDetail, initialState } from './slice'
 
 describe('Ingredient detail testing', () => {

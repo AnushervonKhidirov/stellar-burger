@@ -3,11 +3,11 @@ import type {
     ILoginData,
     IUpdateUserData,
     IRejectedValueThunk,
-} from '../../utils/interfaces'
-import type { TLoginResponse, TLogoutResponse, TUserInfoResponse } from '../../utils/burger-api'
+} from '../../../utils/interfaces'
+import type { TLoginResponse, TLogoutResponse, TUserInfoResponse } from '../../../utils/burger-api'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { register, logIn, logOut, getUserData, updateUserData } from '../../utils/burger-api'
+import { register, logIn, logOut, getUserData, updateUserData } from '../../../utils/burger-api'
 
 export const registerUser = createAsyncThunk<TLoginResponse, IRegisterData, IRejectedValueThunk>(
     'profile/register',

@@ -1,4 +1,4 @@
-import type { Ingredient } from '../../utils/interfaces'
+import type { Ingredient } from '../../../utils/interfaces'
 
 import { createSlice } from '@reduxjs/toolkit'
 import { loadIngredient } from './action'
@@ -9,7 +9,7 @@ interface IngredientListState {
     rejected: boolean
 }
 
-const initialState: IngredientListState = {
+export const initialState: IngredientListState = {
     ingredients: [],
     isLoading: false,
     rejected: false,

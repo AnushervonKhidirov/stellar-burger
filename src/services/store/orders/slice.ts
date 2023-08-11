@@ -1,5 +1,5 @@
-import type { TOrderStatuses } from '../../utils/interfaces'
-import type { IFullOrderDetails } from '../../components/orders-components/full-order-details/FullOrderDetails'
+import type { TOrderStatuses } from '../../../utils/interfaces'
+import type { IFullOrderDetails } from '../../../components/orders-components/full-order-details/FullOrderDetails'
 
 import { createSlice } from '@reduxjs/toolkit'
 import { sendOrder, getOrder } from './action'

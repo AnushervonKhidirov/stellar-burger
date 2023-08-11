@@ -7,7 +7,7 @@ import orderDetailSlice from './orders/slice'
 import profileSlice from './user/slice'
 import { feedOrdersListReducers } from './feed-orders/reducers'
 import { profileOrdersListReducers } from './profile-orders/reducers'
-import { wsMiddleware } from './middlewares/wsMiddleware'
+import { wsMiddleware } from '../middlewares/wsMiddleware'
 
 import {
     wsFeedConnectAction,

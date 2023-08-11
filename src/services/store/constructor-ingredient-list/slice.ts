@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { sendOrder } from '../orders/action'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Ingredient } from '../../utils/interfaces'
+import type { Ingredient } from '../../../utils/interfaces'
 
 interface IConstructorList {
     readonly bun: Ingredient | null

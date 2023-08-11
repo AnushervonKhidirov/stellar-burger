@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { ICategoriesPosition, IngredientCategories } from '../../utils/interfaces'
+import type { ICategoriesPosition, IngredientCategories } from '../../../utils/interfaces'
 
 interface Tabs {
     currentTab: IngredientCategories

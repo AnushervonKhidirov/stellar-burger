@@ -1,4 +1,4 @@
-import { WebSocketStatus, type IOrderDataReceived } from '../../utils/interfaces'
+import { WebSocketStatus, type IOrderDataReceived } from '../../../utils/interfaces'
 
 import { createReducer } from '@reduxjs/toolkit'
 import {
