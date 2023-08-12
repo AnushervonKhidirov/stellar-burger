@@ -15,7 +15,7 @@ export interface IProfileOrdersStore {
     connectingError: string
 }
 
-const initialState: IProfileOrdersStore = {
+export const initialState: IProfileOrdersStore = {
     list: {
         orders: [],
         success: false,
