@@ -7,32 +7,6 @@ test('clear constructor testing', () => {
 })
 
 describe('send order testing', () => {
-    test('send order pending', () => {
-        const action = {
-            type: sendOrder.pending.type,
-            meta: { arg: ['124123', '124121', '124125'] },
-        }
-
-        const result = {
-            ingredientsId: ['124123', '124121', '124125'],
-            isLoading: true,
-            rejected: false,
-        }
-
-        expect(orderDetailSlice(initialState, action)).toEqual({ ...initialState, ...result })
-    })
-
-    test('send order rejected', () => {
-        const action = { type: sendOrder.rejected.type }
-
-        const result = {
-            isLoading: false,
-            rejected: true,
-        }
-
-        expect(orderDetailSlice(initialState, action)).toEqual({ ...initialState, ...result })
-    })
-
     test('send order fulfilled', () => {
         const orderPayload = {
             order: {
@@ -43,9 +17,25 @@ describe('send order testing', () => {
             },
         }
 
-        const action = { type: sendOrder.fulfilled.type, payload: orderPayload }
+        const pendingAction = {
+            type: sendOrder.pending.type,
+            meta: { arg: ['124123', '124121', '124125'] },
+        }
 
-        const result = {
+        const pendingResult = {
+            ingredientsId: ['124123', '124121', '124125'],
+            isLoading: true,
+            rejected: false,
+        }
+
+        expect(orderDetailSlice(initialState, pendingAction)).toEqual({
+            ...initialState,
+            ...pendingResult,
+        })
+
+        const fulfilledAction = { type: sendOrder.fulfilled.type, payload: orderPayload }
+
+        const fulfilledResult = {
             number: 1663232,
             name: 'gold burger',
             status: 'done',
@@ -53,35 +43,44 @@ describe('send order testing', () => {
             isLoading: false,
         }
 
-        expect(orderDetailSlice(initialState, action)).toEqual({ ...initialState, ...result })
+        expect(orderDetailSlice(initialState, fulfilledAction)).toEqual({
+            ...initialState,
+            ...fulfilledResult,
+        })
     })
-})
 
-describe('get order testing', () => {
-    test('get order pending', () => {
-        const action = {
-            type: getOrder.pending.type,
+    test('send order rejected', () => {
+        const pendingAction = {
+            type: sendOrder.pending.type,
+            meta: { arg: ['124123', '124121', '124125'] },
         }
 
-        const result = {
+        const pendingResult = {
+            ingredientsId: ['124123', '124121', '124125'],
             isLoading: true,
             rejected: false,
         }
 
-        expect(orderDetailSlice(initialState, action)).toEqual({ ...initialState, ...result })
-    })
+        expect(orderDetailSlice(initialState, pendingAction)).toEqual({
+            ...initialState,
+            ...pendingResult,
+        })
 
-    test('get order rejected', () => {
-        const action = { type: getOrder.rejected.type }
+        const rejectedAction = { type: sendOrder.rejected.type }
 
-        const result = {
+        const rejectedResult = {
             isLoading: false,
             rejected: true,
         }
 
-        expect(orderDetailSlice(initialState, action)).toEqual({ ...initialState, ...result })
+        expect(orderDetailSlice(initialState, rejectedAction)).toEqual({
+            ...initialState,
+            ...rejectedResult,
+        })
     })
+})
 
+describe('get order testing', () => {
     test('get order fulfilled', () => {
         const orderPayload = {
             orders: [
@@ -95,9 +94,13 @@ describe('get order testing', () => {
             ],
         }
 
-        const action = { type: getOrder.fulfilled.type, payload: orderPayload }
+        const pendingAction = {
+            type: getOrder.pending.type,
+        }
 
-        const result = {
+        const fulfilledAction = { type: getOrder.fulfilled.type, payload: orderPayload }
+
+        const fulfilledResult = {
             number: 1663232,
             name: 'gold burger',
             ingredientsId: ['124123', '124121', '124125'],
@@ -106,6 +109,32 @@ describe('get order testing', () => {
             isLoading: false,
         }
 
-        expect(orderDetailSlice(initialState, action)).toEqual({ ...initialState, ...result })
+        expect(orderDetailSlice(initialState, pendingAction)).toEqual({
+            ...initialState,
+            isLoading: true,
+        })
+
+        expect(orderDetailSlice(initialState, fulfilledAction)).toEqual({
+            ...initialState,
+            ...fulfilledResult,
+        })
+    })
+
+    test('get order rejected', () => {
+        const pendingAction = {
+            type: getOrder.pending.type,
+        }
+
+        const rejectedAction = { type: getOrder.rejected.type }
+
+        expect(orderDetailSlice(initialState, pendingAction)).toEqual({
+            ...initialState,
+            isLoading: true,
+        })
+
+        expect(orderDetailSlice(initialState, rejectedAction)).toEqual({
+            ...initialState,
+            rejected: true,
+        })
     })
 })
