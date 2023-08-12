@@ -16,6 +16,7 @@ interface IngredientPropertiesType {
 interface IngredientPropertyItemType {
     readonly name: string
     readonly value: number
+    readonly testId: string
 }
 
 const IngredientDetails: FC = () => {
@@ -50,19 +51,19 @@ const IngredientProperties: FC<IngredientPropertiesType> = ({
 }) => {
     return (
         <ul className={styles.ingredient_properties}>
-            <IngredientPropertyItem name={'Калории, ккал'} value={calories} />
-            <IngredientPropertyItem name={'Белки, г'} value={proteins} />
-            <IngredientPropertyItem name={'Жиры, г'} value={fat} />
-            <IngredientPropertyItem name={'Углеводы, г'} value={carbohydrates} />
+            <IngredientPropertyItem testId='ingredient_calories' name='Калории, ккал' value={calories} />
+            <IngredientPropertyItem testId='ingredient_proteins' name='Белки, г' value={proteins} />
+            <IngredientPropertyItem testId='ingredient_fat' name='Жиры, г' value={fat} />
+            <IngredientPropertyItem testId='ingredient_carbohydrates' name='Углеводы, г' value={carbohydrates} />
         </ul>
     )
 }
 
-const IngredientPropertyItem: FC<IngredientPropertyItemType> = ({ name, value }) => {
+const IngredientPropertyItem: FC<IngredientPropertyItemType> = ({ name, value, testId }) => {
     return (
         <li className={styles.ingredient_property_item}>
             <div className='text text_type_main-default text_color_inactive mb-2'>{name}</div>
-            <div className='text text_type_digits-default text_color_inactive'>{value}</div>
+            <div className='text text_type_digits-default text_color_inactive' data-testid={testId}>{value}</div>
         </li>
     )
 }
