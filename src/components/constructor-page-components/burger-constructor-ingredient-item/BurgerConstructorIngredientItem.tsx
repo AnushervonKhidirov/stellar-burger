@@ -23,6 +23,7 @@ const BurgerConstructorIngredientItem: FC<{ ingredient: Ingredient }> = ({ ingre
 
     return (
         <li
+            data-testid={`constructor_ingredient-${ingredient._id}`}
             style={{ opacity: isDragging ? 0 : 1 }}
             className={styles.constructor_item}
             ref={dragRef}

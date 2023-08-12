@@ -54,7 +54,7 @@ const BurgerConstructorBlock: FC = () => {
     })
 
     return (
-        <div className={constructorClassName} ref={dropRef}>
+        <div className={constructorClassName} ref={dropRef} data-testid='constructor_block'>
             <BurgerConstructorBun position='top' />
             <BurgerConstructorIngredients />
             <BurgerConstructorBun position='bottom' />

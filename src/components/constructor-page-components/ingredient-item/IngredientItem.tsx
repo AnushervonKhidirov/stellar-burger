@@ -37,6 +37,7 @@ const IngredientItem: FC<{ data: Ingredient }> = ({ data }) => {
     return (
         <Link to={`${INGREDIENTS_PAGE}/${data._id}`} state={{ background: location }}>
             <li
+                data-testid={`ingredient_item-${data._id}`}
                 className={styles.ingredient_item}
                 onClick={() => dispatch(setDetail(data))}
                 ref={dragRef}
