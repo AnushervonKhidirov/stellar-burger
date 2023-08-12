@@ -38,7 +38,7 @@ const OrderBlock: FC = () => {
     }
 
     return (
-        <form className={styles.order_block} onSubmit={getOrder}>
+        <form className={styles.order_block} onSubmit={getOrder} data-testid='submit_order'>
             <TotalPrice />
             <Button htmlType='submit' type='primary' size='large'>
                 Оформить заказ
