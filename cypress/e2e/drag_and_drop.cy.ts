@@ -1,3 +1,4 @@
+
 describe('My First Test', () => {
     beforeEach(() => {
         cy.viewport(1920, 1080)
@@ -10,7 +11,7 @@ describe('My First Test', () => {
     })
 
     it('visit my site', () => {
-        cy.visit('localhost:3000')
+        cy.visit('/')
 
 		cy.get(`[data-testid='ingredient_item-643d69a5c3f7b9001cfa093c']`).trigger('dragstart')
 		cy.get(`[data-testid='constructor_block']`).trigger('drop')
