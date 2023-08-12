@@ -1,4 +1,4 @@
-import type { IToken } from '../../utils/interfaces'
+import type { IToken } from '../../../utils/interfaces'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
@@ -25,7 +25,7 @@ interface IUserResponse {
 
 type IFulfilledPayload = IUserResponse & IToken
 
-const initialState: IProfileState = {
+export const initialState: IProfileState = {
     isAuthChecked: false,
     isAuthorized: false,
     isLoading: false,
@@ -134,5 +134,4 @@ export const profileSlice = createSlice({
     },
 })
 
-export { registerUser, loginUser, logoutUser }
 export default profileSlice.reducer

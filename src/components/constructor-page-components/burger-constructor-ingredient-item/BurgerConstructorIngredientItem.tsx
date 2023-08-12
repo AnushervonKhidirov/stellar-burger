@@ -4,7 +4,7 @@ import type { IConstructorIngDrag } from '../burger-constructor-ingredients/Burg
 
 import { useRef } from 'react'
 import { useAppDispatch } from '../../../utils/hooks'
-import { removeIngredientFromConstructor } from '../../../services/store/constructorIngredientListSlice'
+import { removeIngredientFromConstructor } from '../../../services/store/constructor-ingredient-list/slice'
 import { useDrag } from 'react-dnd'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -23,6 +23,7 @@ const BurgerConstructorIngredientItem: FC<{ ingredient: Ingredient }> = ({ ingre
 
     return (
         <li
+            data-testid={`constructor_ingredient-${ingredient._id}`}
             style={{ opacity: isDragging ? 0 : 1 }}
             className={styles.constructor_item}
             ref={dragRef}

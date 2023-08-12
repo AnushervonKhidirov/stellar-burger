@@ -1,4 +1,4 @@
-import type { RootState } from '../services/store/store'
+import type { RootState } from '../services/store'
 
 export const ingredientSelector = (store: RootState) => store.ingredientList
 export const orderDetailSelector = (store: RootState) => store.orderDetails

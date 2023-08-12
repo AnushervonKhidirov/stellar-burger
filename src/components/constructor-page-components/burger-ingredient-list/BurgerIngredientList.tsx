@@ -3,7 +3,7 @@ import type { Ingredient, IngredientCategories } from '../../../utils/interfaces
 
 import { useEffect, useRef, useMemo } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { setScrollPosition } from '../../../services/store/ingredientTabSlice'
+import { setScrollPosition } from '../../../services/store/ingredient-tabs/slice'
 import Loader from '../../common/loader/Loader'
 import Rejected from '../../common/rejected/Rejected'
 import IngredientCategoryList from '../ingredient-category-list/IngredientCategoryList'
@@ -31,7 +31,8 @@ const BurgerIngredientList: FC = () => {
     )
 
     function scrollHandler() {
-        if (!isAutoScroll) dispatch(setScrollPosition(scrollRef.current?.scrollTop))
+        if (!isAutoScroll && scrollRef.current)
+            dispatch(setScrollPosition(scrollRef.current?.scrollTop))
     }
 
     useEffect(() => {
@@ -84,7 +85,9 @@ function separateByTypes(ingredients: Ingredient[]): ISeparatedCategories[] {
     ]
 
     ingredients.forEach((item: Ingredient) => {
-        separatedIngredients.find((elem: ISeparatedCategories) => elem.category === item.type)?.list.push(item)
+        separatedIngredients
+            .find((elem: ISeparatedCategories) => elem.category === item.type)
+            ?.list.push(item)
     })
 
     return separatedIngredients

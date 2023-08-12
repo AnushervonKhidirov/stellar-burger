@@ -2,9 +2,10 @@ import type { FC } from 'react'
 import type { Ingredient } from '../../../utils/interfaces'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { addIngredientToConstructor } from '../../../services/store/constructorIngredientListSlice'
+import { addIngredientToConstructor } from '../../../services/store/constructor-ingredient-list/slice'
 import { useDrop } from 'react-dnd'
-import { clearOrder } from '../../../services/orders/slice'
+import { v4 as uuidV4 } from 'uuid'
+import { clearOrder } from '../../../services/store/orders/slice'
 
 import BurgerConstructorBun from '../burger-constructor-bun/BurgerConstructorBun'
 import BurgerConstructorIngredients from '../burger-constructor-ingredients/BurgerConstructorIngredients'
@@ -43,19 +44,17 @@ const BurgerConstructorBlock: FC = () => {
     const dispatch = useAppDispatch()
     const { isLoading } = useAppSelector(orderDetailSelector)
 
-    const constructorClassName = isLoading
-        ? styles.constructor_loading
-        : styles.constructor_inner
+    const constructorClassName = isLoading ? styles.constructor_loading : styles.constructor_inner
 
     const [, dropRef] = useDrop<Ingredient>({
         accept: 'ingredient',
         drop(ingredient) {
-            dispatch(addIngredientToConstructor(ingredient))
+            dispatch(addIngredientToConstructor({ ...ingredient, key: uuidV4() }))
         },
     })
 
     return (
-        <div className={constructorClassName} ref={dropRef}>
+        <div className={constructorClassName} ref={dropRef} data-testid='constructor_block'>
             <BurgerConstructorBun position='top' />
             <BurgerConstructorIngredients />
             <BurgerConstructorBun position='bottom' />

@@ -1,7 +1,7 @@
 import type { Middleware } from 'redux'
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
-import { updateToken } from '../utils/burger-api'
-import { JWT_EXPIRED_MESSAGE_WS } from '../utils/constants'
+import { updateToken } from '../../utils/burger-api'
+import { JWT_EXPIRED_MESSAGE_WS } from '../../utils/constants'
 
 export type TWsActionTypes = {
     readonly wsConnect: ActionCreatorWithPayload<string>

@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
-import type { IOrderDataReceived } from '../../utils/interfaces'
+import type { IOrderDataReceived } from '../../../utils/interfaces'
 
 export const wsFeedConnectAction = createAction<string, 'WEB_SOCKET_FEED_CONNECT'>('WEB_SOCKET_FEED_CONNECT')
 export const wsFeedDisconnectAction = createAction<void, 'WEB_SOCKET_FEED_DISCONNECT'>('WEB_SOCKET_FEED_DISCONNECT')

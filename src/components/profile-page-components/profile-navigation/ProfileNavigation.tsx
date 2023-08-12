@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 
 import { useAppDispatch } from '../../../utils/hooks'
-import { logoutUser } from '../../../services/user/action'
+import { logoutUser } from '../../../services/store/user/action'
 import { NavLink, useLocation } from 'react-router-dom'
 
 import styles from './ProfileNavigation.module.css'

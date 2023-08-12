@@ -4,7 +4,7 @@ import type { IRegisterData } from '../../utils/interfaces'
 import { useAppDispatch } from '../../utils/hooks'
 import Form from '../../components/common/form/Form'
 import FormFooter from '../../components/common/form-footer/FormFooter'
-import { registerUser } from '../../services/user/action'
+import { registerUser } from '../../services/store/user/action'
 
 import { inputs, footerData } from './constant'
 

@@ -25,7 +25,7 @@ const Modal: FC<IModalProps> = ({ children, onClose }) => {
     }, [onClose])
 
     return (
-        <div className={styles.modal}>
+        <div className={styles.modal} data-testid='modal'>
             <ModalOverlay onClose={onClose} />
             <ModalContainer onClose={onClose} children={children}></ModalContainer>
         </div>
@@ -43,7 +43,7 @@ const ModalContainer: FC<IModalProps> = ({ children, onClose }) => {
 
 const CloseButton: FC<{ onClose: TCloseModal }> = ({ onClose }) => {
     return (
-        <div className={styles.close_button}>
+        <div className={styles.close_button} data-testid='close_modal'>
             <CloseIcon type='primary' onClick={onClose} />
         </div>
     )

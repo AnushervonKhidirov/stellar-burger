@@ -3,7 +3,7 @@ import type { Ingredient, ICategoriesPosition, IngredientCategories } from '../.
 
 import { useEffect, useRef } from 'react'
 import { useAppDispatch } from '../../../utils/hooks'
-import { setTypesPosition } from '../../../services/store/ingredientTabSlice'
+import { setTypesPosition } from '../../../services/store/ingredient-tabs/slice'
 import IngredientItem from '../ingredient-item/IngredientItem'
 
 import { headlines } from './constant'

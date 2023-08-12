@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useDrag } from 'react-dnd'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { setDetail } from '../../../services/store/ingredientDetailSlice'
+import { setDetail } from '../../../services/store/ingredient-detail/slice'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import Price from '../../common/price/Price'
 
@@ -37,6 +37,7 @@ const IngredientItem: FC<{ data: Ingredient }> = ({ data }) => {
     return (
         <Link to={`${INGREDIENTS_PAGE}/${data._id}`} state={{ background: location }}>
             <li
+                data-testid={`ingredient_item-${data._id}`}
                 className={styles.ingredient_item}
                 onClick={() => dispatch(setDetail(data))}
                 ref={dragRef}

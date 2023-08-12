@@ -1,13 +1,13 @@
 import type { FC } from 'react'
 import type { Ingredient, TOrderStatuses } from '../../../utils/interfaces'
-import type { IOrderDetailState } from '../../../services/orders/slice'
+import type { IOrderDetailState } from '../../../services/store/orders/slice'
 
 import { useCallback, useMemo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { getOrder } from '../../../services/orders/action'
-import { clearOrder } from '../../../services/orders/slice'
+import { getOrder } from '../../../services/store/orders/action'
+import { clearOrder } from '../../../services/store/orders/slice'
 
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import Price from '../../common/price/Price'

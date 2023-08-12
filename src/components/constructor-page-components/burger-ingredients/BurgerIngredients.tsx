@@ -3,7 +3,7 @@ import type { IngredientCategories } from '../../../utils/interfaces'
 
 import { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { setAutoScroll, setCurrentTab } from '../../../services/store/ingredientTabSlice'
+import { setAutoScroll, setCurrentTab } from '../../../services/store/ingredient-tabs/slice'
 import BurgerNavigation from '../burger-navigation/BurgerNavigation'
 import BurgerIngredientList from '../burger-ingredient-list/BurgerIngredientList'
 

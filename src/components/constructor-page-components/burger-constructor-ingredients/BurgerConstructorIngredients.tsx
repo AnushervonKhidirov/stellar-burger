@@ -4,7 +4,7 @@ import { RefObject } from 'react'
 
 import { useDrop } from 'react-dnd'
 import { useAppSelector, useAppDispatch } from '../../../utils/hooks'
-import { changeIngredientOrder } from '../../../services/store/constructorIngredientListSlice'
+import { changeIngredientOrder } from '../../../services/store/constructor-ingredient-list/slice'
 import BurgerConstructorIngredientItem from '../burger-constructor-ingredient-item/BurgerConstructorIngredientItem'
 import { constructorIngredientSelector } from '../../../utils/selectors'
 

@@ -1,4 +1,4 @@
-import { WebSocketStatus, type IOrderDataReceived } from '../../utils/interfaces'
+import { WebSocketStatus, type IOrderDataReceived } from '../../../utils/interfaces'
 
 import { createReducer } from '@reduxjs/toolkit'
 import {
@@ -15,7 +15,7 @@ export interface IProfileOrdersStore {
     connectingError: string
 }
 
-const initialState: IProfileOrdersStore = {
+export const initialState: IProfileOrdersStore = {
     list: {
         orders: [],
         success: false,

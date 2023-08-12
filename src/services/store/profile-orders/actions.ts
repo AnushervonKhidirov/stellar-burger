@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
-import type { IOrderDataReceived } from '../../utils/interfaces'
+import type { IOrderDataReceived } from '../../../utils/interfaces'
 
 export const wsProfileConnectAction = createAction<string, 'WEB_SOCKET_PROFILE_CONNECT'>('WEB_SOCKET_PROFILE_CONNECT')
 export const wsProfileDisconnectAction = createAction<void, 'WEB_SOCKET_PROFILE_DISCONNECT'>('WEB_SOCKET_PROFILE_DISCONNECT')
